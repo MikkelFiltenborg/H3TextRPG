@@ -7,7 +7,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Database
+//builder.Services.AddDbContext<Halloween.Repo.Repositories.Dbcontext>(option =>
+//option.UseSqlServer(builder.Configuration.GetConnectionString("connection")));
+
 var app = builder.Build();
+
+//TODO:AddScoped
+
+// CORS Policy - so 2 processes can talk to each other
+app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

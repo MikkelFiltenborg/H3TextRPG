@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Repository.Interfaces
 {
-    public interface IHero
+    public interface IPotionType
     {
     }
 }

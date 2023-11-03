@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,8 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Database
-//builder.Services.AddDbContext<Halloween.Repo.Repositories.Dbcontext>(option =>
-//option.UseSqlServer(builder.Configuration.GetConnectionString("connection")));
+builder.Services.AddDbContext<TextRPG.Repository.Server.Dbcontext>(option =>
+option.UseSqlServer(builder.Configuration.GetConnectionString("connection")));
 
 var app = builder.Build();
 

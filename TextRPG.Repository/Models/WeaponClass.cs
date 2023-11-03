@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Repository.Models
 {
-    public class Inventory
+    public class WeaponClass
     {
         [Key]
         public int Id { get; set; }
-        public int Gold { get; set; }
-        public int Armour { get; set; } //fk
+        public string? WeaponType { get; set; }
+        public string? SkillRollTypeId { get; set; } //fk
     }
 }

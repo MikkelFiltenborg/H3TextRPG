@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPG.Repository.Models
+namespace TextRPG.Repository.Repositories
 {
-    public class Class
+    public class PotionClassRepo
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Repository.Repositories
 {
-    public class SkillRollTypeRepo
+    public class CareerRepo
     {
     }
 }

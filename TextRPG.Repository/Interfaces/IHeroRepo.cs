@@ -7,12 +7,12 @@ using TextRPG.Repository.Models;
 
 namespace TextRPG.Repository.Interfaces
 {
-    public interface IRace
+    public interface IHeroRepo
     {
-        List<Race> GetAll();
-        Race GetById(int id);
-        void Create(Race race);
-        void Update(Race race);
+        List<Hero> GetAll();
+        Hero GetById(int id);
+        void Create(Hero hero);
+        void Update(Hero hero);
         void Delete(int id);
     }
 }

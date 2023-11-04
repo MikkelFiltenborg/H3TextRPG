@@ -7,13 +7,12 @@ using TextRPG.Repository.Models;
 
 namespace TextRPG.Repository.Interfaces
 {
-    public interface IArmour
+    public interface IPotionClassRepo
     {
-        List<Armour> GetAll();
-        Armour GetById(int id);
-        void Create(Armour armour);
-        void Update(Armour armour);
+        List<PotionClass> GetAll();
+        PotionClass GetById(int id);
+        void Create(PotionClass potionClass);
+        void Update(PotionClass potionClass);
         void Delete(int id);
-
     }
 }

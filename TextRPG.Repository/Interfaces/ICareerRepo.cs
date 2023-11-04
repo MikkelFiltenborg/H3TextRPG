@@ -7,12 +7,12 @@ using TextRPG.Repository.Models;
 
 namespace TextRPG.Repository.Interfaces
 {
-    public interface IMonster
+    public interface ICareerRepo
     {
-        List<Monster> GetAll();
-        Monster GetById(int id);
-        void Create(Monster monster);
-        void Update(Monster monster);
+        List<Career> GetAll();
+        Career GetById(int id);
+        void Create(Career armour);
+        void Update(Career armour);
         void Delete(int id);
     }
 }

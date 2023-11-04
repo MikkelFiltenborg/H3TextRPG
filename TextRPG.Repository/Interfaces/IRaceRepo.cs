@@ -7,12 +7,12 @@ using TextRPG.Repository.Models;
 
 namespace TextRPG.Repository.Interfaces
 {
-    public interface ICareer
+    public interface IRaceRepo
     {
-        //List<Armour> GetAll();
-        //Armour GetById(int id);
-        //void Create(Armour armour);
-        //void Update(Armour armour);
-        //void Delete(int id);
+        List<Race> GetAll();
+        Race GetById(int id);
+        void Create(Race race);
+        void Update(Race race);
+        void Delete(int id);
     }
 }

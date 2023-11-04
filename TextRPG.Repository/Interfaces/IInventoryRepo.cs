@@ -7,12 +7,12 @@ using TextRPG.Repository.Models;
 
 namespace TextRPG.Repository.Interfaces
 {
-    public interface IEntityBaseSystem
+    public interface IInventoryRepo
     {
-        List<EntityBaseSystem> GetAll();
-        EntityBaseSystem GetById(int id);
-        void Create(EntityBaseSystem entityBaseSystem);
-        void Update(EntityBaseSystem entityBaseSystem);
+        List<Inventory> GetAll();
+        Inventory GetById(int id);
+        void Create(Inventory inventory);
+        void Update(Inventory inventory);
         void Delete(int id);
     }
 }

@@ -7,12 +7,12 @@ using TextRPG.Repository.Models;
 
 namespace TextRPG.Repository.Interfaces
 {
-    public interface IBaseCRUDRepo<T>
+    public interface ISkillRollClassRepo
     {
-        List<T> GetAll();
-        T GetById(int id);
-        void Create(T model);
-        void Update(T model);
+        List<SkillRollClass> GetAll();
+        SkillRollClass GetById(int id);
+        void Create(SkillRollClass skillRollClass);
+        void Update(SkillRollClass skillRollClass);
         void Delete(int id);
     }
 }

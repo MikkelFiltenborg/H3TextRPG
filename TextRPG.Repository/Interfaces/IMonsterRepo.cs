@@ -7,12 +7,12 @@ using TextRPG.Repository.Models;
 
 namespace TextRPG.Repository.Interfaces
 {
-    public interface IBaseCRUDRepo<T>
+    public interface IMonsterRepo
     {
-        List<T> GetAll();
-        T GetById(int id);
-        void Create(T model);
-        void Update(T model);
+        List<Monster> GetAll();
+        Monster GetById(int id);
+        void Create(Monster monster);
+        void Update(Monster monster);
         void Delete(int id);
     }
 }

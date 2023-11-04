@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG.Repository.Interfaces;
+using TextRPG.Repository.Models;
+using TextRPG.Repository.Server;
 
 namespace TextRPG.Repository.Repositories
 {
@@ -16,7 +19,7 @@ namespace TextRPG.Repository.Repositories
 
         public void Create(Armour model)
         {
-            //TODO: Should we return the (Armour)Model?
+            //TODO: Should we return the Model?
             context.Armour.Add(model);
             context.SaveChanges();
         }

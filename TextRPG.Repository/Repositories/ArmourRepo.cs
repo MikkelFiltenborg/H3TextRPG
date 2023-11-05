@@ -6,7 +6,41 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Repository.Repositories
 {
-    public class ArmourRepo
+    public class ArmourRepo : IBaseCRUDRepo<Armour>
     {
+        Dbcontext context;
+        public ArmourRepo(Dbcontext temp)
+        {
+            context = temp;
+        }
+
+        public void Create(Armour model)
+        {
+            //TODO: Should we return the (Armour)Model?
+            context.Armour.Add(model);
+            context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            context.Armour.Remove(GetById(id));
+            context.SaveChanges();
+        }
+
+        public List<Armour> GetAll()
+        {
+            return context.Armour.ToList();
+        }
+
+        public Armour GetById(int id)
+        {
+            return context.Armour.First(x => x.Id == id);
+        }
+
+        public void Update(Armour model)
+        {
+            context.Armour.Update(model);
+            context.SaveChanges();
+        }
     }
 }

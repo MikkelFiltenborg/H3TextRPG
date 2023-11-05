@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG.Repository.Models;
 
 namespace TextRPG.Repository.Server
 {
@@ -15,5 +16,18 @@ namespace TextRPG.Repository.Server
         }
 
         //TODO: public DbSet<Model> model { get; set; }
+        public DbSet<Armour> Armour { get; set; }
+        public DbSet<Career> Career { get; set; }
+        public DbSet<EntityBaseSystem> EntityBaseSystem { get; set; }
+        public DbSet<Hero> Hero { get; set; }
+        public DbSet<Inventory> Inventory { get; set; }
+        public DbSet<Monster> Monster { get; set; }
+        public DbSet<Potion> Potion { get; set; }
+        public DbSet<PotionClass> PotionClass { get; set; }
+        public DbSet<Race> Race { get; set; }
+        public DbSet<SkillRollClass> SkillRollClass { get; set; }
+        public DbSet<Weapon> Weapon { get; set; }
+        public DbSet<WeaponClass> WeaponClass { get; set; }
+
     }
 }

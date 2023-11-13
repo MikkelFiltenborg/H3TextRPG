@@ -9,7 +9,7 @@ using TextRPG.Repository.Server;
 
 namespace TextRPG.Repository.Repositories
 {
-    public class WeaponClassRepo : IBaseCRUDRepo<WeaponClass>
+    public class WeaponClassRepo : IBaseCRUDRepo<WeaponType>
     {
         Dbcontext context;
 
@@ -18,7 +18,7 @@ namespace TextRPG.Repository.Repositories
             context = temp;
         }
 
-        public void Create(WeaponClass model)
+        public void Create(WeaponType model)
         {
             context.WeaponClass.Add(model);
             context.SaveChanges();
@@ -30,17 +30,17 @@ namespace TextRPG.Repository.Repositories
             context.SaveChanges();
         }
 
-        public List<WeaponClass> GetAll()
+        public List<WeaponType> GetAll()
         {
             return context.WeaponClass.ToList();
         }
 
-        public WeaponClass GetById(int id)
+        public WeaponType GetById(int id)
         {
             return context.WeaponClass.First(x => x.Id == id);
         }
 
-        public void Update(WeaponClass model)
+        public void Update(WeaponType model)
         {
             context.WeaponClass.Update(model);
             context.SaveChanges();

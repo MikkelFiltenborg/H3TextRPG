@@ -9,7 +9,7 @@ using TextRPG.Repository.Server;
 
 namespace TextRPG.Repository.Repositories
 {
-    public class SkillRollClassRepo : IBaseCRUDRepo<SkillRollClass>
+    public class SkillRollClassRepo : IBaseCRUDRepo<SkillRollType>
     {
         Dbcontext context;
 
@@ -18,7 +18,7 @@ namespace TextRPG.Repository.Repositories
             context = temp;
         }
 
-        public void Create(SkillRollClass model)
+        public void Create(SkillRollType model)
         {
             context.SkillRollClass.Add(model);
             context.SaveChanges();
@@ -30,17 +30,17 @@ namespace TextRPG.Repository.Repositories
             context.SaveChanges();
         }
 
-        public List<SkillRollClass> GetAll()
+        public List<SkillRollType> GetAll()
         {
             return context.SkillRollClass.ToList();
         }
 
-        public SkillRollClass GetById(int id)
+        public SkillRollType GetById(int id)
         {
             return context.SkillRollClass.First(x => x.Id == id);
         }
 
-        public void Update(SkillRollClass model)
+        public void Update(SkillRollType model)
         {
             context.SkillRollClass.Update(model);
             context.SaveChanges();

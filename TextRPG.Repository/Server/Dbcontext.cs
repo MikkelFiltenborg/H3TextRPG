@@ -25,9 +25,9 @@ namespace TextRPG.Repository.Server
         public DbSet<Potion> Potion { get; set; }
         public DbSet<PotionClass> PotionClass { get; set; }
         public DbSet<Race> Race { get; set; }
-        public DbSet<SkillRollClass> SkillRollClass { get; set; }
+        public DbSet<SkillRollType> SkillRollClass { get; set; }
         public DbSet<Weapon> Weapon { get; set; }
-        public DbSet<WeaponClass> WeaponClass { get; set; }
+        public DbSet<WeaponType> WeaponClass { get; set; }
 
     }
 }

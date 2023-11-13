@@ -22,9 +22,9 @@ builder.Services.AddScoped<IBaseCRUDRepo<Monster>, MonsterRepo>();
 builder.Services.AddScoped<IBaseCRUDRepo<Potion>, PotionRepo>();
 builder.Services.AddScoped<IBaseCRUDRepo<PotionClass>, PotionClassRepo>();
 builder.Services.AddScoped<IBaseCRUDRepo<Race>, RaceRepo>();
-builder.Services.AddScoped<IBaseCRUDRepo<SkillRollClass>, SkillRollClassRepo>();
+builder.Services.AddScoped<IBaseCRUDRepo<SkillRollType>, SkillRollClassRepo>();
 builder.Services.AddScoped<IBaseCRUDRepo<Weapon>, WeaponRepo>();
-builder.Services.AddScoped<IBaseCRUDRepo<WeaponClass>, WeaponClassRepo>();
+builder.Services.AddScoped<IBaseCRUDRepo<WeaponType>, WeaponClassRepo>();
 
 //Database
 builder.Services.AddDbContext<TextRPG.Repository.Server.Dbcontext>(option =>

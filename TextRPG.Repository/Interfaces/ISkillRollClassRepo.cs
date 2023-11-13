@@ -9,10 +9,10 @@ namespace TextRPG.Repository.Interfaces
 {
     public interface ISkillRollClassRepo
     {
-        List<SkillRollClass> GetAll();
-        SkillRollClass GetById(int id);
-        void Create(SkillRollClass skillRollClass);
-        void Update(SkillRollClass skillRollClass);
+        List<SkillRollType> GetAll();
+        SkillRollType GetById(int id);
+        void Create(SkillRollType skillRollClass);
+        void Update(SkillRollType skillRollClass);
         void Delete(int id);
     }
 }

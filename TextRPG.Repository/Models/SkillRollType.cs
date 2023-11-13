@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Repository.Models
 {
-    public class WeaponClass
+    public class SkillRollType
     {
         [Key]
         public int Id { get; set; }
-        public string? WeaponType { get; set; }
-        public string? SkillRollTypeId { get; set; } //fk
+        public string? SkillType { get; set; }
     }
 }

@@ -9,10 +9,10 @@ namespace TextRPG.Repository.Interfaces
 {
     public interface IWeaponClass
     {
-        List<WeaponClass> GetAll();
-        WeaponClass GetById(int id);
-        void Create(WeaponClass weaponClass);
-        void Update(WeaponClass weaponClass);
+        List<WeaponType> GetAll();
+        WeaponType GetById(int id);
+        void Create(WeaponType weaponClass);
+        void Update(WeaponType weaponClass);
         void Delete(int id);
     }
 }

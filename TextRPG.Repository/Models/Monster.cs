@@ -16,6 +16,7 @@ namespace TextRPG.Repository.Models
         public string? MonsterName { get; set; }
         public int MonsterXp { get; set; }
         public int LevelDifficulty { get; set; }
+        public string? Note { get; set; }
 
         public EntityBaseSystem? EntityBaseSystem { get; set; }
         public Inventory? Inventory { get; set; }

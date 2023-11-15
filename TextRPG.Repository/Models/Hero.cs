@@ -18,6 +18,7 @@ namespace TextRPG.Repository.Models
         public int Level { get; set; }
         public int RaceTypeId { get; set; }
         public int CareerTypeId { get; set; }
+        public string? Note { get; set; }
 
         public EntityBaseSystem? EntityBaseSystem { get; set; }
         public Inventory? Inventory { get; set; }

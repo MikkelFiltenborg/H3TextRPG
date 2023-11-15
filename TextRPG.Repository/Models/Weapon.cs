@@ -18,6 +18,7 @@ namespace TextRPG.Repository.Models
         public bool AvailableToHero { get; set; }
         public bool StarterWeapon { get; set; }
         public int Value { get; set; }
+        public string? Note { get; set; }
         public WeaponType? WeaponType { get; set; }
     }
 }

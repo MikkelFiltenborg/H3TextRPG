@@ -13,9 +13,9 @@ namespace TextRPG.Repository.Models
         public int Id { get; set; }
         public int PotionTypeId { get; set; } //fk
         public int Amount { get; set; }
-        public bool AvailableToHero { get; set; }
-        public int Value { get; set; }
+        //public bool AvailableToHero { get; set; }
+        //public int Value { get; set; }
         //TODO: Does it need PotionClass as a property here?
-        public PotionClass? PotionClass { get; set; }
+        public PotionType? PotionType { get; set; }
     }
 }

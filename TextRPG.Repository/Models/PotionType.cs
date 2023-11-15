@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Repository.Models
 {
-    public class PotionClass
+    public class PotionType
     {
         [Key]
         public int Id { get; set; }
-        public string? PotionType { get; set; }
+        public string? PotionTypeName { get; set; }
+        public int PotionDice { get; set; }
+        public bool AvailableToHero { get; set; }
+        public int Value { get; set; }
     }
 }

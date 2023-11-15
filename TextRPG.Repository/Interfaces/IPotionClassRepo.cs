@@ -9,10 +9,10 @@ namespace TextRPG.Repository.Interfaces
 {
     public interface IPotionClassRepo
     {
-        List<PotionClass> GetAll();
-        PotionClass GetById(int id);
-        void Create(PotionClass potionClass);
-        void Update(PotionClass potionClass);
+        List<PotionType> GetAll();
+        PotionType GetById(int id);
+        void Create(PotionType potionClass);
+        void Update(PotionType potionClass);
         void Delete(int id);
     }
 }

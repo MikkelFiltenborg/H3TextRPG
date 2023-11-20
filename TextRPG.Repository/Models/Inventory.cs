@@ -12,7 +12,7 @@ namespace TextRPG.Repository.Models
         [Key]
         public int Id { get; set; }
         public int Gold { get; set; }
-        public int ArmourId { get; set; } //fk
+        //public int ArmourId { get; set; } //fk
 
         public List<Weapon>? Weapons { get; set; }
         public Armour? Armour { get; set; }

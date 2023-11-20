@@ -11,7 +11,7 @@ namespace TextRPG.Repository.Models
     {
         [Key]
         public int Id { get; set; }
-        public int WeaponTypeId { get; set; } //fk
+        //public int WeaponTypeId { get; set; } //fk
         public int WeaponDamageModifier { get; set; }
         public int MinimumSkillRoll { get; set; }
         public int Range { get; set; }
@@ -20,5 +20,6 @@ namespace TextRPG.Repository.Models
         public int Value { get; set; }
         public string? Note { get; set; }
         public WeaponType? WeaponType { get; set; }
+        public List<Inventory>? Inventories { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace TextRPG.Repository.Models
         [Key]
         public int Id { get; set; }
         public string? WeaponTypeName { get; set; }
-        public string? SkillRollTypeId { get; set; } //fk
+        //public string? SkillRollTypeId { get; set; } //fk
         public int EnergyCost { get; set; }
         public int DamageDice { get; set; }
         //TODO: Does it need SkillRollType, as a property?

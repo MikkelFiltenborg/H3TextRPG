@@ -11,13 +11,13 @@ namespace TextRPG.Repository.Models
     {
         [Key]
         public int Id { get; set; }
-        public int EntityBaseSystemID { get; set; } //fk
-        public int InventoryId { get; set; } //fk
+        //public int EntityBaseSystemID { get; set; } //fk
+        //public int InventoryId { get; set; } //fk
         public string? HeroName { get; set; }
         public int HeroXp { get; set; }
         public int Level { get; set; }
-        public int RaceTypeId { get; set; }
-        public int CareerTypeId { get; set; }
+        //public int RaceTypeId { get; set; }
+        //public int CareerTypeId { get; set; }
         public string? Note { get; set; }
 
         public EntityBaseSystem? EntityBaseSystem { get; set; }

@@ -11,8 +11,8 @@ namespace TextRPG.Repository.Models
     {
         [Key]
         public int Id { get; set; }
-        public int EntityBaseSystemID { get; set; } //fk
-        public int InventoryId { get; set; } //fk
+        //public int EntityBaseSystemID { get; set; } //fk
+        //public int InventoryId { get; set; } //fk
         public string? MonsterName { get; set; }
         public int MonsterXp { get; set; }
         public int LevelDifficulty { get; set; }

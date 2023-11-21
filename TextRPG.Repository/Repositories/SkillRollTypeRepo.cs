@@ -9,40 +9,40 @@ using TextRPG.Repository.Server;
 
 namespace TextRPG.Repository.Repositories
 {
-    public class WeaponClassRepo : IBaseCRUDRepo<WeaponType>
+    public class SkillRollTypeRepo : IBaseCRUDRepo<SkillRollType>
     {
         Dbcontext context;
 
-        public WeaponClassRepo(Dbcontext temp)
+        public SkillRollTypeRepo(Dbcontext temp)
         {
             context = temp;
         }
 
-        public void Create(WeaponType model)
+        public void Create(SkillRollType model)
         {
-            context.WeaponClass.Add(model);
+            context.SkillRollType.Add(model);
             context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            context.WeaponClass.Remove(GetById(id));
+            context.SkillRollType.Remove(GetById(id));
             context.SaveChanges();
         }
 
-        public List<WeaponType> GetAll()
+        public List<SkillRollType> GetAll()
         {
-            return context.WeaponClass.ToList();
+            return context.SkillRollType.ToList();
         }
 
-        public WeaponType GetById(int id)
+        public SkillRollType GetById(int id)
         {
-            return context.WeaponClass.First(x => x.Id == id);
+            return context.SkillRollType.First(x => x.Id == id);
         }
 
-        public void Update(WeaponType model)
+        public void Update(SkillRollType model)
         {
-            context.WeaponClass.Update(model);
+            context.SkillRollType.Update(model);
             context.SaveChanges();
         }
     }

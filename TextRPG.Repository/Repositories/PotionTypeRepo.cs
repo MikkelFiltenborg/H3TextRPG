@@ -9,39 +9,39 @@ using TextRPG.Repository.Server;
 
 namespace TextRPG.Repository.Repositories
 {
-    public class PotionClassRepo : IBaseCRUDRepo<PotionType>
+    public class PotionTypeRepo : IBaseCRUDRepo<PotionType>
     {
         Dbcontext context;
-        public PotionClassRepo(Dbcontext temp)
+        public PotionTypeRepo(Dbcontext temp)
         {
             context = temp;
         }
 
         public void Create(PotionType model)
         {
-            context.PotionClass.Add(model);
+            context.PotionType.Add(model);
             context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            context.PotionClass.Remove(GetById(id));
+            context.PotionType.Remove(GetById(id));
             context.SaveChanges();
         }
 
         public List<PotionType> GetAll()
         {
-            return context.PotionClass.ToList();
+            return context.PotionType.ToList();
         }
 
         public PotionType GetById(int id)
         {
-            return context.PotionClass.First(x => x.Id == id);
+            return context.PotionType.First(x => x.Id == id);
         }
 
         public void Update(PotionType model)
         {
-            context.PotionClass.Update(model);
+            context.PotionType.Update(model);
             context.SaveChanges();
         }
     }

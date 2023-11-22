@@ -11,7 +11,7 @@ namespace TextRPG.Repository.Models
     {
         [Key]
         public int Id { get; set; }
-        public string? ArmourType { get; set; }
+        public string? ArmourTypeName { get; set; }
         public int ArmourModifier { get; set; }
         public bool AvailableToHero { get; set; }
         public int Value { get; set; }

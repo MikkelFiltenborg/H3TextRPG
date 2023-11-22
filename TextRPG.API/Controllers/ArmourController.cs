@@ -39,10 +39,19 @@ namespace TextRPG.API.Controllers
 
         // PUT api/<ArmourController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Armour armour)
+        public void Put(int id, [FromBody] Armour newArmour)
         {
             //TODO: Needs to Check if Data is Okay to Enter database
-            var oldArmour = ArmourRepo.GetById(armour.Id);
+            var oldArmour = ArmourRepo.GetById(newArmour.Id);
+            if (!string.IsNullOrWhiteSpace(newArmour.ArmourType))
+            {
+                oldArmour.ArmourType = newArmour.ArmourType;
+            }
+
+            oldArmour.ArmourModifier = newArmour.ArmourModifier;
+            oldArmour.AvailableToHero = newArmour.AvailableToHero;
+            oldArmour.Value = newArmour.Value;
+            if (!string.IsNullOrWhiteSpace(newArmour.Note)) oldArmour.Note = newArmour.Note;
             ArmourRepo.Update(oldArmour);
         }
 

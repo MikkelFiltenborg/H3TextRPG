@@ -7,12 +7,12 @@ using TextRPG.Repository.Models;
 
 namespace TextRPG.Repository.Interfaces
 {
-    public interface IWeaponClass
+    public interface IPotionTypeRepo
     {
-        List<WeaponType> GetAll();
-        WeaponType GetById(int id);
-        void Create(WeaponType weaponClass);
-        void Update(WeaponType weaponClass);
+        List<PotionType> GetAll();
+        PotionType GetById(int id);
+        void Create(PotionType potionClass);
+        void Update(PotionType potionClass);
         void Delete(int id);
     }
 }

@@ -7,7 +7,7 @@ using TextRPG.Repository.Models;
 
 namespace TextRPG.Repository.Interfaces
 {
-    public interface ISkillRollClassRepo
+    public interface ISkillRollTypeRepo
     {
         List<SkillRollType> GetAll();
         SkillRollType GetById(int id);

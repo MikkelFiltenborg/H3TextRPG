@@ -17,49 +17,147 @@ namespace TextRPG.API.Controllers
             PotionRepo = potionRepo;
         }
 
-        // GET: api/<PotionController>
+        // GetAll api/<PotionController>
         [HttpGet]
-        public List<Potion> Get()
+        public async Task<ActionResult> GetAllPotions()
         {
-            return PotionRepo.GetAll();
-        }
+            try
+            {
+                var potion = await PotionRepo.GetAll();
 
-        // GET api/<PotionController>/5
+                if (potion == null)
+                    return Problem("Unexpected. Potion wasn't returned");
+
+                return Ok(potion);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+        /*
+        //// GET: api/<PotionController>
+        //[HttpGet]
+        //public List<Potion> Get()
+        //{S
+        //    return PotionRepo.GetAll();
+        //}*/
+
+        // GetById: api/<PotionController>
         [HttpGet("{id}")]
-        public Potion Get(int id)
+        public async Task<ActionResult> GetPotionById(int id)
         {
-            return PotionRepo.GetById(id);
-        }
+            try
+            {
+                var potion = await PotionRepo.GetById(id);
 
+                if(potion == null)
+                    return NotFound();
+
+                return Ok(potion);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+        /*
+        // GET api/<PotionController>/5
+        //[HttpGet("{id}")]
+        //public Potion Get(int id)
+        //{
+        //    return PotionRepo.GetById(id);
+        //}*/
+
+        // Create: api/<PotionController>
+        public async Task<ActionResult> PostPotion(Potion potion)
+        {
+            try
+            {
+                var createPotion = await PotionRepo.Create(potion);
+
+                if (createPotion == 0)
+                    return StatusCode(500, "Failed. Potion wasn't created.");
+
+                //TODO: Id problem (potion).
+                return CreatedAtAction("PostPotion", new {Id = createPotion.Id}, createPotion);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occured while trying to create the Potion {ex.Message}");
+            }
+        }
+        /*
         // POST api/<PotionController>
         [HttpPost]
         public void Post([FromBody] Potion potion)
         {
             PotionRepo.Create(potion);
-        }
+        }*/
 
-        // PUT api/<PotionController>/5
+        // Update: api/<PotionController>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Potion newPotion)
+        public async Task<ActionResult> PutPotion(Potion potion, int id)
         {
-            var oldPotion = PotionRepo.GetById(newPotion.Id);
-
-            if (newPotion == oldPotion) Console.Write("Potion already exists");
-
-            else
+            try
             {
-                oldPotion.Amount = newPotion.Amount;
-                oldPotion.PotionType = newPotion.PotionType;
+                var oldPotion = await PotionRepo.GetById(id);
+
+                if (potion == null)
+                    return NotFound();
+
+                oldPotion.Amount = potion.Amount;
+                oldPotion.PotionType = potion.PotionType;
 
                 PotionRepo.Update(oldPotion);
             }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+            return Ok(potion);
         }
+        /*
+        //// PUT api/<PotionController>/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] Potion newPotion)
+        //{
+        //    var oldPotion = PotionRepo.GetById(newPotion.Id);
 
+        //    if (newPotion == oldPotion) Console.Write("Potion already exists");
+
+        //    else
+        //    {
+        //        oldPotion.Amount = newPotion.Amount;
+        //        oldPotion.PotionType = newPotion.PotionType;
+
+        //        PotionRepo.Update(oldPotion);
+        //    }
+        //}*/
+
+        // Delete
+        public async Task<ActionResult> DeletePotion(int id)
+        {
+            try
+            {
+                var potion = await PotionRepo.GetById(id);
+
+                if (potion == null)
+                    return NotFound();
+
+                return Ok(potion);
+            }
+            catch(Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+        /*
         // DELETE api/<PotionController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
             PotionRepo.Delete(id);
-        }
+        }*/
     }
 }

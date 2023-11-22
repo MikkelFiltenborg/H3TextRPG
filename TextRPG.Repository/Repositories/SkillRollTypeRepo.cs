@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,32 +19,75 @@ namespace TextRPG.Repository.Repositories
             context = temp;
         }
 
+        // GetAll
+        public async Task<List<SkillRollType>> GetAll()
+        {
+            return await context.SkillRollType.ToListAsync();
+        }
+        /*
+        public List<SkillRollType> GetAll()
+        {
+            return context.SkillRollType.ToList();
+        }*/
+
+        // GetById
+        public async Task<SkillRollType> GetById(int id)
+        {
+            return await context.SkillRollType
+                .Include(x => x.SkillType)
+                .FirstAsync(x => x.Id == id);
+        }
+        /*
+        public SkillRollType GetById(int id)
+        {
+            return context.SkillRollType.First(x => x.Id == id);
+        }*/
+
+        // Create
+        public async Task<int> Create(SkillRollType newSkillRollType)
+        {
+            context.SkillRollType.Add(newSkillRollType);
+            return await context.SaveChangesAsync();
+        }
+        /*
         public void Create(SkillRollType model)
         {
             context.SkillRollType.Add(model);
             context.SaveChanges();
-        }
+        }*/
 
+        // Update
+        public async void Update(SkillRollType updateSkillRollType)
+        {
+            SkillRollType skillRollType = await GetById(updateSkillRollType.Id);
+            if (skillRollType != null && updateSkillRollType != null)
+            {
+                skillRollType.SkillType = updateSkillRollType.SkillType;
+                await context.SaveChangesAsync();
+            }
+        }
+        /*
         public void Delete(int id)
         {
             context.SkillRollType.Remove(GetById(id));
             context.SaveChanges();
-        }
+        }*/
 
-        public List<SkillRollType> GetAll()
+        // Delete
+        public async void Delete(int id)
         {
-            return context.SkillRollType.ToList();
+            SkillRollType skillRollType = await GetById(id);
+            if (skillRollType != null)
+            {
+                context.SkillRollType.Remove(skillRollType);
+                await context.SaveChangesAsync();
+            }
         }
-
-        public SkillRollType GetById(int id)
-        {
-            return context.SkillRollType.First(x => x.Id == id);
-        }
-
+        /*
         public void Update(SkillRollType model)
         {
             context.SkillRollType.Update(model);
             context.SaveChanges();
-        }
+        }*/
     }
 }

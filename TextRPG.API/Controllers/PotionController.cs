@@ -150,6 +150,19 @@ namespace TextRPG.API.Controllers
             {
                 return Problem(ex.Message);
             }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+            return Ok(potion);
+        }
+        /*
+                return Ok(potion);
+            }
+            catch(Exception ex)
+            {
+                return Problem(ex.Message);
+            }
         }
         /*
         // DELETE api/<PotionController>/5

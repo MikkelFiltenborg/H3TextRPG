@@ -112,7 +112,7 @@ namespace TextRPG.Repository.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Gold = table.Column<int>(type: "int", nullable: false),
-                    ArmourId = table.Column<int>(type: "int", nullable: true)
+                    ArmourId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -121,7 +121,8 @@ namespace TextRPG.Repository.Migrations
                         name: "FK_Inventory_Armour_ArmourId",
                         column: x => x.ArmourId,
                         principalTable: "Armour",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -131,9 +132,10 @@ namespace TextRPG.Repository.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     WeaponTypeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SkillRollTypeId = table.Column<int>(type: "int", nullable: false),
                     EnergyCost = table.Column<int>(type: "int", nullable: false),
                     DamageDice = table.Column<int>(type: "int", nullable: false),
-                    SkillRollTypeId = table.Column<int>(type: "int", nullable: true)
+                    Range = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -142,7 +144,8 @@ namespace TextRPG.Repository.Migrations
                         name: "FK_WeaponClass_SkillRollClass_SkillRollTypeId",
                         column: x => x.SkillRollTypeId,
                         principalTable: "SkillRollClass",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,11 +157,11 @@ namespace TextRPG.Repository.Migrations
                     HeroName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HeroXp = table.Column<int>(type: "int", nullable: false),
                     Level = table.Column<int>(type: "int", nullable: false),
+                    RaceId = table.Column<int>(type: "int", nullable: false),
+                    CareerId = table.Column<int>(type: "int", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EntityBaseSystemId = table.Column<int>(type: "int", nullable: true),
-                    InventoryId = table.Column<int>(type: "int", nullable: true),
-                    RaceId = table.Column<int>(type: "int", nullable: true),
-                    CareerId = table.Column<int>(type: "int", nullable: true)
+                    InventoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -167,7 +170,8 @@ namespace TextRPG.Repository.Migrations
                         name: "FK_Hero_Career_CareerId",
                         column: x => x.CareerId,
                         principalTable: "Career",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Hero_EntityBaseSystem_EntityBaseSystemId",
                         column: x => x.EntityBaseSystemId,
@@ -182,7 +186,8 @@ namespace TextRPG.Repository.Migrations
                         name: "FK_Hero_Race_RaceId",
                         column: x => x.RaceId,
                         principalTable: "Race",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -219,9 +224,9 @@ namespace TextRPG.Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<int>(type: "int", nullable: false),
-                    PotionTypeId = table.Column<int>(type: "int", nullable: true),
-                    InventoryId = table.Column<int>(type: "int", nullable: true)
+                    InventoryId = table.Column<int>(type: "int", nullable: false),
+                    PotionTypeId = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -230,12 +235,14 @@ namespace TextRPG.Repository.Migrations
                         name: "FK_Potion_Inventory_InventoryId",
                         column: x => x.InventoryId,
                         principalTable: "Inventory",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Potion_PotionClass_PotionTypeId",
                         column: x => x.PotionTypeId,
                         principalTable: "PotionClass",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -244,14 +251,13 @@ namespace TextRPG.Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    WeaponTypeId = table.Column<int>(type: "int", nullable: false),
                     WeaponDamageModifier = table.Column<int>(type: "int", nullable: false),
                     MinimumSkillRoll = table.Column<int>(type: "int", nullable: false),
-                    Range = table.Column<int>(type: "int", nullable: false),
                     AvailableToHero = table.Column<bool>(type: "bit", nullable: false),
                     StarterWeapon = table.Column<bool>(type: "bit", nullable: false),
                     Value = table.Column<int>(type: "int", nullable: false),
-                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WeaponTypeId = table.Column<int>(type: "int", nullable: true)
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -260,7 +266,8 @@ namespace TextRPG.Repository.Migrations
                         name: "FK_Weapon_WeaponClass_WeaponTypeId",
                         column: x => x.WeaponTypeId,
                         principalTable: "WeaponClass",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

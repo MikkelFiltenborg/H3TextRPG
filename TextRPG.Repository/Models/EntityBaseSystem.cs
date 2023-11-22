@@ -21,5 +21,7 @@ namespace TextRPG.Repository.Models
         public int EnergyModifier { get; set; }
         public int DamagerModifier { get; set; }
         public int ArmourModifier { get; set; }
+
+        //public int? HeroId { get; set; }
     }
 }

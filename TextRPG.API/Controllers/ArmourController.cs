@@ -39,7 +39,7 @@ namespace TextRPG.API.Controllers
 
         // PUT api/<ArmourController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Armour armour)
+        public void Put(int id, [FromBody] Armour newArmour)
         {
             //TODO: Needs to Check if Data is Okay to Enter database
             var oldArmour = ArmourRepo.GetById(armour.Id);

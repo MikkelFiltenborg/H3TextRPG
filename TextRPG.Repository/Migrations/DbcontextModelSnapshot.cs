@@ -48,7 +48,7 @@ namespace TextRPG.Repository.Migrations
                     b.Property<int>("ArmourModifier")
                         .HasColumnType("int");
 
-                    b.Property<string>("ArmourType")
+                    b.Property<string>("ArmourTypeName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("AvailableToHero")
@@ -177,7 +177,7 @@ namespace TextRPG.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ArmourId")
+                    b.Property<int?>("ArmourId")
                         .HasColumnType("int");
 
                     b.Property<int>("Gold")
@@ -276,7 +276,7 @@ namespace TextRPG.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PotionClass");
+                    b.ToTable("PotionType");
                 });
 
             modelBuilder.Entity("TextRPG.Repository.Models.Race", b =>
@@ -308,7 +308,7 @@ namespace TextRPG.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SkillRollClass");
+                    b.ToTable("SkillRollType");
                 });
 
             modelBuilder.Entity("TextRPG.Repository.Models.Weapon", b =>
@@ -336,6 +336,9 @@ namespace TextRPG.Repository.Migrations
 
                     b.Property<int>("WeaponDamageModifier")
                         .HasColumnType("int");
+
+                    b.Property<string>("WeaponName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("WeaponTypeId")
                         .HasColumnType("int");
@@ -374,7 +377,7 @@ namespace TextRPG.Repository.Migrations
 
                     b.HasIndex("SkillRollTypeId");
 
-                    b.ToTable("WeaponClass");
+                    b.ToTable("WeaponType");
                 });
 
             modelBuilder.Entity("InventoryWeapon", b =>
@@ -427,9 +430,7 @@ namespace TextRPG.Repository.Migrations
                 {
                     b.HasOne("TextRPG.Repository.Models.Armour", "Armour")
                         .WithMany()
-                        .HasForeignKey("ArmourId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ArmourId");
 
                     b.Navigation("Armour");
                 });

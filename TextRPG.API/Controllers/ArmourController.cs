@@ -43,13 +43,6 @@ namespace TextRPG.API.Controllers
         {
             //TODO: Needs to Check if Data is Okay to Enter database
             var oldArmour = ArmourRepo.GetById(armour.Id);
-
-            if (!string.IsNullOrWhiteSpace(armour.ArmourType)) oldArmour.ArmourType = armour.ArmourType;
-            oldArmour.ArmourModifier = armour.ArmourModifier;
-            oldArmour.AvailableToHero = armour.AvailableToHero;
-            oldArmour.Value = armour.Value;
-
-            if (!string.IsNullOrWhiteSpace(armour.Note)) oldArmour.Note = armour.Note;
             ArmourRepo.Update(oldArmour);
         }
 

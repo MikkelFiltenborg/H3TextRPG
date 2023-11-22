@@ -12,7 +12,7 @@ using TextRPG.Repository.Server;
 namespace TextRPG.Repository.Migrations
 {
     [DbContext(typeof(Dbcontext))]
-    [Migration("20231118152639_InitialCreate")]
+    [Migration("20231122084453_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -135,7 +135,7 @@ namespace TextRPG.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CareerId")
+                    b.Property<int>("CareerId")
                         .HasColumnType("int");
 
                     b.Property<int?>("EntityBaseSystemId")
@@ -156,7 +156,7 @@ namespace TextRPG.Repository.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RaceId")
+                    b.Property<int>("RaceId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -180,7 +180,7 @@ namespace TextRPG.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ArmourId")
+                    b.Property<int>("ArmourId")
                         .HasColumnType("int");
 
                     b.Property<int>("Gold")
@@ -239,10 +239,10 @@ namespace TextRPG.Repository.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("InventoryId")
+                    b.Property<int>("InventoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PotionTypeId")
+                    b.Property<int>("PotionTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -331,9 +331,6 @@ namespace TextRPG.Repository.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Range")
-                        .HasColumnType("int");
-
                     b.Property<bool>("StarterWeapon")
                         .HasColumnType("bit");
 
@@ -343,7 +340,7 @@ namespace TextRPG.Repository.Migrations
                     b.Property<int>("WeaponDamageModifier")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WeaponTypeId")
+                    b.Property<int>("WeaponTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -367,7 +364,10 @@ namespace TextRPG.Repository.Migrations
                     b.Property<int>("EnergyCost")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SkillRollTypeId")
+                    b.Property<int>("Range")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillRollTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("WeaponTypeName")
@@ -399,7 +399,9 @@ namespace TextRPG.Repository.Migrations
                 {
                     b.HasOne("TextRPG.Repository.Models.Career", "Career")
                         .WithMany()
-                        .HasForeignKey("CareerId");
+                        .HasForeignKey("CareerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TextRPG.Repository.Models.EntityBaseSystem", "EntityBaseSystem")
                         .WithMany()
@@ -411,7 +413,9 @@ namespace TextRPG.Repository.Migrations
 
                     b.HasOne("TextRPG.Repository.Models.Race", "Race")
                         .WithMany()
-                        .HasForeignKey("RaceId");
+                        .HasForeignKey("RaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Career");
 
@@ -426,7 +430,9 @@ namespace TextRPG.Repository.Migrations
                 {
                     b.HasOne("TextRPG.Repository.Models.Armour", "Armour")
                         .WithMany()
-                        .HasForeignKey("ArmourId");
+                        .HasForeignKey("ArmourId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Armour");
                 });
@@ -450,11 +456,15 @@ namespace TextRPG.Repository.Migrations
                 {
                     b.HasOne("TextRPG.Repository.Models.Inventory", null)
                         .WithMany("Potions")
-                        .HasForeignKey("InventoryId");
+                        .HasForeignKey("InventoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TextRPG.Repository.Models.PotionType", "PotionType")
                         .WithMany()
-                        .HasForeignKey("PotionTypeId");
+                        .HasForeignKey("PotionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("PotionType");
                 });
@@ -463,7 +473,9 @@ namespace TextRPG.Repository.Migrations
                 {
                     b.HasOne("TextRPG.Repository.Models.WeaponType", "WeaponType")
                         .WithMany()
-                        .HasForeignKey("WeaponTypeId");
+                        .HasForeignKey("WeaponTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("WeaponType");
                 });
@@ -472,7 +484,9 @@ namespace TextRPG.Repository.Migrations
                 {
                     b.HasOne("TextRPG.Repository.Models.SkillRollType", "SkillRollType")
                         .WithMany()
-                        .HasForeignKey("SkillRollTypeId");
+                        .HasForeignKey("SkillRollTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("SkillRollType");
                 });

@@ -50,7 +50,7 @@ namespace TextRPG.API.Controllers
             {
                 oldWeapon.WeaponDamageModifier = newWeapon.WeaponDamageModifier;
                 oldWeapon.MinimumSkillRoll = newWeapon.MinimumSkillRoll;
-                oldWeapon.Range = newWeapon.Range;
+                //oldWeapon.Range = newWeapon.Range;
                 oldWeapon.AvailableToHero = newWeapon.AvailableToHero;
                 oldWeapon.StarterWeapon = newWeapon.StarterWeapon;
                 oldWeapon.Value = newWeapon.Value;

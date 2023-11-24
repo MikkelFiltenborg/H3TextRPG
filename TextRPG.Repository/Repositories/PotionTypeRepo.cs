@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,32 +18,78 @@ namespace TextRPG.Repository.Repositories
             context = temp;
         }
 
+        // GetAll
+        public async Task<List<PotionType>> GetAll()
+        {
+            return await context.PotionType.ToListAsync();
+        }
+        /*
+        public List<PotionType> GetAll()
+        {
+            return context.PotionType.ToList();
+        }*/
+
+        // GetById
+        public async Task<PotionType> GetById(int id)
+        {
+            return await context.PotionType.FirstAsync(x => x.Id == id);
+        }
+        /*
+        public PotionType GetById(int id)
+        {
+            return context.PotionType.First(x => x.Id == id);
+        }*/
+
+        // Create
+        public async Task<PotionType> Create(PotionType newPotionType)
+        {
+            context.PotionType.Add(newPotionType);
+            await context.SaveChangesAsync();
+            return newPotionType;
+        }
+        /*
         public void Create(PotionType model)
         {
             context.PotionType.Add(model);
             context.SaveChanges();
-        }
+        }*/
 
-        public void Delete(int id)
+        // Update
+        public async void Update(PotionType updatePotionType)
         {
-            context.PotionType.Remove(GetById(id));
-            context.SaveChanges();
+            PotionType potionType = await GetById(updatePotionType.Id);
+            if (potionType != null && updatePotionType != null)
+            {
+                potionType.PotionTypeName = updatePotionType.PotionTypeName;
+                potionType.PotionDice = updatePotionType.PotionDice;
+                potionType.AvailableToHero = updatePotionType.AvailableToHero;
+                potionType.Value = updatePotionType.Value;
+                potionType.Note = updatePotionType.Note;
+                await context.SaveChangesAsync();
+            }
         }
-
-        public List<PotionType> GetAll()
-        {
-            return context.PotionType.ToList();
-        }
-
-        public PotionType GetById(int id)
-        {
-            return context.PotionType.First(x => x.Id == id);
-        }
-
+        /*
         public void Update(PotionType model)
         {
             context.PotionType.Update(model);
             context.SaveChanges();
+        }*/
+
+        // Delete
+        public async void Delete(int id)
+        {
+            PotionType potionType = await GetById(id);
+            if (potionType != null)
+            {
+                context.PotionType.Remove(potionType);
+                await context.SaveChangesAsync();
+            }
         }
+        /*
+        public void Delete(int id)
+        {
+            context.PotionType.Remove(GetById(id));
+            context.SaveChanges();
+        }*/
     }
 }

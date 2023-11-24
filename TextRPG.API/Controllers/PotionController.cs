@@ -19,7 +19,7 @@ namespace TextRPG.API.Controllers
 
         // GetAll api/<PotionController>
         [HttpGet]
-        public async Task<ActionResult> GetAllPotions()
+        public async Task<ActionResult> GetAllPotion()
         {
             try
             {
@@ -70,17 +70,19 @@ namespace TextRPG.API.Controllers
         //}*/
 
         // Create: api/<PotionController>
-        public async Task<ActionResult> PostPotion(Potion potion)
+        [HttpPost]
+        public async Task<ActionResult<Potion>> PostPotion(Potion potion)
         {
             try
             {
                 var createPotion = await PotionRepo.Create(potion);
 
-                if (createPotion == 0)
+                if (createPotion == null)
                     return StatusCode(500, "Failed. Potion wasn't created.");
 
                 //TODO: Id problem (potion).
-                return CreatedAtAction("PostPotion", new {Id = createPotion.Id}, createPotion);
+                return CreatedAtAction("PostPotion", new { id = createPotion.Id }, createPotion);
+                //return Ok();
             }
             catch (Exception ex)
             {
@@ -135,7 +137,8 @@ namespace TextRPG.API.Controllers
         //    }
         //}*/
 
-        // Delete
+        // Delete api/<PotionController>
+        [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePotion(int id)
         {
             try
@@ -145,7 +148,8 @@ namespace TextRPG.API.Controllers
                 if (potion == null)
                     return NotFound();
 
-                return Ok(potion);
+                PotionRepo.Delete(id);
+                return Ok();
             }
             catch(Exception ex)
             {

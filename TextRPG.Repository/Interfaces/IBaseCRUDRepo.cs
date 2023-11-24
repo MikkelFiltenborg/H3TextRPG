@@ -11,7 +11,7 @@ namespace TextRPG.Repository.Interfaces
     {
         Task<List<T>> GetAll();
         Task<T> GetById(int id);
-        Task<int> Create(T model);
+        Task<T> Create(T model);
         void Update(T model);
         void Delete(int id);
     }

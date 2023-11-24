@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,33 +17,76 @@ namespace TextRPG.Repository.Repositories
         {
             context = temp;
         }
+
+        // GetAll
+        public async Task<List<Career>> GetAll()
+        {
+            return await context.Career.ToListAsync();
+        }
+        /*
+        public List<Career> GetAll()
+        {
+            return context.Career.ToList();
+        }*/
+
+        // GetById
+        public async Task<Career> GetById(int id)
+        {
+            return await context.Career.FirstAsync(x => x.Id == id);
+        }
+        /*
+        public Career GetById(int id)
+        {
+            return context.Career.First(x => x.Id == id);
+        }*/
+
+        // Create
+        public async Task<Career> Create(Career newCareer)
+        {
+            context.Career.Add(newCareer);
+            await context.SaveChangesAsync();
+            return newCareer;
+        }
+        /*
         public void Create(Career model)
         {
             //TODO: Should we return the (Career)model?
             context.Career.Add(model);
             context.SaveChanges();
-        }
+        }*/
 
-        public void Delete(int id)
+        // Update
+        public async void Update(Career updateCareer)
         {
-            context.Career.Remove(GetById(id));
-            context.SaveChanges();
+            Career career = await GetById(updateCareer.Id);
+            if (career != null && updateCareer != null)
+            {
+                career.CareerType = updateCareer.CareerType;
+                await context.SaveChangesAsync();
+            }
         }
-
-        public List<Career> GetAll()
-        {
-            return context.Career.ToList();
-        }
-
-        public Career GetById(int id)
-        {
-            return context.Career.First(x => x.Id == id);
-        }
-
+        /*
         public void Update(Career model)
         {
             context.Career.Update(model);
             context.SaveChanges();
+        }*/
+
+        // Delete
+        public async void Delete(int id)
+        {
+            Career career = await GetById(id);
+            if (career != null)
+            {
+                context.Career.Remove(career);
+                await context.SaveChangesAsync();
+            }
         }
+        /*
+        public void Delete(int id)
+        {
+            context.Career.Remove(GetById(id));
+            context.SaveChanges();
+        }*/
     }
 }

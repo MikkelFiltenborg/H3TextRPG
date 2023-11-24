@@ -21,63 +21,66 @@ namespace TextRPG.Repository.Repositories
         // GetAll
         public async Task<List<Potion>> GetAll()
         {
-            return await context.Potion.Include(x => x.PotionType).ToListAsync();
+            return await context.Potion
+                .Include(x => x.PotionType)
+                .ToListAsync();
         }
-        //public List<Potion> GetAll()
-        //{
-        //    return context.Potion
-        //        .Include(x => x.PotionType)
-        //        .ToList();
-        //}
+        /*
+        public List<Potion> GetAll()
+        {
+            return context.Potion
+                .Include(x => x.PotionType)
+                .ToList();
+        }*/
 
         // GetById
-       
         public async Task<Potion> GetById(int id)
         {
-            return await context.Potion.Include(x => x.PotionType).FirstAsync(x => x.Id == id);
+            return await context.Potion
+                .Include(x => x.PotionType)
+                .FirstAsync(x => x.Id == id);
         }
-        //public Potion GetById(int id)
-        //{
-        //    return context.Potion.First(x => x.Id == id);
-        //    // return context.Potion.Include(x => x.PotionType).First(x => x.Id == id);
-        //}
+        /*
+        public Potion GetById(int id)
+        {
+            return context.Potion.First(x => x.Id == id);
+            // return context.Potion.Include(x => x.PotionType).First(x => x.Id == id);
+        }*/
 
         // Create
-        
-        public async Task<int> Create(Potion newPotion)
+        public async Task<Potion> Create(Potion newPotion)
         {
             context.Potion.Add(newPotion);
-            return await context.SaveChangesAsync();
-
+            await context.SaveChangesAsync();
+            return newPotion;
         }
-        //public void Create(Potion model)
-        //{
-        //    //TODO: Should we return the (Potion)model?
-        //    context.Potion.Add(model);
-        //    context.SaveChanges();
-        //}
+        /*
+        public void Create(Potion model)
+        {
+            //TODO: Should we return the (Potion)model?
+            context.Potion.Add(model);
+            context.SaveChanges();
+        }*/
 
         // Update
-        
-        public async void  Update(Potion updatePotion)
+        public async void Update(Potion updatePotion)
         {
             Potion potion = await GetById(updatePotion.Id);
-            if(potion != null && updatePotion != null)
+            if (potion != null && updatePotion != null)
             {
                 potion.Amount = updatePotion.Amount;
-                potion.PotionType = updatePotion.PotionType;
                 potion.PotionTypeId = updatePotion.PotionTypeId;
                 await context.SaveChangesAsync();
             }
         }
-        //public void Update(Potion potion)
-        //{
-        //    context.Potion.Update(potion);
-        //    context.SaveChanges();
-        //}
+        /*
+        public void Update(Potion potion)
+        {
+            context.Potion.Update(potion);
+            context.SaveChanges();
+        }*/
 
         // Delete
-        
         public async void Delete(int id)
         {
             Potion potion = await GetById(id);
@@ -87,10 +90,11 @@ namespace TextRPG.Repository.Repositories
                 await context.SaveChangesAsync();
             }
         }
-        //public void Delete(int id)
-        //{
-        //    context.Potion.Remove(GetById(id));
-        //    context.SaveChanges();
-        //}
+        /*
+        public void Delete(int id)
+        {
+            context.Potion.Remove(GetById(id));
+            context.SaveChanges();
+        }*/
     }
 }

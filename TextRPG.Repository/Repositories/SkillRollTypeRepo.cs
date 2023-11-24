@@ -44,10 +44,11 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Create
-        public async Task<int> Create(SkillRollType newSkillRollType)
+        public async Task<SkillRollType> Create(SkillRollType newSkillRollType)
         {
             context.SkillRollType.Add(newSkillRollType);
-            return await context.SaveChangesAsync();
+            await context.SaveChangesAsync();
+            return newSkillRollType;
         }
         /*
         public void Create(SkillRollType model)

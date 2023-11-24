@@ -40,10 +40,11 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Create
-        public async Task<int> Create(Armour newArmour)
+        public async Task<Armour> Create(Armour newArmour)
         {
             context.Armour.Add(newArmour);
-            return await context.SaveChangesAsync();
+            await context.SaveChangesAsync();
+            return newArmour;
         }
         /*
         public void Create(Armour model)
@@ -57,7 +58,7 @@ namespace TextRPG.Repository.Repositories
         public async void Update(Armour updateArmour)
         {
             Armour armour = await GetById(updateArmour.Id);
-            if(armour != null && updateArmour != null)
+            if (armour != null && updateArmour != null)
             {
                 armour.ArmourType = updateArmour.ArmourType;
                 armour.ArmourModifier = updateArmour.ArmourModifier;
@@ -66,7 +67,6 @@ namespace TextRPG.Repository.Repositories
                 armour.Note = updateArmour.Note;
                 await context.SaveChangesAsync();
             }
-
         }
         /*
         public void Update(Armour model)
@@ -79,7 +79,7 @@ namespace TextRPG.Repository.Repositories
         public async void Delete(int id)
         {
             Armour armour = await GetById(id);
-            if(armour != null)
+            if (armour != null)
             {
                 context.Armour.Remove(armour);
                 await context.SaveChangesAsync();

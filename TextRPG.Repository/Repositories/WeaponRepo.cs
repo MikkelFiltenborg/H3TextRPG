@@ -54,7 +54,7 @@ namespace TextRPG.Repository.Repositories
                 .Include(x => x.Value)
                 .Include(x => x.Note)*/
                 .Include(x => x.WeaponType)
-                .FirstAsync(x => x.Id ==  id);
+                .FirstAsync(x => x.Id == id);
         }
         /*
         //public Weapon GetById(int id)
@@ -65,10 +65,11 @@ namespace TextRPG.Repository.Repositories
         //}*/
 
         // Create
-        public async Task<int> Create(Weapon newWeapon)
+        public async Task<Weapon> Create(Weapon newWeapon)
         {
             context.Weapon.Add(newWeapon);
-            return await context.SaveChangesAsync();
+            await context.SaveChangesAsync();
+            return newWeapon;
         }
         /*
         //public void Create(Weapon model)
@@ -82,7 +83,7 @@ namespace TextRPG.Repository.Repositories
         public async void Update(Weapon updateWeapon)
         {
             Weapon weapon = await GetById(updateWeapon.Id);
-            if(weapon != null && updateWeapon != null)
+            if (weapon != null && updateWeapon != null)
             {
                 weapon.WeaponDamageModifier = updateWeapon.WeaponDamageModifier;
                 weapon.SkillRoll = updateWeapon.SkillRoll;
@@ -91,7 +92,6 @@ namespace TextRPG.Repository.Repositories
                 weapon.StarterWeapon = updateWeapon.StarterWeapon;
                 weapon.Value = updateWeapon.Value;
                 weapon.Note = updateWeapon.Note;
-                weapon.WeaponType = updateWeapon.WeaponType;
                 await context.SaveChangesAsync();
             }
         }
@@ -106,7 +106,7 @@ namespace TextRPG.Repository.Repositories
         public async void Delete(int id)
         {
             Weapon weapon = await GetById(id);
-            if(weapon != null)
+            if (weapon != null)
             {
                 context.Weapon.Remove(weapon);
                 await context.SaveChangesAsync();

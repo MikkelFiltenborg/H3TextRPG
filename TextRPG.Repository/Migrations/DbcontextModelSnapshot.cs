@@ -322,9 +322,6 @@ namespace TextRPG.Repository.Migrations
                     b.Property<bool>("AvailableToHero")
                         .HasColumnType("bit");
 
-                    b.Property<int>("MinimumSkillRoll")
-                        .HasColumnType("int");
-
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 

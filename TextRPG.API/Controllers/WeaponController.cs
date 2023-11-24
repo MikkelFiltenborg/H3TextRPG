@@ -18,7 +18,8 @@ namespace TextRPG.API.Controllers
         }
 
         // GetAll api/<WeaponController>
-        public async Task<ActionResult> GetAllWeapons()
+        [HttpGet]
+        public async Task<ActionResult> GetAllWeapon()
         {
             try
             {
@@ -43,6 +44,7 @@ namespace TextRPG.API.Controllers
         }*/
 
         // GetById api/<WeaponController>
+        [HttpGet("{id}")]
         public async Task<ActionResult> GetWepaonById(int id)
         {
             try
@@ -68,17 +70,18 @@ namespace TextRPG.API.Controllers
         }*/
 
         // Create api/<WeaponController>
+        [HttpPost]
         public async Task<ActionResult> PostWeapon(Weapon wepaon)
         {
             try
             {
-                //TODO: cannot await void (weapon).
                 var createWepaon = await WeaponRepo.Create(wepaon);
 
                 if (createWepaon == null)
                     return StatusCode(500, "Failed. Weapon wasn't created.");
 
-                return CreatedAtAction("PostWeapon", new {Id = createWepaon.Id}, createWepaon);
+                return CreatedAtAction("PostWeapon", new { id = createWepaon.Id }, createWepaon);
+                //return Ok();
             }
             catch (Exception ex)
             {
@@ -94,6 +97,7 @@ namespace TextRPG.API.Controllers
         }*/
 
         // Update api/<WeaponController>
+        [HttpPut("{id}")]
         public async Task<ActionResult> PutWeapon(Weapon weapon, int id)
         {
             try
@@ -145,6 +149,7 @@ namespace TextRPG.API.Controllers
         }*/
 
         // Delete api/<WeaponController>
+        [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteWeapon(int id)
         {
             try
@@ -154,7 +159,8 @@ namespace TextRPG.API.Controllers
                 if (GetWepaonById == null)
                     return NotFound();
 
-                return Ok(weapon);
+                WeaponRepo.Delete(id);
+                return Ok();
             }
             catch (Exception ex)
             {

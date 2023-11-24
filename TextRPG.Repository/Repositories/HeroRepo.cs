@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,7 +56,8 @@ namespace TextRPG.Repository.Repositories
 
         }
 
-        public void Delete(int id)
+        // GetAll
+        public async Task<List<Hero>> GetAll()
         {
             var hero = GetById(id);
             if (hero != null)
@@ -72,7 +74,7 @@ namespace TextRPG.Repository.Repositories
             }
             context.SaveChanges();
         }
-
+        /*
         public List<Hero> GetAll()
         {
             return context.Hero
@@ -89,6 +91,23 @@ namespace TextRPG.Repository.Repositories
                 .ToList();
         }
 
+        // GetById
+        public async Task<Hero> GetById(int id)
+        {
+            return await context.Hero
+                .Include(x => x.EntityBaseSystem)
+                .Include(x => x.Inventory)
+                .Include(x => x.Inventory!.Armour)
+                .Include(x => x.Inventory!.Potions!)
+                .ThenInclude(x => x.PotionType)
+                .Include(x => x.Inventory!.Weapons!)
+                .ThenInclude(x => x.WeaponType)
+                .ThenInclude(x => x!.SkillRollType)
+                .Include(x => x.Race)
+                .Include(x => x.Career)
+                .FirstAsync();
+        }
+        /*
         public Hero GetById(int id)
         {
             return context.Hero
@@ -104,7 +123,27 @@ namespace TextRPG.Repository.Repositories
                 .Include(x => x.Career)
                 .First(x => x.Id == id);
         }
+        /*
+        public void Create(Hero model)
+        {
+            context.Hero.Add(model);
+            context.SaveChanges();
+        }*/
 
+        // Update
+        public async void Update(Hero updateHero)
+        {
+            Hero hero = await GetById(updateHero.Id);
+            if (hero != null && updateHero != null)
+            {
+                hero.HeroName = updateHero.HeroName;
+                hero.HeroXp = updateHero.HeroXp;
+                hero.Level = updateHero.Level;
+                hero.Note = updateHero.Note;
+                await context.SaveChangesAsync();
+            }
+        }
+        /*
         public void Update(Hero model)
         {
             var oldModel = GetById(model.Id);
@@ -112,6 +151,23 @@ namespace TextRPG.Repository.Repositories
             //throw new NotImplementedException("Update not here yet, fuck off");
             context.Hero.Update(oldModel);
             context.SaveChanges();
+        }*/
+
+        // Delete
+        public async void Delete(int id)
+        {
+            Hero hero = await GetById(id);
+            if (hero != null)
+            {
+                context.Hero.Remove(hero);
+                await context.SaveChangesAsync();
+            }
         }
+        /*
+        public void Delete(int id)
+        {
+            context.Hero.Remove(GetById(id));
+            context.SaveChanges();
+        }*/
     }
 }

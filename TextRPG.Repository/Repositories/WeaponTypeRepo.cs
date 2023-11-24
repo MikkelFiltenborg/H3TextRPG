@@ -58,10 +58,11 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Create
-        public async Task<int> Create(WeaponType newWeaponType)
+        public async Task<WeaponType> Create(WeaponType newWeaponType)
         {
             context.WeaponType.Add(newWeaponType);
-            return await context.SaveChangesAsync();
+            await context.SaveChangesAsync();
+            return newWeaponType;
         }
         /*
         public List<WeaponType> GetAll()
@@ -73,13 +74,12 @@ namespace TextRPG.Repository.Repositories
         public async void Update(WeaponType updateWeaponType)
         {
             WeaponType weaponType = await GetById(updateWeaponType.Id);
-            if(weaponType != null && updateWeaponType != null)
+            if (weaponType != null && updateWeaponType != null)
             {
                 weaponType.WeaponTypeName = updateWeaponType.WeaponTypeName;
                 weaponType.EnergyCost = updateWeaponType.EnergyCost;
                 weaponType.DamageDice = updateWeaponType.DamageDice;
                 weaponType.SkillRollTypeId = updateWeaponType.SkillRollTypeId;
-                weaponType.SkillRollType = updateWeaponType.SkillRollType;
                 await context.SaveChangesAsync();
             }
         }

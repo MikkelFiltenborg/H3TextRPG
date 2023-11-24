@@ -18,8 +18,8 @@ namespace TextRPG.Repository.Models
         public int MinimumSkillRoll { get; set; }
         public bool AvailableToHero { get; set; }
         public bool StarterWeapon { get; set; }
-        public int Value { get; set; }
-        public string? Note { get; set; }
+        public int Value { get; set; } = 0;
+        public string? Note { get; set; } = string.Empty;
         public WeaponType? WeaponType { get; set; }
         [JsonIgnore]
         public List<Inventory>? Inventories { get; set; }

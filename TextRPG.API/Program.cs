@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using TextRPG.Repository.Interfaces;
 using TextRPG.Repository.Models;
 using TextRPG.Repository.Repositories;
@@ -11,8 +12,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
 
-//TODO:AddScoped
 builder.Services.AddScoped<IBaseCRUDRepo<Armour>, ArmourRepo>();
 builder.Services.AddScoped<IBaseCRUDRepo<Career>, CareerRepo>();
 builder.Services.AddScoped<IBaseCRUDRepo<EntityBaseSystem>, EntityBaseSystemRepo>();

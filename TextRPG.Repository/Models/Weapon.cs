@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace TextRPG.Repository.Models
@@ -20,6 +21,7 @@ namespace TextRPG.Repository.Models
         public int Value { get; set; }
         public string? Note { get; set; }
         public WeaponType? WeaponType { get; set; }
+        [JsonIgnore]
         public List<Inventory>? Inventories { get; set; }
     }
 }

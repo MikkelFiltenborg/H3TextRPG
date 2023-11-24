@@ -7,6 +7,7 @@ using TextRPG.Repository.Interfaces;
 using TextRPG.Repository.Models;
 using TextRPG.Repository.Server;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace TextRPG.Repository.Repositories
 {
@@ -21,23 +22,35 @@ namespace TextRPG.Repository.Repositories
 
         public void Create(Hero model)
         {
-            //Hero temp = new Hero()
-            //{
-            //    Id = model.Id,
-            //    HeroName = model.HeroName,
-            //    HeroXp = model.HeroXp,
-            //    Level = model.Level,
-            //    Note = model.Note
-            //};
-            //var ebsSelected = context.EntityBaseSystem.
-            //    Where(e => model.EntityBaseSystem.Select(p=>p.Id).ToArray().Contain(e.Id)).ToList();
+            if (model.Inventory != null)
+            {
+                Inventory temp = new()
+                {
+                    Id = model.Inventory.Id,
+                    Gold = model.Inventory.Gold,
+                    ArmourId = model.Inventory.ArmourId,
+                    Weapons = new List<Weapon>(),
+                    Potions = model.Inventory.Potions
+                };
 
-            context.Hero
-                //.Include(x => x.EntityBaseSystem)
-                //.Include(x => x.Inventory)
-                //.Include(x => x.Race)
-                //.Include(x => x.Career)
-                .Add(model);
+                if (model.Inventory.Weapons != null)
+                {
+                    var weaponsSelected = context.Weapon.
+                        Where(w => model.Inventory.Weapons.Select(x => x.Id).ToArray().Contains(w.Id)).ToList();
+                    
+                    temp.Weapons.AddRange(weaponsSelected);
+                }
+                //if (model.Inventory.Potions != null)
+                //{
+                //    //var PotionsSelected = context.Potion.
+                //    //    Where(p => model.Inventory.Potions.Select(x => x.Id).ToArray().Contains(p.Id)).ToList();
+                    
+                //        temp.Potions!.AddRange(PotionsSelected);
+                //}
+                model.Inventory = temp;
+            }
+
+            context.Hero.Add(model);
             context.SaveChanges();
 
         }
@@ -50,7 +63,11 @@ namespace TextRPG.Repository.Repositories
                 if (hero.EntityBaseSystem is not null)
                     context.EntityBaseSystem.Remove(hero.EntityBaseSystem);
                 if (hero.Inventory is not null)
+                {
+                    if (hero.Inventory.Potions is not null)
+                        hero.Inventory.Potions.ForEach(x => context.Potion.Remove(x));
                     context.Inventory.Remove(hero.Inventory);
+                }
                 context.Hero.Remove(hero);
             }
             context.SaveChanges();
@@ -60,6 +77,12 @@ namespace TextRPG.Repository.Repositories
         {
             return context.Hero
                 .Include(x => x.Inventory)
+                .Include(x => x.Inventory!.Armour)
+                .Include(x => x.Inventory!.Potions!)
+                .ThenInclude(x => x.PotionType)
+                .Include(x => x.Inventory!.Weapons!)
+                .ThenInclude(x => x.WeaponType)
+                .ThenInclude(x => x!.SkillRollType)
                 .Include(x => x.EntityBaseSystem)
                 .Include(x => x.Race)
                 .Include(x => x.Career)
@@ -70,6 +93,12 @@ namespace TextRPG.Repository.Repositories
         {
             return context.Hero
                 .Include(x => x.Inventory)
+                .Include(x => x.Inventory!.Armour)
+                .Include(x => x.Inventory!.Potions!)
+                .ThenInclude(x => x.PotionType)
+                .Include(x => x.Inventory!.Weapons!)
+                .ThenInclude(x => x.WeaponType)
+                .ThenInclude(x => x!.SkillRollType)
                 .Include(x => x.EntityBaseSystem)
                 .Include(x => x.Race)
                 .Include(x => x.Career)
@@ -78,9 +107,11 @@ namespace TextRPG.Repository.Repositories
 
         public void Update(Hero model)
         {
-            throw new NotImplementedException("Update not here yet, fuck off");
-            //context.Hero.Update(model);
-            //context.SaveChanges();
+            var oldModel = GetById(model.Id);
+
+            //throw new NotImplementedException("Update not here yet, fuck off");
+            context.Hero.Update(oldModel);
+            context.SaveChanges();
         }
     }
 }

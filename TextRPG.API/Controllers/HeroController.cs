@@ -50,8 +50,9 @@ namespace TextRPG.API.Controllers
 
         // PUT api/<HeroController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Hero hero)
         {
+            HeroRepo.Update(hero);
         }
 
         // DELETE api/<HeroController>/5

@@ -12,7 +12,7 @@ using TextRPG.Repository.Server;
 namespace TextRPG.Repository.Migrations
 {
     [DbContext(typeof(Dbcontext))]
-    [Migration("20231122121243_InitialCreate")]
+    [Migration("20231123111415_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

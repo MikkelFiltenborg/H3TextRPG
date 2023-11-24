@@ -100,11 +100,11 @@ go
 
 insert into InventoryWeapon (InventoriesId,WeaponsId)
 values
-(1,3),
-(2,2),
-(4,5),
-(6,3),
-(5,6)
+(1,3), --Alex-OldShortSword
+(3,2), --Björk-GreatAxe
+(4,5), --Skeleton-Spear
+(6,3), --Goblin-OldShortSword
+(5,6)  --The Unholy Admin-TheStick
 go
 
 insert into Potion (InventoryId,PotionTypeId,Amount)

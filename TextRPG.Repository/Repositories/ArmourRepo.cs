@@ -60,7 +60,7 @@ namespace TextRPG.Repository.Repositories
             Armour armour = await GetById(updateArmour.Id);
             if (armour != null && updateArmour != null)
             {
-                armour.ArmourType = updateArmour.ArmourType;
+                armour.ArmourTypeName = updateArmour.ArmourTypeName;
                 armour.ArmourModifier = updateArmour.ArmourModifier;
                 armour.AvailableToHero = updateArmour.AvailableToHero;
                 armour.Value = updateArmour.Value;

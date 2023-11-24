@@ -15,7 +15,7 @@ namespace TextRPG.Repository.Models
         public int WeaponTypeId { get; set; } //fk
         public string? WeaponName { get; set; }
         public int WeaponDamageModifier { get; set; }
-        public int MinimumSkillRoll { get; set; }
+        public int SkillRoll { get; set; }
         public bool AvailableToHero { get; set; }
         public bool StarterWeapon { get; set; }
         public int Value { get; set; } = 0;

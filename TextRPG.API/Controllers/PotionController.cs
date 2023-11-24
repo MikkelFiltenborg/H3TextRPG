@@ -80,13 +80,11 @@ namespace TextRPG.API.Controllers
                 if (createPotion == null)
                     return StatusCode(500, "Failed. Potion wasn't created.");
 
-                //TODO: Id problem (potion).
                 return CreatedAtAction("PostPotion", new { id = createPotion.Id }, createPotion);
-                //return Ok();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"An error occured while trying to create the Potion {ex.Message}");
+                return StatusCode(500, $"An error occured while trying to create the Potion. {ex.Message}");
             }
         }
         /*
@@ -107,9 +105,6 @@ namespace TextRPG.API.Controllers
 
                 if (potion == null)
                     return NotFound();
-
-                oldPotion.Amount = potion.Amount;
-                oldPotion.PotionType = potion.PotionType;
 
                 PotionRepo.Update(oldPotion);
             }

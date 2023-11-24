@@ -87,7 +87,6 @@ namespace TextRPG.Repository.Repositories
             {
                 weapon.WeaponDamageModifier = updateWeapon.WeaponDamageModifier;
                 weapon.SkillRoll = updateWeapon.SkillRoll;
-                weapon.Range = updateWeapon.Range;
                 weapon.AvailableToHero = updateWeapon.AvailableToHero;
                 weapon.StarterWeapon = updateWeapon.StarterWeapon;
                 weapon.Value = updateWeapon.Value;

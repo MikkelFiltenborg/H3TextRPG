@@ -85,7 +85,7 @@ namespace TextRPG.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"An error occured while trying to create the Weapon {ex.Message}");
+                return StatusCode(500, $"An error occured while trying to create the Weapon. {ex.Message}");
             }
         }
         /*
@@ -106,15 +106,6 @@ namespace TextRPG.API.Controllers
 
                 if (weapon == null)
                     return NotFound();
-
-                oldWeapon.WeaponDamageModifier = weapon.WeaponDamageModifier;
-                oldWeapon.SkillRoll = weapon.SkillRoll;
-                oldWeapon.Range = weapon.Range;
-                oldWeapon.AvailableToHero = weapon.AvailableToHero;
-                oldWeapon.StarterWeapon = weapon.StarterWeapon;
-                oldWeapon.Value = weapon.Value;
-                oldWeapon.Note = weapon.Note;
-                oldWeapon.WeaponType = weapon.WeaponType;
 
                 WeaponRepo.Update(oldWeapon);
             }

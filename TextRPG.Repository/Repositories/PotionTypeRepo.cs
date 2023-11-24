@@ -76,7 +76,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Delete
-        public async void Delete(int id)
+        public async Task<PotionType> Delete(int id)
         {
             PotionType potionType = await GetById(id);
             if (potionType != null)
@@ -84,6 +84,7 @@ namespace TextRPG.Repository.Repositories
                 context.PotionType.Remove(potionType);
                 await context.SaveChangesAsync();
             }
+            return potionType!;
         }
         /*
         public void Delete(int id)

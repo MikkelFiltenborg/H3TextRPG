@@ -107,7 +107,7 @@ namespace TextRPG.API.Controllers
                 if (armour == null)
                     return NotFound();
 
-                oldArmour.ArmourType = armour.ArmourType;
+                oldArmour.ArmourTypeName = armour.ArmourTypeName;
                 oldArmour.ArmourModifier = armour.ArmourModifier;
                 oldArmour.AvailableToHero = armour.AvailableToHero;
                 oldArmour.Value = armour.Value;
@@ -143,12 +143,12 @@ namespace TextRPG.API.Controllers
         {
             try
             {
-                var armour = await ArmourRepo.GetById(id);
+                //var armour = await ArmourRepo.GetById(id);
 
-                if (armour == null)
-                    return NotFound();
+                //if (armour == null)
+                //    return NotFound();
 
-                ArmourRepo.Delete(id);
+                await ArmourRepo.Delete(id);
                 return Ok();
             }
             catch (Exception ex)

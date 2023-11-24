@@ -75,7 +75,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Delete
-        public async void Delete(int id)
+        public async Task<SkillRollType> Delete(int id)
         {
             SkillRollType skillRollType = await GetById(id);
             if (skillRollType != null)
@@ -83,6 +83,7 @@ namespace TextRPG.Repository.Repositories
                 context.SkillRollType.Remove(skillRollType);
                 await context.SaveChangesAsync();
             }
+            return skillRollType!;
         }
         /*
         public void Update(SkillRollType model)

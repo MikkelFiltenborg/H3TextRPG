@@ -94,7 +94,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Delete
-        public async void Delete(int id)
+        public async Task<Monster> Delete(int id)
         {
             Monster monster = await GetById (id);
             if (monster != null)
@@ -102,6 +102,7 @@ namespace TextRPG.Repository.Repositories
                 context.Monster.Remove(monster);
                 await context.SaveChangesAsync();
             }
+            return monster!;
         }
         /*
         public void Delete(int id)

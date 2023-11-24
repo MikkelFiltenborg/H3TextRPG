@@ -35,7 +35,7 @@ values
 ('Stick',4,1,18,0)
 go
 
-insert into Weapon (WeaponName,WeaponTypeId,WeaponDamageModifier,MinimumSkillRoll,AvailableToHero,StarterWeapon,[Value], Note)
+insert into Weapon (WeaponName,WeaponTypeId,WeaponDamageModifier,SkillRoll,AvailableToHero,StarterWeapon,[Value], Note)
 values
 ('Sting',1,1,7,1,0,42,''),
 ('Great Axe',4,4,13,1,0,35,''),

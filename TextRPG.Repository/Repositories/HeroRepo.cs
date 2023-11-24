@@ -154,7 +154,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Delete
-        public async void Delete(int id)
+        public async Task<Hero> Delete(int id)
         {
             Hero hero = await GetById(id);
             if (hero != null)
@@ -162,6 +162,7 @@ namespace TextRPG.Repository.Repositories
                 context.Hero.Remove(hero);
                 await context.SaveChangesAsync();
             }
+            return hero!;
         }
 
         /*

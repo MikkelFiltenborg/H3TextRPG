@@ -76,7 +76,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Delete
-        public async void Delete(int id)
+        public async Task<Armour> Delete(int id)
         {
             Armour armour = await GetById(id);
             if (armour != null)
@@ -84,6 +84,7 @@ namespace TextRPG.Repository.Repositories
                 context.Armour.Remove(armour);
                 await context.SaveChangesAsync();
             }
+            return armour!;
         }
         /*
         public void Delete(int id)

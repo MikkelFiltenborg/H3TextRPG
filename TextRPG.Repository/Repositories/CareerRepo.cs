@@ -73,7 +73,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Delete
-        public async void Delete(int id)
+        public async Task<Career> Delete(int id)
         {
             Career career = await GetById(id);
             if (career != null)
@@ -81,6 +81,7 @@ namespace TextRPG.Repository.Repositories
                 context.Career.Remove(career);
                 await context.SaveChangesAsync();
             }
+            return career!;
         }
         /*
         public void Delete(int id)

@@ -107,7 +107,7 @@ namespace TextRPG.API.Controllers
                 if (armour == null)
                     return NotFound();
 
-                oldArmour.ArmourType = armour.ArmourType;
+                oldArmour.ArmourTypeName = armour.ArmourTypeName;
                 oldArmour.ArmourModifier = armour.ArmourModifier;
                 oldArmour.AvailableToHero = armour.AvailableToHero;
                 oldArmour.Value = armour.Value;

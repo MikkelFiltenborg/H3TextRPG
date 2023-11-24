@@ -103,12 +103,13 @@ namespace TextRPG.API.Controllers
         {
             try
             {
+                //Not in use \/
                 var oldHero = await HeroRepo.GetById(id);
 
                 if (hero == null)
                     return NotFound();
 
-                HeroRepo.Update(oldHero);
+                HeroRepo.Update(hero);
             }
             catch (Exception ex)
             {

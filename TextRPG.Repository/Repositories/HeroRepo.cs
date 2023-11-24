@@ -134,14 +134,49 @@ namespace TextRPG.Repository.Repositories
         public async void Update(Hero updateHero)
         {
             Hero hero = await GetById(updateHero.Id);
-            if (hero != null && updateHero != null)
+            //if (hero != null && updateHero != null)
+            //{
+            //    hero.HeroName = updateHero.HeroName;
+            //    hero.HeroXp = updateHero.HeroXp;
+            //    hero.Level = updateHero.Level;
+            //    hero.Note = updateHero.Note;
+            //    await context.SaveChangesAsync();
+            //}
+            if (updateHero.Inventory != null && hero.Inventory != null)
             {
-                hero.HeroName = updateHero.HeroName;
-                hero.HeroXp = updateHero.HeroXp;
-                hero.Level = updateHero.Level;
-                hero.Note = updateHero.Note;
-                await context.SaveChangesAsync();
+                hero.Inventory.Id = updateHero.Inventory.Id;
+                hero.Inventory.Gold = updateHero.Inventory.Gold;
+                hero.Inventory.ArmourId = updateHero.Inventory.ArmourId;
+
+                
+                if (updateHero.Inventory.Weapons != null)
+                {
+                    var weaponsSelected = context.Weapon.
+                        Where(w => updateHero.Inventory.Weapons.Select(x => x.Id).ToArray().Contains(w.Id)).ToList();
+
+                    hero.Inventory.Weapons = weaponsSelected;
+                }
+
+                if (updateHero.Inventory.Potions != null)
+                {
+                    var PotionsSelected = context.Potion.
+                        Where(p => updateHero.Inventory.Potions.Select(x => x.Id).ToArray().Contains(p.Id)).ToList();
+
+                    foreach (var potion in updateHero.Inventory.Potions)
+                    {
+                        if (!PotionsSelected.Contains(potion))
+                        {
+                            PotionsSelected.Add(potion);
+                        }
+                    }
+                    hero.Inventory.Potions = PotionsSelected;
+                    //temp.Potions!.AddRange(PotionsSelected);
+                }
+                //updateHero.Inventory = temp;
             }
+
+            context.Hero.Add(hero);
+            await context.SaveChangesAsync();
         }
         /*
         public void Update(Hero model)

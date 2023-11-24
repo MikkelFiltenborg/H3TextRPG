@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -174,6 +175,12 @@ namespace TextRPG.Repository.Repositories
                 }
                 //updateHero.Inventory = temp;
             }
+        /*
+        public void Create(Hero model)
+        {
+            context.Hero.Add(model);
+            context.SaveChanges();
+        }*/
 
             context.Hero.Update(hero);
             await context.SaveChangesAsync();

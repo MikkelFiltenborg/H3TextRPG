@@ -328,6 +328,9 @@ namespace TextRPG.Repository.Migrations
                     b.Property<int>("SkillRoll")
                         .HasColumnType("int");
 
+                    b.Property<int>("SkillRoll")
+                        .HasColumnType("int");
+
                     b.Property<bool>("StarterWeapon")
                         .HasColumnType("bit");
 

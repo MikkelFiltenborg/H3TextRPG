@@ -90,7 +90,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Delete
-        public async void Delete(int id)
+        public async Task<WeaponType> Delete(int id)
         {
             WeaponType weaponType = await GetById(id);
             if (weaponType != null)
@@ -98,6 +98,7 @@ namespace TextRPG.Repository.Repositories
                 context.WeaponType.Remove(weaponType);
                 await context.SaveChangesAsync();
             }
+            return weaponType!;
         }
         /*
         public void Update(WeaponType model)

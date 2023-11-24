@@ -81,7 +81,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Delete
-        public async void Delete(int id)
+        public async Task<Inventory> Delete(int id)
         {
             Inventory inventory = await GetById(id);
             if (inventory != null)
@@ -89,6 +89,7 @@ namespace TextRPG.Repository.Repositories
                 context.Inventory.Remove(inventory);
                 await context.SaveChangesAsync();
             }
+            return inventory!;
         }
         /*
         public void Delete(int id)

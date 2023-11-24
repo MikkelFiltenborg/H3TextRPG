@@ -138,12 +138,12 @@ namespace TextRPG.API.Controllers
         {
             try
             {
-                var potion = await PotionRepo.GetById(id);
+                //var potion = await PotionRepo.GetById(id);
 
-                if (potion == null)
-                    return NotFound();
+                //if (potion == null)
+                //    return NotFound();
 
-                PotionRepo.Delete(id);
+                await PotionRepo.Delete(id);
                 return Ok();
             }
             catch(Exception ex)

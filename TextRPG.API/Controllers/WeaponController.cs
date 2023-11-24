@@ -145,12 +145,12 @@ namespace TextRPG.API.Controllers
         {
             try
             {
-                var weapon = await WeaponRepo.GetById(id);
+                //var weapon = await WeaponRepo.GetById(id);
 
-                if (GetWepaonById == null)
-                    return NotFound();
+                //if (GetWepaonById == null)
+                //    return NotFound();
 
-                WeaponRepo.Delete(id);
+                await WeaponRepo.Delete(id);
                 return Ok();
             }
             catch (Exception ex)

@@ -73,7 +73,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Delete
-        public async void Delete(int id)
+        public async Task<Race> Delete(int id)
         {
             Race race = await GetById(id);
             if (race != null)
@@ -81,6 +81,7 @@ namespace TextRPG.Repository.Repositories
                 context.Race.Remove(race);
                 await context.SaveChangesAsync();
             }
+            return race!;
         }
         /*
         public void Delete(int id)

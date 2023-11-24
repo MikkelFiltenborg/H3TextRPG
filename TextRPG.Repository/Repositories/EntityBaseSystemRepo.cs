@@ -81,7 +81,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Delete
-        public async void Delete(int id)
+        public async Task<EntityBaseSystem> Delete(int id)
         {
             EntityBaseSystem entityBaseSystem = await GetById(id);
             if (entityBaseSystem != null)
@@ -89,6 +89,7 @@ namespace TextRPG.Repository.Repositories
                 context.EntityBaseSystem.Remove(entityBaseSystem);
                 await context.SaveChangesAsync();
             }
+            return entityBaseSystem!;
         }
         /*
         public void Delete(int id)

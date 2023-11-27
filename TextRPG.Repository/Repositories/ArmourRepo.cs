@@ -60,24 +60,20 @@ namespace TextRPG.Repository.Repositories
             Armour armour = await GetById(updateArmour.Id);
             if (armour != null && updateArmour != null)
             {
-                armour.ArmourTypeName = updateArmour.ArmourTypeName;
+                if (!string.IsNullOrWhiteSpace(updateArmour.ArmourTypeName))
+                    armour.ArmourTypeName = updateArmour.ArmourTypeName;
                 armour.ArmourModifier = updateArmour.ArmourModifier;
                 armour.AvailableToHero = updateArmour.AvailableToHero;
                 armour.Value = updateArmour.Value;
-                armour.Note = updateArmour.Note;
+                if (!string.IsNullOrWhiteSpace(updateArmour.Note))
+                    armour.Note = updateArmour.Note;
+
                 context.Armour.Update(armour);
                 await context.SaveChangesAsync();
                 return armour;
             }
             return null;
         }
-        /*
-        public void Update(Armour model)
-        {
-            context.Armour.Update(model);
-            context.SaveChanges();
-        }*/
-
         // Delete
         public async Task<Armour> Delete(int id)
         {

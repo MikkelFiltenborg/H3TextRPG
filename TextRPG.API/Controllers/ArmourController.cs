@@ -102,17 +102,10 @@ namespace TextRPG.API.Controllers
         {
             try
             {
-                var oldArmour = await ArmourRepo.GetById(id);
-
                 if (armour == null)
                     return NotFound();
 
-                oldArmour.ArmourTypeName = armour.ArmourTypeName;
-                oldArmour.ArmourModifier = armour.ArmourModifier;
-                oldArmour.AvailableToHero = armour.AvailableToHero;
-                oldArmour.Value = armour.Value;
-                oldArmour.Note = armour.Note;
-                await ArmourRepo.Update(oldArmour);
+                await ArmourRepo.Update(armour);
             }
             catch (Exception ex)
             {

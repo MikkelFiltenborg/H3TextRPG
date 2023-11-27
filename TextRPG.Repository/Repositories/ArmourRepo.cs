@@ -55,7 +55,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Update
-        public async void Update(Armour updateArmour)
+        public async Task<Armour?> Update(Armour updateArmour)
         {
             Armour armour = await GetById(updateArmour.Id);
             if (armour != null && updateArmour != null)
@@ -65,8 +65,11 @@ namespace TextRPG.Repository.Repositories
                 armour.AvailableToHero = updateArmour.AvailableToHero;
                 armour.Value = updateArmour.Value;
                 armour.Note = updateArmour.Note;
+                context.Armour.Update(armour);
                 await context.SaveChangesAsync();
+                return armour;
             }
+            return null;
         }
         /*
         public void Update(Armour model)

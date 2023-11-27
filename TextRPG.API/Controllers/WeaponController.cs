@@ -107,7 +107,7 @@ namespace TextRPG.API.Controllers
                 if (weapon == null)
                     return NotFound();
 
-                WeaponRepo.Update(oldWeapon);
+                await WeaponRepo.Update(oldWeapon);
             }
             catch (Exception ex)
             {

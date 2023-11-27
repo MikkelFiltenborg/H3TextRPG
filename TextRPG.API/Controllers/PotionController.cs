@@ -106,7 +106,7 @@ namespace TextRPG.API.Controllers
                 if (potion == null)
                     return NotFound();
 
-                PotionRepo.Update(oldPotion);
+                await PotionRepo.Update(oldPotion);
             }
             catch (Exception ex)
             {

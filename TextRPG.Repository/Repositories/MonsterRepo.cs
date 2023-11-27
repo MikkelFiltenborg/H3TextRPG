@@ -74,7 +74,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Update
-        public async void Update (Monster updateMonster)
+        public async Task<Monster?> Update (Monster updateMonster)
         {
             Monster monster = await GetById(updateMonster.Id);
             if (monster != null && monster != null)
@@ -83,8 +83,10 @@ namespace TextRPG.Repository.Repositories
                 monster.MonsterXp = updateMonster.MonsterXp;
                 monster.LevelDifficulty = updateMonster.LevelDifficulty;
                 monster.Note = updateMonster.Note;
+                context.Monster.Update(monster);
                 await context.SaveChangesAsync();
             }
+            return monster;
         }
         /*
         public void Update(Monster model)

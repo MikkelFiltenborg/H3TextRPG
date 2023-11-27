@@ -131,7 +131,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Update
-        public async void Update(Hero updateHero)
+        public async Task<Hero?> Update(Hero updateHero)
         {
             Hero hero = await GetById(updateHero.Id);
             //if (hero != null && updateHero != null)
@@ -164,10 +164,10 @@ namespace TextRPG.Repository.Repositories
 
                     foreach (var potion in updateHero.Inventory.Potions)
                     {
-                        if (!PotionsSelected.Contains(potion))
-                        {
-                            PotionsSelected.Add(potion);
-                        }
+                        //if (PotionsSelected.Where(p => )
+                        //{
+                        //    PotionsSelected.Add(potion);
+                        //}
                     }
                     hero.Inventory.Potions = PotionsSelected;
                     //temp.Potions!.AddRange(PotionsSelected);
@@ -175,8 +175,9 @@ namespace TextRPG.Repository.Repositories
                 //updateHero.Inventory = temp;
             }
 
-            context.Hero.Add(hero);
+            context.Hero.Update(hero);
             await context.SaveChangesAsync();
+            return hero;
         }
         /*
         public void Update(Hero model)

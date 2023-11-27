@@ -55,7 +55,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Update
-        public async void Update(PotionType updatePotionType)
+        public async Task<PotionType?> Update(PotionType updatePotionType)
         {
             PotionType potionType = await GetById(updatePotionType.Id);
             if (potionType != null && updatePotionType != null)
@@ -65,8 +65,10 @@ namespace TextRPG.Repository.Repositories
                 potionType.AvailableToHero = updatePotionType.AvailableToHero;
                 potionType.Value = updatePotionType.Value;
                 potionType.Note = updatePotionType.Note;
+                context.PotionType.Update(potionType);
                 await context.SaveChangesAsync();
             }
+            return potionType;
         }
         /*
         public void Update(PotionType model)

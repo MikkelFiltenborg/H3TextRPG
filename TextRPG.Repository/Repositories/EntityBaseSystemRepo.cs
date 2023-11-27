@@ -57,7 +57,7 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Update
-        public async void Update(EntityBaseSystem updateEntityBaseSystem)
+        public async Task<EntityBaseSystem?> Update(EntityBaseSystem updateEntityBaseSystem)
         {
             EntityBaseSystem entityBaseSystem = await GetById(updateEntityBaseSystem.Id);
             if (entityBaseSystem != null && updateEntityBaseSystem != null)
@@ -70,8 +70,10 @@ namespace TextRPG.Repository.Repositories
                 entityBaseSystem.HealthModifier = updateEntityBaseSystem.HealthModifier;
                 entityBaseSystem.EnergyModifier = updateEntityBaseSystem.EnergyModifier;
                 entityBaseSystem.DamagerModifier = updateEntityBaseSystem.ArmourModifier;
+                context.EntityBaseSystem.Update(entityBaseSystem);
                 await context.SaveChangesAsync();
             }
+            return entityBaseSystem;
         }
         /*
         public void Update(EntityBaseSystem model)

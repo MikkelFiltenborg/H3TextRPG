@@ -12,7 +12,7 @@ namespace TextRPG.Repository.Interfaces
         Task<List<T>> GetAll();
         Task<T> GetById(int id);
         Task<T> Create(T model);
-        void Update(T model);
+        Task<T?> Update(T model);
         Task<T> Delete(int id);
     }
 }

@@ -80,7 +80,7 @@ namespace TextRPG.Repository.Repositories
         //}*/
 
         // Update
-        public async void Update(Weapon updateWeapon)
+        public async Task<Weapon?> Update(Weapon updateWeapon)
         {
             Weapon weapon = await GetById(updateWeapon.Id);
             if (weapon != null && updateWeapon != null)
@@ -91,8 +91,10 @@ namespace TextRPG.Repository.Repositories
                 weapon.StarterWeapon = updateWeapon.StarterWeapon;
                 weapon.Value = updateWeapon.Value;
                 weapon.Note = updateWeapon.Note;
+                context.Weapon.Update(weapon);
                 await context.SaveChangesAsync();
             }
+            return weapon;
         }
         /*
         //public void Update(Weapon model)

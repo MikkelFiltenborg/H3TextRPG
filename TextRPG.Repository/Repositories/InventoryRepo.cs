@@ -64,14 +64,16 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Update
-        public async void Update(Inventory updateInventory)
+        public async Task<Inventory?> Update(Inventory updateInventory)
         {
             Inventory inventory = await GetById(updateInventory.Id);
             if (inventory != null && updateInventory != null)
             {
                 inventory.Gold = updateInventory.Gold;
+                context.Inventory.Update(inventory);
                 await context.SaveChangesAsync();
             }
+            return inventory;
         }
         /*
         public void Update(Inventory model)

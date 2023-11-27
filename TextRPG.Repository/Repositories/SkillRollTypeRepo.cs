@@ -58,14 +58,16 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Update
-        public async void Update(SkillRollType updateSkillRollType)
+        public async Task<SkillRollType?> Update(SkillRollType updateSkillRollType)
         {
             SkillRollType skillRollType = await GetById(updateSkillRollType.Id);
             if (skillRollType != null && updateSkillRollType != null)
             {
                 skillRollType.SkillType = updateSkillRollType.SkillType;
+                context.SkillRollType.Update(skillRollType);
                 await context.SaveChangesAsync();
             }
+            return skillRollType;
         }
         /*
         public void Delete(int id)

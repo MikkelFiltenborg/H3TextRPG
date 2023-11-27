@@ -56,14 +56,17 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Update
-        public async void Update(Career updateCareer)
+        public async Task<Career?> Update(Career updateCareer)
         {
             Career career = await GetById(updateCareer.Id);
             if (career != null && updateCareer != null)
             {
                 career.CareerType = updateCareer.CareerType;
+                context.Career.Update(career);
                 await context.SaveChangesAsync();
+                //return career;  
             }
+            return career;
         }
         /*
         public void Update(Career model)

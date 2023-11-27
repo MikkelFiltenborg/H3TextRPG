@@ -112,7 +112,7 @@ namespace TextRPG.API.Controllers
                 oldArmour.AvailableToHero = armour.AvailableToHero;
                 oldArmour.Value = armour.Value;
                 oldArmour.Note = armour.Note;
-                ArmourRepo.Update(oldArmour);
+                await ArmourRepo.Update(oldArmour);
             }
             catch (Exception ex)
             {

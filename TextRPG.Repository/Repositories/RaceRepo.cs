@@ -56,14 +56,16 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Update
-        public async void Update(Race updateRace)
+        public async Task<Race?> Update(Race updateRace)
         {
             Race race = await GetById(updateRace.Id);
             if (race != null && updateRace != null)
             {
                 race.RaceType = updateRace.RaceType;
+                context.Race.Update(race);
                 await context.SaveChangesAsync();
             }
+            return race;
         }
         /*
         public void Update(Race model)

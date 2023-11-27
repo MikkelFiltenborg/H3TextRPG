@@ -63,15 +63,17 @@ namespace TextRPG.Repository.Repositories
         }*/
 
         // Update
-        public async void Update(Potion updatePotion)
+        public async Task<Potion?> Update(Potion updatePotion)
         {
             Potion potion = await GetById(updatePotion.Id);
             if (potion != null && updatePotion != null)
             {
                 potion.Amount = updatePotion.Amount;
                 potion.PotionTypeId = updatePotion.PotionTypeId;
+                context.Potion.Update(potion);
                 await context.SaveChangesAsync();
             }
+            return potion;
         }
         /*
         public void Update(Potion potion)

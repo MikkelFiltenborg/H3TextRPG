@@ -61,7 +61,8 @@ namespace TextRPG.Repository.Repositories
             Race race = await GetById(updateRace.Id);
             if (race != null && updateRace != null)
             {
-                race.RaceType = updateRace.RaceType;
+                if (!string.IsNullOrWhiteSpace(updateRace.RaceType))
+                    race.RaceType = updateRace.RaceType;
                 context.Race.Update(race);
                 await context.SaveChangesAsync();
             }

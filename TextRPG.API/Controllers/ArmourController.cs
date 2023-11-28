@@ -26,7 +26,7 @@ namespace TextRPG.API.Controllers
                 var armour = await ArmourRepo.GetAll();
 
                 if (armour == null)
-                    return NotFound();
+                    return Problem("Unexpected. Armour wasn't found.");
 
                 return Ok(armour);
             }

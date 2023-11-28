@@ -26,7 +26,7 @@ namespace TextRPG.API.Controllers
                 var hero = await HeroRepo.GetAll();
 
                 if(hero == null)
-                    return Problem("Unexpected. Hero wasn't found");
+                    return Problem("Unexpected. Hero wasn't found.");
 
                 return Ok(hero);
             }

@@ -26,7 +26,7 @@ namespace TextRPG.API.Controllers
                 var weapon = await WeaponRepo.GetAll();
 
                 if (weapon == null)
-                    return Problem("Unexpected. Weapon wasn't returned");
+                    return Problem("Unexpected. Weapon wasn't found.");
 
                 return Ok(weapon);
             }

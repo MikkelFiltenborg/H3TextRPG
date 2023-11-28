@@ -61,7 +61,8 @@ namespace TextRPG.Repository.Repositories
             Career career = await GetById(updateCareer.Id);
             if (career != null && updateCareer != null)
             {
-                career.CareerType = updateCareer.CareerType;
+                if (!string.IsNullOrWhiteSpace(updateCareer.CareerType))
+                    career.CareerType = updateCareer.CareerType;
                 context.Career.Update(career);
                 await context.SaveChangesAsync();
                 //return career;  

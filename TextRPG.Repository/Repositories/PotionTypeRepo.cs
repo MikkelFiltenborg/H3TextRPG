@@ -60,15 +60,17 @@ namespace TextRPG.Repository.Repositories
             PotionType potionType = await GetById(updatePotionType.Id);
             if (potionType != null && updatePotionType != null)
             {
-                potionType.PotionTypeName = updatePotionType.PotionTypeName;
+                if (!string.IsNullOrWhiteSpace(updatePotionType.PotionTypeName))
+                    potionType.PotionTypeName = updatePotionType.PotionTypeName;
                 potionType.PotionDice = updatePotionType.PotionDice;
                 potionType.AvailableToHero = updatePotionType.AvailableToHero;
                 potionType.Value = updatePotionType.Value;
-                potionType.Note = updatePotionType.Note;
+                if (!string.IsNullOrWhiteSpace(updatePotionType.Note))
+                    potionType.Note = updatePotionType.Note;
                 context.PotionType.Update(potionType);
                 await context.SaveChangesAsync();
             }
-            return potionType;
+            return null;
         }
         /*
         public void Update(PotionType model)

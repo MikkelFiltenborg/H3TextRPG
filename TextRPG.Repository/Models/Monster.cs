@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Repository.Models
 {
-    public class Monster
+    public class Monster : BaseEntity
     {
         [Key]
         public int Id { get; set; }
@@ -18,7 +18,7 @@ namespace TextRPG.Repository.Models
         public int LevelDifficulty { get; set; }
         public string? Note { get; set; }
 
-        public EntityBaseSystem? EntityBaseSystem { get; set; }
-        public Inventory? Inventory { get; set; }
+        //public EntityBaseSystem? EntityBaseSystem { get; set; }
+        //public Inventory? Inventory { get; set; }
     }
 }

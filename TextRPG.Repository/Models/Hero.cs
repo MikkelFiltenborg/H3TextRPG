@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Repository.Models
 {
-    public class Hero
+    public class Hero : BaseEntity
     {
         [Key]
         public int Id { get; set; }
@@ -20,8 +20,8 @@ namespace TextRPG.Repository.Models
         public int CareerId { get; set; }
         public string? Note { get; set; }
 
-        public EntityBaseSystem? EntityBaseSystem { get; set; }
-        public Inventory? Inventory { get; set; }
+        //public EntityBaseSystem? EntityBaseSystem { get; set; }
+        //public Inventory? Inventory { get; set; }
         public Race? Race { get; set; }
         public Career? Career { get; set; }
     }

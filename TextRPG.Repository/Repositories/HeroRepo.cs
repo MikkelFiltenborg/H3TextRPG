@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace TextRPG.Repository.Repositories
 {
-    public class HeroRepo : IBaseCRUDRepo<Hero>
+    public class HeroRepo : BaseEntityRepo, IBaseCRUDRepo<Hero>
     {
         Dbcontext context;
 
@@ -146,24 +146,12 @@ namespace TextRPG.Repository.Repositories
 
                 if (hero.EntityBaseSystem != null && updateHero.EntityBaseSystem != null)
                 {
-                    hero.EntityBaseSystem.Stength = updateHero.EntityBaseSystem.Stength;
-                    hero.EntityBaseSystem.Agility = updateHero.EntityBaseSystem.Agility;
-                    hero.EntityBaseSystem.Vigor = updateHero.EntityBaseSystem.Vigor;
-                    hero.EntityBaseSystem.Spirit = updateHero.EntityBaseSystem.Spirit;
-                    hero.EntityBaseSystem.Health = updateHero.EntityBaseSystem.Health;
-                    hero.EntityBaseSystem.Energy = updateHero.EntityBaseSystem.Energy;
-                    hero.EntityBaseSystem.HealthModifier = updateHero.EntityBaseSystem.HealthModifier;
-                    hero.EntityBaseSystem.EnergyModifier = updateHero.EntityBaseSystem.EnergyModifier;
-                    hero.EntityBaseSystem.DamagerModifier = updateHero.EntityBaseSystem.DamagerModifier;
-                    hero.EntityBaseSystem.ArmourModifier = updateHero.EntityBaseSystem.ArmourModifier;
+                    UpdateEBS(hero.EntityBaseSystem, updateHero.EntityBaseSystem);
                 }
 
                 if (updateHero.Inventory != null && hero.Inventory != null)
                 {
-                    hero.Inventory.Id = updateHero.Inventory.Id;
-                    hero.Inventory.Gold = updateHero.Inventory.Gold;
-                    hero.Inventory.ArmourId = updateHero.Inventory.ArmourId;
-
+                    UpdateInventory(hero.Inventory, updateHero.Inventory);
 
                     if (updateHero.Inventory.Weapons != null)
                     {
@@ -175,32 +163,7 @@ namespace TextRPG.Repository.Repositories
 
                     if (updateHero.Inventory.Potions != null && hero.Inventory.Potions != null)
                     {
-                        List<Potion> temp = new List<Potion>();
-                        foreach (var potion in updateHero.Inventory.Potions)
-                        {
-                            if (hero.Inventory.Potions.Exists(x => x.PotionTypeId == potion.PotionTypeId))
-                            {
-                                //Update potion
-                                var p = hero.Inventory.Potions.Find(x => x.PotionTypeId == potion.PotionTypeId);
-                                if (p != null)
-                                {
-                                    p.InventoryId = potion.InventoryId;
-                                    p.PotionTypeId = potion.PotionTypeId;
-                                    p.Amount = potion.Amount;
-                                }
-                            }
-                            else
-                            {
-                                //Add New potion
-                                temp.Add(new Potion
-                                {
-                                    InventoryId = hero.Inventory.Id,
-                                    PotionTypeId = potion.PotionTypeId,
-                                    Amount = potion.Amount
-                                });
-                            }
-                        }
-                        hero.Inventory.Potions.AddRange(temp);
+                        UpdatePotion(hero.Inventory, updateHero.Inventory);
                     }
                 }
                 context.Hero.Update(hero);

@@ -10,7 +10,7 @@ using TextRPG.Repository.Server;
 
 namespace TextRPG.Repository.Repositories
 {
-    public class MonsterRepo : IBaseCRUDRepo<Monster>
+    public class MonsterRepo : BaseEntityRepo, IBaseCRUDRepo<Monster>
     {
         Dbcontext context;
         public MonsterRepo(Dbcontext temp)
@@ -61,6 +61,28 @@ namespace TextRPG.Repository.Repositories
         // Create
         public async Task<Monster> Create (Monster newMonster)
         {
+            if (newMonster.Inventory != null)
+            {
+                Inventory temp = new()
+                {
+                    Id = newMonster.Inventory.Id,
+                    Gold = newMonster.Inventory.Gold,
+                    ArmourId = newMonster.Inventory.ArmourId,
+                    Weapons = new List<Weapon>(),
+                    Potions = newMonster.Inventory.Potions
+                };
+
+                if (newMonster.Inventory.Weapons != null)
+                {
+                    var weaponsSelected = context.Weapon.
+                        Where(w => newMonster.Inventory.Weapons.Select(x => x.Id).ToArray().Contains(w.Id)).ToList();
+
+                    temp.Weapons.AddRange(weaponsSelected);
+                }
+
+                newMonster.Inventory = temp;
+            }
+
             context.Monster.Add(newMonster);
             await context.SaveChangesAsync();
             return newMonster;
@@ -79,14 +101,40 @@ namespace TextRPG.Repository.Repositories
             Monster monster = await GetById(updateMonster.Id);
             if (monster != null && monster != null)
             {
-                monster.MonsterName = updateMonster.MonsterName;
+                if (!string.IsNullOrWhiteSpace(updateMonster.MonsterName))
+                    monster.MonsterName = updateMonster.MonsterName;
                 monster.MonsterXp = updateMonster.MonsterXp;
                 monster.LevelDifficulty = updateMonster.LevelDifficulty;
-                monster.Note = updateMonster.Note;
+                if (!string.IsNullOrWhiteSpace(updateMonster.Note))
+                    monster.Note = updateMonster.Note;
+
+                if (monster.EntityBaseSystem != null && updateMonster.EntityBaseSystem != null)
+                {
+                    UpdateEBS(monster.EntityBaseSystem, updateMonster.EntityBaseSystem);
+                }
+                if (updateMonster.Inventory != null && monster.Inventory != null)
+                {
+                    UpdateInventory(monster.Inventory, updateMonster.Inventory);
+
+                    if (updateMonster.Inventory.Weapons != null)
+                    {
+                        var weaponsSelected = context.Weapon.
+                            Where(w => updateMonster.Inventory.Weapons.Select(x => x.Id).ToArray().Contains(w.Id)).ToList();
+
+                        monster.Inventory.Weapons = weaponsSelected;
+                    }
+
+                    if (updateMonster.Inventory.Potions != null && monster.Inventory.Potions != null)
+                    {
+                        UpdatePotion(monster.Inventory, updateMonster.Inventory);
+                    }
+                }
+
                 context.Monster.Update(monster);
                 await context.SaveChangesAsync();
+                return monster;
             }
-            return monster;
+            return null;
         }
         /*
         public void Update(Monster model)

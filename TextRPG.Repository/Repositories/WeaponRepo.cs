@@ -31,6 +31,7 @@ namespace TextRPG.Repository.Repositories
                 .Include(x => x.Value)
                 .Include(x => x.Note)*/
                 .Include(x => x.WeaponType)
+                .ThenInclude(x => x!.SkillRollType)
                 .ToListAsync();
         }
         /*
@@ -54,6 +55,7 @@ namespace TextRPG.Repository.Repositories
                 .Include(x => x.Value)
                 .Include(x => x.Note)*/
                 .Include(x => x.WeaponType)
+                .ThenInclude(x => x!.SkillRollType)
                 .FirstAsync(x => x.Id == id);
         }
         /*
@@ -85,12 +87,17 @@ namespace TextRPG.Repository.Repositories
             Weapon weapon = await GetById(updateWeapon.Id);
             if (weapon != null && updateWeapon != null)
             {
+                if (!string.IsNullOrWhiteSpace(updateWeapon.WeaponName))
+                    weapon.WeaponName = updateWeapon.WeaponName;
                 weapon.WeaponDamageModifier = updateWeapon.WeaponDamageModifier;
+                weapon.WeaponTypeId = updateWeapon.WeaponTypeId;
                 weapon.SkillRoll = updateWeapon.SkillRoll;
                 weapon.AvailableToHero = updateWeapon.AvailableToHero;
                 weapon.StarterWeapon = updateWeapon.StarterWeapon;
                 weapon.Value = updateWeapon.Value;
-                weapon.Note = updateWeapon.Note;
+                if (!string.IsNullOrWhiteSpace(updateWeapon.Note))
+                    weapon.Note = updateWeapon.Note;
+
                 context.Weapon.Update(weapon);
                 await context.SaveChangesAsync();
             }

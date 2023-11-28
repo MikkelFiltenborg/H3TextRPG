@@ -50,7 +50,7 @@ namespace TextRPG.Repository.Repositories
                 .Include(x => x.Inventory!.Weapons!)
                 .ThenInclude(x => x.WeaponType)
                 .ThenInclude(x => x!.SkillRollType)
-                .FirstAsync();
+                .FirstAsync(x => x.Id == id);
         }
         /*
         public Monster GetById(int id)

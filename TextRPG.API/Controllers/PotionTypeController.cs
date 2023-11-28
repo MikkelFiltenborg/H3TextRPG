@@ -43,7 +43,7 @@ namespace TextRPG.API.Controllers
         //    return PotionTypeRepo.GetAll();
         //}*/
 
-        // GetById: api/<PotionTypeController>
+        // GetById api/<PotionTypeController>
         [HttpGet("{id}")]
         public async Task<ActionResult> GetPotionTypeById(int id)
         {
@@ -69,9 +69,9 @@ namespace TextRPG.API.Controllers
         //    return PotionTypeRepo.GetById(id);
         //}*/
 
-        // Create: api/<PotionTypeController>
+        // Create api/<PotionTypeController>
         [HttpPost]
-        public async Task<ActionResult<PotionType>> PostPotionType(PotionType potionType)
+        public async Task<ActionResult> PostPotionType(PotionType potionType)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace TextRPG.API.Controllers
                 if (createPotionType == null)
                     return StatusCode(500, "Failed. PotionType wasn't created.");
 
-                return CreatedAtAction("PostPotion", new { id = createPotionType.Id }, createPotionType);
+                return CreatedAtAction("PostPotionType", new { id = createPotionType.Id }, createPotionType);
             }
             catch (Exception ex)
             {
@@ -95,7 +95,7 @@ namespace TextRPG.API.Controllers
             PotionTypeRepo.Create(potionType);
         }*/
 
-        // Update: api/<PotionTypeController>
+        // Update api/<PotionTypeController>
         [HttpPut("{id}")]
         public async Task<ActionResult> PutPotionType(PotionType potionType, int id)
         {

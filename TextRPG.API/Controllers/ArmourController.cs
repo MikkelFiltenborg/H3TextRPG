@@ -80,7 +80,7 @@ namespace TextRPG.API.Controllers
                 if (createArmour == null)
                     return StatusCode(500, "Failed. Weapon wasn't created.");
 
-                return CreatedAtAction("PostArmour", new { Id = createArmour.Id }, createArmour);
+                return CreatedAtAction("PostArmour", new { id = createArmour.Id }, createArmour);
                 //return Ok();
             }
             catch (Exception ex)

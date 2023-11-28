@@ -17,7 +17,7 @@ namespace TextRPG.API.Controllers
             CareerRepo = careerRepo;
         }
 
-        // GetAll: api/<CareerController>
+        // GetAll api/<CareerController>
         [HttpGet]
         public async Task<ActionResult> GetAllCareer()
         {
@@ -66,7 +66,7 @@ namespace TextRPG.API.Controllers
                 if (createCareer == null)
                     return StatusCode(500, "Failed. Career wasn't created.");
 
-                return CreatedAtAction("PostCareer", new { Id = createCareer.Id }, createCareer);
+                return CreatedAtAction("PostCareer", new { id = createCareer.Id }, createCareer);
             }
             catch (Exception ex)
             {

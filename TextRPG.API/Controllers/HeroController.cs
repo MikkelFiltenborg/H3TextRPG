@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TextRPG.Repository.Interfaces;
 using TextRPG.Repository.Models;
+using TextRPG.Repository.Repositories;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,7 +26,7 @@ namespace TextRPG.API.Controllers
             {
                 var hero = await HeroRepo.GetAll();
 
-                if(hero == null)
+                if (hero == null)
                     return Problem("Unexpected. Hero wasn't found.");
 
                 return Ok(hero);
@@ -80,7 +81,7 @@ namespace TextRPG.API.Controllers
                 var createHero = await HeroRepo.Create(hero);
 
                 if (createHero == null)
-                    return StatusCode(500, "Failed. Hero wasn't created");
+                    return StatusCode(500, "Failed. Hero wasn't created.");
 
                 return CreatedAtAction("PostHero", new { id = createHero.Id }, createHero);
             }

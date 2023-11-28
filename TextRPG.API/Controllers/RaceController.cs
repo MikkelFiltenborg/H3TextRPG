@@ -17,7 +17,7 @@ namespace TextRPG.API.Controllers
             RaceRepo = raceRepo;
         }
 
-        // GetAll: api/<RaceController>
+        // GetAll api/<RaceController>
         [HttpGet]
         public async Task<ActionResult> GetAllRace()
         {
@@ -66,7 +66,7 @@ namespace TextRPG.API.Controllers
                 if (createRace == null)
                     return StatusCode(500, "Failed. Race wasn't created.");
 
-                return CreatedAtAction("PostRace", new { Id = createRace.Id }, createRace);
+                return CreatedAtAction("PostRace", new { id = createRace.Id }, createRace);
             }
             catch (Exception ex)
             {

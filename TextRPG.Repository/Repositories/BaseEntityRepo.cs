@@ -9,6 +9,7 @@ namespace TextRPG.Repository.Repositories
 {
     public abstract class BaseEntityRepo
     {
+        // EntityBaseSystem
         internal void UpdateEBS(EntityBaseSystem old, EntityBaseSystem updated)
         {
             old.Stength = updated.Stength;
@@ -23,6 +24,7 @@ namespace TextRPG.Repository.Repositories
             old.ArmourModifier = updated.ArmourModifier;
         }
 
+        // Inventory
         internal void UpdateInventory(Inventory old, Inventory updated)
         {
             old.Id = updated.Id;
@@ -30,6 +32,7 @@ namespace TextRPG.Repository.Repositories
             old.ArmourId = updated.ArmourId;
         }
 
+        // Potion
         internal void UpdatePotion(Inventory old, Inventory updated)
         {
             if (updated.Potions != null && old.Potions != null)

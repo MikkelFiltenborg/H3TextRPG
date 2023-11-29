@@ -35,13 +35,6 @@ namespace TextRPG.API.Controllers
                 return Problem(ex.Message);
             }
         }
-        /*
-        // GET: api/<WeaponController>
-        [HttpGet]
-        public List<Weapon> Get()
-        {
-            return WeaponRepo.GetAll();
-        }*/
 
         // GetById api/<WeaponController>
         [HttpGet("{id}")]
@@ -61,13 +54,6 @@ namespace TextRPG.API.Controllers
                 return Problem(ex.Message);
             }
         }
-        /*
-        // GET api/<WeaponController>/5
-        [HttpGet("{id}")]
-        public Weapon Get(int id)
-        {
-            return WeaponRepo.GetById(id);
-        }*/
 
         // Create api/<WeaponController>
         [HttpPost]
@@ -81,20 +67,12 @@ namespace TextRPG.API.Controllers
                     return StatusCode(500, "Failed. Weapon wasn't created.");
 
                 return CreatedAtAction("PostWeapon", new { id = createWepaon.Id }, createWepaon);
-                //return Ok();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"An error occured while trying to create the Weapon. {ex.Message}");
             }
         }
-        /*
-        // POST api/<WeaponController>
-        [HttpPost]
-        public void Post([FromBody] Weapon weapon)
-        {
-            WeaponRepo.Create(weapon);
-        }*/
 
         // Update api/<WeaponController>
         [HttpPut("{id}")]
@@ -102,8 +80,6 @@ namespace TextRPG.API.Controllers
         {
             try
             {
-                //var oldWeapon = await WeaponRepo.GetById(id);
-
                 if (weapon == null)
                     return NotFound();
 
@@ -115,29 +91,6 @@ namespace TextRPG.API.Controllers
             }
             return Ok(weapon);
         }
-        /*
-        // PUT api/<WeaponController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Weapon newWeapon)
-        {
-            var oldWeapon = WeaponRepo.GetById(newWeapon.Id);
-
-            if (newWeapon == oldWeapon) Console.Write("Weapon already exists");
-
-            else
-            {
-                oldWeapon.WeaponDamageModifier = newWeapon.WeaponDamageModifier;
-                oldWeapon.MinimumSkillRoll = newWeapon.MinimumSkillRoll;
-                //oldWeapon.Range = newWeapon.Range;
-                oldWeapon.AvailableToHero = newWeapon.AvailableToHero;
-                oldWeapon.StarterWeapon = newWeapon.StarterWeapon;
-                oldWeapon.Value = newWeapon.Value;
-                oldWeapon.Note = newWeapon.Note;
-                oldWeapon.WeaponType = newWeapon.WeaponType;
-
-                WeaponRepo.Update(oldWeapon);
-            }
-        }*/
 
         // Delete api/<WeaponController>
         [HttpDelete("{id}")]
@@ -145,11 +98,6 @@ namespace TextRPG.API.Controllers
         {
             try
             {
-                //var weapon = await WeaponRepo.GetById(id);
-
-                //if (GetWepaonById == null)
-                //    return NotFound();
-
                 await WeaponRepo.Delete(id);
                 return Ok();
             }
@@ -158,12 +106,5 @@ namespace TextRPG.API.Controllers
                 return Problem(ex.Message);
             }
         }
-        /*
-        // DELETE api/<WeaponController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            WeaponRepo.Delete(id);
-        }*/
     }
 }

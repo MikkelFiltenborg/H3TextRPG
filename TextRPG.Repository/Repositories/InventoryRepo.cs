@@ -28,11 +28,6 @@ namespace TextRPG.Repository.Repositories
                 .Include(x => x.Potions)
                 .ToListAsync();
         }
-        /*
-        public List<Inventory> GetAll()
-        {
-            return context.Inventory.ToList();
-        }*/
 
         // GetById
         public async Task<Inventory> GetById(int id)
@@ -43,11 +38,6 @@ namespace TextRPG.Repository.Repositories
                 .Include(x => x.Potions)
                 .FirstAsync(x => x.Id == id);
         }
-        /*
-        public Inventory GetById(int id)
-        {
-            return context.Inventory.First(x => x.Id == id);
-        }*/
 
         // Create
         public async Task<Inventory> Create(Inventory newInventory)
@@ -56,12 +46,6 @@ namespace TextRPG.Repository.Repositories
             await context.SaveChangesAsync();
             return newInventory;
         }
-        /*
-        public void Create(Inventory model)
-        {
-            context.Inventory.Add(model);
-            context.SaveChanges();
-        }*/
 
         // Update
         public async Task<Inventory?> Update(Inventory updateInventory)
@@ -75,12 +59,6 @@ namespace TextRPG.Repository.Repositories
             }
             return inventory;
         }
-        /*
-        public void Update(Inventory model)
-        {
-            context.Inventory.Update(model);
-            context.SaveChanges();
-        }*/
 
         // Delete
         public async Task<Inventory> Delete(int id)
@@ -93,11 +71,5 @@ namespace TextRPG.Repository.Repositories
             }
             return inventory!;
         }
-        /*
-        public void Delete(int id)
-        {
-            context.Inventory.Remove(GetById(id));
-            context.SaveChanges();
-        }*/
     }
 }

@@ -32,11 +32,6 @@ namespace TextRPG.Repository.Repositories
                 .ThenInclude(x => x!.SkillRollType)
                 .ToListAsync();
         }
-        /*
-        public List<Monster> GetAll()
-        {
-            return context.Monster.ToList();
-        }*/
 
         // GetById
         public async Task<Monster> GetById(int id)
@@ -52,11 +47,6 @@ namespace TextRPG.Repository.Repositories
                 .ThenInclude(x => x!.SkillRollType)
                 .FirstAsync(x => x.Id == id);
         }
-        /*
-        public Monster GetById(int id)
-        {
-            return context.Monster.First(x => x.Id == id);
-        }*/
 
         // Create
         public async Task<Monster> Create (Monster newMonster)
@@ -87,13 +77,6 @@ namespace TextRPG.Repository.Repositories
             await context.SaveChangesAsync();
             return newMonster;
         }
-        /*
-        public void Create(Monster model)
-        {
-            //TODO: Should we return the (Monster)model?
-            context.Monster.Add(model);
-            context.SaveChanges();
-        }*/
 
         // Update
         public async Task<Monster?> Update (Monster updateMonster)
@@ -105,6 +88,7 @@ namespace TextRPG.Repository.Repositories
                     monster.MonsterName = updateMonster.MonsterName;
                 monster.MonsterXp = updateMonster.MonsterXp;
                 monster.LevelDifficulty = updateMonster.LevelDifficulty;
+
                 if (!string.IsNullOrWhiteSpace(updateMonster.Note))
                     monster.Note = updateMonster.Note;
 
@@ -112,6 +96,7 @@ namespace TextRPG.Repository.Repositories
                 {
                     UpdateEBS(monster.EntityBaseSystem, updateMonster.EntityBaseSystem);
                 }
+
                 if (updateMonster.Inventory != null && monster.Inventory != null)
                 {
                     UpdateInventory(monster.Inventory, updateMonster.Inventory);
@@ -129,19 +114,12 @@ namespace TextRPG.Repository.Repositories
                         UpdatePotion(monster.Inventory, updateMonster.Inventory);
                     }
                 }
-
                 context.Monster.Update(monster);
                 await context.SaveChangesAsync();
                 return monster;
             }
             return null;
         }
-        /*
-        public void Update(Monster model)
-        {
-            context.Monster.Update(model);
-            context.SaveChanges();
-        }*/
 
         // Delete
         public async Task<Monster> Delete(int id)
@@ -154,11 +132,5 @@ namespace TextRPG.Repository.Repositories
             }
             return monster!;
         }
-        /*
-        public void Delete(int id)
-        {
-            context.Monster.Remove(GetById(id));
-            context.SaveChanges();
-        }*/
     }
 }

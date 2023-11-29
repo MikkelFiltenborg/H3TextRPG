@@ -23,39 +23,17 @@ namespace TextRPG.Repository.Repositories
         public async Task<List<WeaponType>> GetAll()
         {
             return await context.WeaponType
-                /*
-                .Include(x => x.WeaponTypeName)
-                .Include(x => x.EnergyCost)
-                .Include(x => x.DamageDice)
-                .Include(x => x.SkillRollTypeId)*/
                 .Include(x => x.SkillRollType)
                 .ToListAsync();
         }
-        /*
-        public void Create(WeaponType model)
-        {
-            context.WeaponType.Add(model);
-            context.SaveChanges();
-        }*/
 
         // GetById
         public async Task<WeaponType> GetById(int id)
         {
             return await context.WeaponType
-                /*
-                .Include(x => x.WeaponTypeName)
-                .Include(x => x.EnergyCost)
-                .Include(x => x.DamageDice)
-                .Include(x => x.SkillRollTypeId)*/
                 .Include(x => x.SkillRollType)
                 .FirstAsync(x => x.Id == id);
         }
-        /*
-        public void Delete(int id)
-        {
-            context.WeaponType.Remove(GetById(id));
-            context.SaveChanges();
-        }*/
 
         // Create
         public async Task<WeaponType> Create(WeaponType newWeaponType)
@@ -64,11 +42,6 @@ namespace TextRPG.Repository.Repositories
             await context.SaveChangesAsync();
             return newWeaponType;
         }
-        /*
-        public List<WeaponType> GetAll()
-        {
-            return context.WeaponType.ToList();
-        }*/
 
         // Update
         public async Task<WeaponType?> Update(WeaponType updateWeaponType)
@@ -85,11 +58,6 @@ namespace TextRPG.Repository.Repositories
             }
             return weaponType;
         }
-        /*
-        public WeaponType GetById(int id)
-        {
-            return context.WeaponType.First(x => x.Id == id);
-        }*/
 
         // Delete
         public async Task<WeaponType> Delete(int id)
@@ -102,11 +70,5 @@ namespace TextRPG.Repository.Repositories
             }
             return weaponType!;
         }
-        /*
-        public void Update(WeaponType model)
-        {
-            context.WeaponType.Update(model);
-            context.SaveChanges();
-        }*/
     }
 }

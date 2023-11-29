@@ -23,22 +23,12 @@ namespace TextRPG.Repository.Repositories
         {
             return await context.PotionType.ToListAsync();
         }
-        /*
-        public List<PotionType> GetAll()
-        {
-            return context.PotionType.ToList();
-        }*/
 
         // GetById
         public async Task<PotionType> GetById(int id)
         {
             return await context.PotionType.FirstAsync(x => x.Id == id);
         }
-        /*
-        public PotionType GetById(int id)
-        {
-            return context.PotionType.First(x => x.Id == id);
-        }*/
 
         // Create
         public async Task<PotionType> Create(PotionType newPotionType)
@@ -47,12 +37,6 @@ namespace TextRPG.Repository.Repositories
             await context.SaveChangesAsync();
             return newPotionType;
         }
-        /*
-        public void Create(PotionType model)
-        {
-            context.PotionType.Add(model);
-            context.SaveChanges();
-        }*/
 
         // Update
         public async Task<PotionType?> Update(PotionType updatePotionType)
@@ -72,12 +56,6 @@ namespace TextRPG.Repository.Repositories
             }
             return null;
         }
-        /*
-        public void Update(PotionType model)
-        {
-            context.PotionType.Update(model);
-            context.SaveChanges();
-        }*/
 
         // Delete
         public async Task<PotionType> Delete(int id)
@@ -90,11 +68,5 @@ namespace TextRPG.Repository.Repositories
             }
             return potionType!;
         }
-        /*
-        public void Delete(int id)
-        {
-            context.PotionType.Remove(GetById(id));
-            context.SaveChanges();
-        }*/
     }
 }

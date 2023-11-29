@@ -15,7 +15,6 @@ namespace TextRPG.Repository.Server
             // if I want a direct access to db, I write it here (like Program.cs)
         }
 
-        //TODO: public DbSet<Model> model { get; set; }
         public DbSet<Armour> Armour { get; set; }
         public DbSet<Career> Career { get; set; }
         public DbSet<EntityBaseSystem> EntityBaseSystem { get; set; }

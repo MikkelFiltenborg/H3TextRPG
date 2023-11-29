@@ -22,49 +22,19 @@ namespace TextRPG.Repository.Repositories
         public async Task<List<Weapon>> GetAll()
         {
             return await context.Weapon
-                /*
-                .Include(x => x.WeaponDamageModifier)
-                .Include(x => x.SkillRoll)
-                .Include(x => x.Range)
-                .Include(x => x.AvailableToHero)
-                .Include(x => x.StarterWeapon)
-                .Include(x => x.Value)
-                .Include(x => x.Note)*/
                 .Include(x => x.WeaponType)
                 .ThenInclude(x => x!.SkillRollType)
                 .ToListAsync();
         }
-        /*
-        //public List<Weapon> GetAll()
-        //{
-        //    return context.Weapon
-        //        .Include(x => x.WeaponType)
-        //        .ToList();
-        //}*/
 
         // GetById
         public async Task<Weapon> GetById(int id)
         {
             return await context.Weapon
-                /*
-                .Include(x => x.WeaponDamageModifier)
-                .Include(x => x.SkillRoll)
-                .Include(x => x.Range)
-                .Include(x => x.AvailableToHero)
-                .Include(x => x.StarterWeapon)
-                .Include(x => x.Value)
-                .Include(x => x.Note)*/
                 .Include(x => x.WeaponType)
                 .ThenInclude(x => x!.SkillRollType)
                 .FirstAsync(x => x.Id == id);
         }
-        /*
-        //public Weapon GetById(int id)
-        //{
-        //    return context.Weapon
-        //        .Include(x => x.WeaponType)
-        //        .First(x => x.Id == id);
-        //}*/
 
         // Create
         public async Task<Weapon> Create(Weapon newWeapon)
@@ -73,13 +43,6 @@ namespace TextRPG.Repository.Repositories
             await context.SaveChangesAsync();
             return newWeapon;
         }
-        /*
-        //public void Create(Weapon model)
-        //{
-        //    //TODO: Should we return the (Weapon)model?
-        //    context.Weapon.Add(model);
-        //    context.SaveChanges();
-        //}*/
 
         // Update
         public async Task<Weapon?> Update(Weapon updateWeapon)
@@ -103,12 +66,6 @@ namespace TextRPG.Repository.Repositories
             }
             return weapon;
         }
-        /*
-        //public void Update(Weapon model)
-        //{
-        //    context.Weapon.Update(model);
-        //    context.SaveChanges();
-        //}*/
 
         // Delete
         public async Task<Weapon> Delete(int id)
@@ -121,11 +78,5 @@ namespace TextRPG.Repository.Repositories
             }
             return weapon!;
         }
-        /*
-        //public void Delete(int id)
-        //{
-        //    context.Weapon.Remove(GetById(id));
-        //    context.SaveChanges();
-        //}*/
     }
 }

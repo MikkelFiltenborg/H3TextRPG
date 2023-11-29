@@ -11,9 +11,10 @@ namespace TextRPG.Repository.Models
     {
         [Key]
         public int Id { get; set; }
-        public int InventoryId { get; set; } //fk
-        public int PotionTypeId { get; set; } //fk
+        public int InventoryId { get; set; }
+        public int PotionTypeId { get; set; }
         public int Amount { get; set; }
+
         public PotionType? PotionType { get; set; }
         
     }

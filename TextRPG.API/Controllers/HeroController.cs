@@ -25,7 +25,7 @@ namespace TextRPG.API.Controllers
             {
                 var hero = await HeroRepo.GetAll();
 
-                if(hero == null)
+                if (hero == null)
                     return Problem("Unexpected. Hero wasn't found.");
 
                 return Ok(hero);
@@ -35,14 +35,6 @@ namespace TextRPG.API.Controllers
                 return Problem(ex.Message);
             }
         }
-        /*
-        // GET: api/<HeroController>
-        [HttpGet]
-        public IEnumerable<Hero> Get()
-        {
-            //HeroRepo.GetAll();
-            return HeroRepo.GetAll();
-        }*/
 
         // GetById api/<HeroController>
         [HttpGet("{id}")]
@@ -62,14 +54,6 @@ namespace TextRPG.API.Controllers
                 return Problem(ex.Message);
             }
         }
-        /*
-        // GET api/<HeroController>/5
-        [HttpGet("{id}")]
-        public Hero Get(int id)
-        {
-            Hero hero = HeroRepo.GetById(id);
-            return hero;
-        }*/
 
         // Create api/<HeroController>
         [HttpPost]
@@ -89,13 +73,6 @@ namespace TextRPG.API.Controllers
                 return StatusCode(500, $"An error occured while trying to create the Hero. {ex.Message}");
             }
         }
-        /*
-        // POST api/<HeroController>
-        [HttpPost]
-        public void Post([FromBody] Hero hero)
-        {
-            HeroRepo.Create(hero);
-        }*/
 
         // Update api/<HeroController>/5
         [HttpPut("{id}")]
@@ -103,9 +80,6 @@ namespace TextRPG.API.Controllers
         {
             try
             {
-                //Not in use \/
-                //var oldHero = await HeroRepo.GetById(id);
-
                 if (hero == null)
                     return NotFound();
 
@@ -117,13 +91,6 @@ namespace TextRPG.API.Controllers
             }
             return Ok(hero);
         }
-        /*
-        // PUT api/<HeroController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Hero hero)
-        {
-            HeroRepo.Update(hero);
-        }*/
 
         // Delete api/<HeroController>
         [HttpDelete("{id}")]
@@ -131,11 +98,6 @@ namespace TextRPG.API.Controllers
         {
             try
             {
-                //var hero = await HeroRepo.GetById(id);
-
-                //if (hero == null)
-                //    return NotFound();
-
                 await HeroRepo.Delete(id);
                 return Ok();
             }
@@ -144,13 +106,5 @@ namespace TextRPG.API.Controllers
                 return Problem(ex.Message);
             }
         }
-        /*
-        // DELETE api/<HeroController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-
-            HeroRepo.Delete(id);
-        }*/
     }
 }

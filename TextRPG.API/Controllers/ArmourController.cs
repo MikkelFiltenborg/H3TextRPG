@@ -35,13 +35,6 @@ namespace TextRPG.API.Controllers
                 return Problem(ex.Message);
             }
         }
-        /*
-        // GET: api/<ArmourController>
-        [HttpGet]
-        public List<Armour> Get()
-        {
-            return ArmourRepo.GetAll();
-        }*/
 
         // GetById api/<ArmourController>
         [HttpGet("{id}")]
@@ -61,13 +54,6 @@ namespace TextRPG.API.Controllers
                 return Problem(ex.Message);
             }
         }
-        /*
-        // GET api/<ArmourController>/5
-        [HttpGet("{id}")]
-        public Armour Get(int id)
-        {
-            return ArmourRepo.GetById(id);
-        }*/
 
         // Create api/<ArmourController>
         [HttpPost]
@@ -81,20 +67,12 @@ namespace TextRPG.API.Controllers
                     return StatusCode(500, "Failed. Weapon wasn't created.");
 
                 return CreatedAtAction("PostArmour", new { Id = createArmour.Id }, createArmour);
-                //return Ok();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"An error occured while trying to create the Weapon {ex.Message}");
             }
         }
-        /*
-        // POST api/<ArmourController>
-        [HttpPost]
-        public void Post([FromBody] Armour armour)
-        {
-            ArmourRepo.Create(armour);
-        }*/
 
         // Update api/<ArmourController>
         [HttpPut("{id}")]
@@ -113,22 +91,6 @@ namespace TextRPG.API.Controllers
             }
             return Ok(armour);
         }
-        /*
-        // PUT api/<ArmourController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Armour newArmour)
-        {
-            //TODO: Needs to Check if Data is Okay to Enter database
-            var oldArmour = ArmourRepo.GetById(newArmour.Id);
-
-            if (!string.IsNullOrWhiteSpace(newArmour.ArmourTypeName)) oldArmour.ArmourTypeName = newArmour.ArmourTypeName;
-            oldArmour.ArmourModifier = newArmour.ArmourModifier;
-            oldArmour.AvailableToHero = newArmour.AvailableToHero;
-            oldArmour.Value = newArmour.Value;
-
-            if (!string.IsNullOrWhiteSpace(newArmour.Note)) oldArmour.Note = newArmour.Note;
-            ArmourRepo.Update(oldArmour);
-        }*/
 
         // Delete api/<ArmourController>
         [HttpDelete("{id}")]
@@ -136,11 +98,6 @@ namespace TextRPG.API.Controllers
         {
             try
             {
-                //var armour = await ArmourRepo.GetById(id);
-
-                //if (armour == null)
-                //    return NotFound();
-
                 await ArmourRepo.Delete(id);
                 return Ok();
             }
@@ -149,12 +106,5 @@ namespace TextRPG.API.Controllers
                 return Problem(ex.Message);
             }
         }
-        /*
-        // DELETE api/<ArmourController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            ArmourRepo.Delete(id);
-        }*/
     }
 }

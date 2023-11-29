@@ -23,22 +23,12 @@ namespace TextRPG.Repository.Repositories
         {
             return await context.Career.ToListAsync();
         }
-        /*
-        public List<Career> GetAll()
-        {
-            return context.Career.ToList();
-        }*/
 
         // GetById
         public async Task<Career> GetById(int id)
         {
             return await context.Career.FirstAsync(x => x.Id == id);
         }
-        /*
-        public Career GetById(int id)
-        {
-            return context.Career.First(x => x.Id == id);
-        }*/
 
         // Create
         public async Task<Career> Create(Career newCareer)
@@ -47,13 +37,6 @@ namespace TextRPG.Repository.Repositories
             await context.SaveChangesAsync();
             return newCareer;
         }
-        /*
-        public void Create(Career model)
-        {
-            //TODO: Should we return the (Career)model?
-            context.Career.Add(model);
-            context.SaveChanges();
-        }*/
 
         // Update
         public async Task<Career?> Update(Career updateCareer)
@@ -69,12 +52,6 @@ namespace TextRPG.Repository.Repositories
             }
             return career;
         }
-        /*
-        public void Update(Career model)
-        {
-            context.Career.Update(model);
-            context.SaveChanges();
-        }*/
 
         // Delete
         public async Task<Career> Delete(int id)
@@ -87,11 +64,5 @@ namespace TextRPG.Repository.Repositories
             }
             return career!;
         }
-        /*
-        public void Delete(int id)
-        {
-            context.Career.Remove(GetById(id));
-            context.SaveChanges();
-        }*/
     }
 }

@@ -25,13 +25,6 @@ namespace TextRPG.Repository.Repositories
                 .Include(x => x.PotionType)
                 .ToListAsync();
         }
-        /*
-        public List<Potion> GetAll()
-        {
-            return context.Potion
-                .Include(x => x.PotionType)
-                .ToList();
-        }*/
 
         // GetById
         public async Task<Potion> GetById(int id)
@@ -40,12 +33,6 @@ namespace TextRPG.Repository.Repositories
                 .Include(x => x.PotionType)
                 .FirstAsync(x => x.Id == id);
         }
-        /*
-        public Potion GetById(int id)
-        {
-            return context.Potion.First(x => x.Id == id);
-            // return context.Potion.Include(x => x.PotionType).First(x => x.Id == id);
-        }*/
 
         // Create
         public async Task<Potion> Create(Potion newPotion)
@@ -54,13 +41,6 @@ namespace TextRPG.Repository.Repositories
             await context.SaveChangesAsync();
             return newPotion;
         }
-        /*
-        public void Create(Potion model)
-        {
-            //TODO: Should we return the (Potion)model?
-            context.Potion.Add(model);
-            context.SaveChanges();
-        }*/
 
         // Update
         public async Task<Potion?> Update(Potion updatePotion)
@@ -75,12 +55,6 @@ namespace TextRPG.Repository.Repositories
             }
             return potion;
         }
-        /*
-        public void Update(Potion potion)
-        {
-            context.Potion.Update(potion);
-            context.SaveChanges();
-        }*/
 
         // Delete
         public async Task<Potion> Delete(int id)
@@ -93,11 +67,5 @@ namespace TextRPG.Repository.Repositories
             }
             return potion!;
         }
-        /*
-        public void Delete(int id)
-        {
-            context.Potion.Remove(GetById(id));
-            context.SaveChanges();
-        }*/
     }
 }

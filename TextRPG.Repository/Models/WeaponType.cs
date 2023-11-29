@@ -12,10 +12,11 @@ namespace TextRPG.Repository.Models
         [Key]
         public int Id { get; set; }
         public string? WeaponTypeName { get; set; }
-        public int SkillRollTypeId { get; set; } //fk
+        public int SkillRollTypeId { get; set; }
         public int EnergyCost { get; set; }
         public int DamageDice { get; set; }
         public int Range { get; set; }
+
         public SkillRollType? SkillRollType { get; set; }
     }
 }

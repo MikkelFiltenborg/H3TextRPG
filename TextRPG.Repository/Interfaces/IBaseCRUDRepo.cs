@@ -7,6 +7,7 @@ using TextRPG.Repository.Models;
 
 namespace TextRPG.Repository.Interfaces
 {
+    // Generic interface
     public interface IBaseCRUDRepo<T>
     {
         Task<List<T>> GetAll();

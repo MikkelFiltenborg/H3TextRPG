@@ -24,11 +24,6 @@ namespace TextRPG.Repository.Repositories
         {
             return await context.SkillRollType.ToListAsync();
         }
-        /*
-        public List<SkillRollType> GetAll()
-        {
-            return context.SkillRollType.ToList();
-        }*/
 
         // GetById
         public async Task<SkillRollType> GetById(int id)
@@ -37,11 +32,6 @@ namespace TextRPG.Repository.Repositories
                 .Include(x => x.SkillType)
                 .FirstAsync(x => x.Id == id);
         }
-        /*
-        public SkillRollType GetById(int id)
-        {
-            return context.SkillRollType.First(x => x.Id == id);
-        }*/
 
         // Create
         public async Task<SkillRollType> Create(SkillRollType newSkillRollType)
@@ -50,12 +40,6 @@ namespace TextRPG.Repository.Repositories
             await context.SaveChangesAsync();
             return newSkillRollType;
         }
-        /*
-        public void Create(SkillRollType model)
-        {
-            context.SkillRollType.Add(model);
-            context.SaveChanges();
-        }*/
 
         // Update
         public async Task<SkillRollType?> Update(SkillRollType updateSkillRollType)
@@ -69,12 +53,6 @@ namespace TextRPG.Repository.Repositories
             }
             return skillRollType;
         }
-        /*
-        public void Delete(int id)
-        {
-            context.SkillRollType.Remove(GetById(id));
-            context.SaveChanges();
-        }*/
 
         // Delete
         public async Task<SkillRollType> Delete(int id)
@@ -87,11 +65,5 @@ namespace TextRPG.Repository.Repositories
             }
             return skillRollType!;
         }
-        /*
-        public void Update(SkillRollType model)
-        {
-            context.SkillRollType.Update(model);
-            context.SaveChanges();
-        }*/
     }
 }

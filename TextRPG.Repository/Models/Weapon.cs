@@ -12,7 +12,7 @@ namespace TextRPG.Repository.Models
     {
         [Key]
         public int Id { get; set; }
-        public int WeaponTypeId { get; set; } //fk
+        public int WeaponTypeId { get; set; }
         public string? WeaponName { get; set; }
         public int WeaponDamageModifier { get; set; }
         public int SkillRoll { get; set; }
@@ -20,6 +20,7 @@ namespace TextRPG.Repository.Models
         public bool StarterWeapon { get; set; }
         public int Value { get; set; } = 0;
         public string? Note { get; set; } = string.Empty;
+
         public WeaponType? WeaponType { get; set; }
         [JsonIgnore]
         public List<Inventory>? Inventories { get; set; }

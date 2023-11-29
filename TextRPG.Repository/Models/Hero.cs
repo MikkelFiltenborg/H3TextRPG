@@ -11,8 +11,6 @@ namespace TextRPG.Repository.Models
     {
         [Key]
         public int Id { get; set; }
-        //public int EntityBaseSystemID { get; set; } //fk
-        //public int InventoryId { get; set; } //fk
         public string? HeroName { get; set; }
         public int HeroXp { get; set; }
         public int Level { get; set; }
@@ -20,8 +18,6 @@ namespace TextRPG.Repository.Models
         public int CareerId { get; set; }
         public string? Note { get; set; }
 
-        //public EntityBaseSystem? EntityBaseSystem { get; set; }
-        //public Inventory? Inventory { get; set; }
         public Race? Race { get; set; }
         public Career? Career { get; set; }
     }

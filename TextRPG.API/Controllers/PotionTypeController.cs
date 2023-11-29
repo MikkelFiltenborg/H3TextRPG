@@ -35,13 +35,6 @@ namespace TextRPG.API.Controllers
                 return Problem(ex.Message);
             }
         }
-        /*
-        //// GET: api/<PotionTypeController>
-        //[HttpGet]
-        //public List<PotionType> Get()
-        //{S
-        //    return PotionTypeRepo.GetAll();
-        //}*/
 
         // GetById: api/<PotionTypeController>
         [HttpGet("{id}")]
@@ -51,7 +44,7 @@ namespace TextRPG.API.Controllers
             {
                 var potionType = await PotionTypeRepo.GetById(id);
 
-                if(potionType == null)
+                if (potionType == null)
                     return NotFound();
 
                 return Ok(potionType);
@@ -61,13 +54,6 @@ namespace TextRPG.API.Controllers
                 return Problem(ex.Message);
             }
         }
-        /*
-        // GET api/<PotionTypeController>/5
-        //[HttpGet("{id}")]
-        //public PotionType Get(int id)
-        //{
-        //    return PotionTypeRepo.GetById(id);
-        //}*/
 
         // Create: api/<PotionTypeController>
         [HttpPost]
@@ -87,13 +73,6 @@ namespace TextRPG.API.Controllers
                 return StatusCode(500, $"An error occured while trying to create the PotionType. {ex.Message}");
             }
         }
-        /*
-        // POST api/<PotionTypeController>
-        [HttpPost]
-        public void Post([FromBody] PotionType potionType)
-        {
-            PotionTypeRepo.Create(potionType);
-        }*/
 
         // Update: api/<PotionTypeController>
         [HttpPut("{id}")]
@@ -114,23 +93,6 @@ namespace TextRPG.API.Controllers
             }
             return Ok(potionType);
         }
-        /*
-        //// PUT api/<PotionTypeController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] PotionType newPotionType)
-        //{
-        //    var oldPotionType = PotionTypeRepo.GetById(newPotionType.Id);
-
-        //    if (newPotionType == oldPotionType) Console.Write("PotionType already exists");
-
-        //    else
-        //    {
-        //        //oldPotion.Amount = newPotion.Amount;
-        //        //oldPotion.PotionType = newPotion.PotionType;
-
-        //        //PotionRepo.Update(oldPotion);
-        //    }
-        //}*/
 
         // Delete api/<PotionTypeController>
         [HttpDelete("{id}")]
@@ -138,33 +100,13 @@ namespace TextRPG.API.Controllers
         {
             try
             {
-                //var potionType = await PotionTypeRepo.GetById(id);
-
-                //if (potionType == null)
-                //    return NotFound();
-
                 await PotionTypeRepo.Delete(id);
                 return Ok();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
         }
-        /*
-                return Ok(potionType);
-            }
-            catch(Exception ex)
-            {
-                return Problem(ex.Message);
-            }
-        }
-        /*
-        // DELETE api/<PotionTypeController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            PotionTypeRepo.Delete(id);
-        }*/
     }
 }

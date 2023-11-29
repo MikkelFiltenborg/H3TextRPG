@@ -23,22 +23,12 @@ namespace TextRPG.Repository.Repositories
         {
             return await context.Race.ToListAsync();
         }
-        /*
-        public List<Race> GetAll()
-        {
-            return context.Race.ToList();
-        }*/
 
         // GetById
         public async Task<Race> GetById(int id)
         {
             return await context.Race.FirstAsync(x => x.Id == id);
         }
-        /*
-        public Race GetById(int id)
-        {
-            return context.Race.First(x => x.Id == id);
-        }*/
 
         // Create
         public async Task<Race> Create(Race newRace)
@@ -47,13 +37,6 @@ namespace TextRPG.Repository.Repositories
             await context.SaveChangesAsync();
             return newRace;
         }
-        /*
-        public void Create(Race model)
-        {
-            //TODO: Should we return the (Race)model?
-            context.Race.Add(model);
-            context.SaveChanges();
-        }*/
 
         // Update
         public async Task<Race?> Update(Race updateRace)
@@ -68,12 +51,6 @@ namespace TextRPG.Repository.Repositories
             }
             return race;
         }
-        /*
-        public void Update(Race model)
-        {
-            context.Race.Update(model);
-            context.SaveChanges();
-        }*/
 
         // Delete
         public async Task<Race> Delete(int id)
@@ -86,11 +63,5 @@ namespace TextRPG.Repository.Repositories
             }
             return race!;
         }
-        /*
-        public void Delete(int id)
-        {
-            context.Race.Remove(GetById(id));
-            context.SaveChanges();
-        }*/
     }
 }

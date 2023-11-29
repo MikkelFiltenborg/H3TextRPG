@@ -24,22 +24,12 @@ namespace TextRPG.Repository.Repositories
         {
             return await context.EntityBaseSystem.ToListAsync();
         }
-        /*
-        public List<EntityBaseSystem> GetAll()
-        {
-            return context.EntityBaseSystem.ToList();
-        }*/
 
         // GetById
         public async Task<EntityBaseSystem> GetById(int id)
         {
             return await context.EntityBaseSystem.FirstAsync(x => x.Id == id);
         }
-        /*
-        public EntityBaseSystem GetById(int id)
-        {
-            return context.EntityBaseSystem.First(x => x.Id == id);
-        }*/
 
         // Create
         public async Task<EntityBaseSystem> Create(EntityBaseSystem newEntityBaseSystem)
@@ -48,13 +38,6 @@ namespace TextRPG.Repository.Repositories
             await context.SaveChangesAsync();
             return newEntityBaseSystem;
         }
-        /*
-        public void Create(EntityBaseSystem model)
-        {
-            //TODO: Should we return the Model?
-            context.EntityBaseSystem.Add(model);
-            context.SaveChanges();
-        }*/
 
         // Update
         public async Task<EntityBaseSystem?> Update(EntityBaseSystem updateEntityBaseSystem)
@@ -75,12 +58,6 @@ namespace TextRPG.Repository.Repositories
             }
             return entityBaseSystem;
         }
-        /*
-        public void Update(EntityBaseSystem model)
-        {
-            context.EntityBaseSystem.Update(model);
-            context.SaveChanges();
-        }*/
 
         // Delete
         public async Task<EntityBaseSystem> Delete(int id)
@@ -93,11 +70,5 @@ namespace TextRPG.Repository.Repositories
             }
             return entityBaseSystem!;
         }
-        /*
-        public void Delete(int id)
-        {
-            context.EntityBaseSystem.Remove(GetById(id));
-            context.SaveChanges();
-        }*/
     }
 }

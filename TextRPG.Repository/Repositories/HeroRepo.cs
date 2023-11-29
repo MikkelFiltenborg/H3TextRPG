@@ -20,7 +20,6 @@ namespace TextRPG.Repository.Repositories
             context = temp;
         }
 
-
         // GetAll
         public async Task<List<Hero>> GetAll()
         {
@@ -37,22 +36,6 @@ namespace TextRPG.Repository.Repositories
                 .Include(x => x.Career)
                 .ToListAsync();
         }
-        /*
-        public List<Hero> GetAll()
-        {
-            return context.Hero
-                .Include(x => x.Inventory)
-                .Include(x => x.Inventory!.Armour)
-                .Include(x => x.Inventory!.Potions!)
-                .ThenInclude(x => x.PotionType)
-                .Include(x => x.Inventory!.Weapons!)
-                .ThenInclude(x => x.WeaponType)
-                .ThenInclude(x => x!.SkillRollType)
-                .Include(x => x.EntityBaseSystem)
-                .Include(x => x.Race)
-                .Include(x => x.Career)
-                .ToList();
-        }*/
 
         // GetById
         public async Task<Hero> GetById(int id)
@@ -70,23 +53,8 @@ namespace TextRPG.Repository.Repositories
                 .Include(x => x.Career)
                 .FirstAsync(x => x.Id == id);
         }
-        /*
-        public Hero GetById(int id)
-        {
-            return context.Hero
-                .Include(x => x.Inventory)
-                .Include(x => x.Inventory!.Armour)
-                .Include(x => x.Inventory!.Potions!)
-                .ThenInclude(x => x.PotionType)
-                .Include(x => x.Inventory!.Weapons!)
-                .ThenInclude(x => x.WeaponType)
-                .ThenInclude(x => x!.SkillRollType)
-                .Include(x => x.EntityBaseSystem)
-                .Include(x => x.Race)
-                .Include(x => x.Career)
-                .First(x => x.Id == id);
-        }*/
 
+        // Create
         public async Task<Hero> Create(Hero model)
         {
             if (model.Inventory != null)
@@ -107,6 +75,7 @@ namespace TextRPG.Repository.Repositories
 
                     temp.Weapons.AddRange(weaponsSelected);
                 }
+                //TODO: Reevaluate if this is needed here ↓.
                 /*
                 if (model.Inventory.Potions != null)
                 {
@@ -123,12 +92,6 @@ namespace TextRPG.Repository.Repositories
             return model;
 
         }
-        /*
-        public void Create(Hero model)
-        {
-            context.Hero.Add(model);
-            context.SaveChanges();
-        }*/
 
         // Update
         public async Task<Hero?> Update(Hero updateHero)
@@ -172,15 +135,6 @@ namespace TextRPG.Repository.Repositories
             }
             return null;
         }
-        /*
-        public void Update(Hero model)
-        {
-            var oldModel = GetById(model.Id);
-
-            //throw new NotImplementedException("Update not here yet, fuck off");
-            context.Hero.Update(oldModel);
-            context.SaveChanges();
-        }*/
 
         // Delete
         public async Task<Hero> Delete(int id)
@@ -193,31 +147,5 @@ namespace TextRPG.Repository.Repositories
             }
             return hero!;
         }
-
-        /*
-        // Delete (ditjo)
-        public async Task<List<Hero>> Delete(int id)
-        {
-            var hero = GetById(id);
-            if (hero != null)
-            {
-                if (hero.EntityBaseSystem is not null)
-                    context.EntityBaseSystem.Remove(hero.EntityBaseSystem);
-                if (hero.Inventory is not null)
-                {
-                    if (hero.Inventory.Potions is not null)
-                        hero.Inventory.Potions.ForEach(x => context.Potion.Remove(x));
-                    context.Inventory.Remove(hero.Inventory);
-                }
-                context.Hero.Remove(hero);
-            }
-            context.SaveChanges();
-        }*/
-        /*
-        public void Delete(int id)
-        {
-            context.Hero.Remove(GetById(id));
-            context.SaveChanges();
-        }*/
     }
 }

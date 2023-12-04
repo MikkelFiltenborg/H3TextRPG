@@ -45,7 +45,7 @@ namespace TextRPG.Repository.Repositories
             EntityBaseSystem entityBaseSystem = await GetById(updateEntityBaseSystem.Id);
             if (entityBaseSystem != null && updateEntityBaseSystem != null)
             {
-                entityBaseSystem.Stength = updateEntityBaseSystem.Stength;
+                entityBaseSystem.Strength = updateEntityBaseSystem.Strength;
                 entityBaseSystem.Vigor = updateEntityBaseSystem.Vigor;
                 entityBaseSystem.Spirit = updateEntityBaseSystem.Spirit;
                 entityBaseSystem.Health = updateEntityBaseSystem.Health;

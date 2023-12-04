@@ -12,7 +12,7 @@ namespace TextRPG.Repository.Repositories
         // EntityBaseSystem
         internal void UpdateEBS(EntityBaseSystem old, EntityBaseSystem updated)
         {
-            old.Stength = updated.Stength;
+            old.Strength = updated.Strength;
             old.Agility = updated.Agility;
             old.Vigor = updated.Vigor;
             old.Spirit = updated.Spirit;

@@ -18,7 +18,7 @@ go
 
 insert into SkillRollType (SkillType)
 values
-('Stength'),
+('Strength'),
 ('Agility'),
 ('Vigor'),
 ('Spirit')
@@ -74,7 +74,7 @@ values
 (34, 4) --Goblin
 go
 
-insert into EntityBaseSystem(Stength,Agility,Vigor,Spirit,Health,Energy,HealthModifier,EnergyModifier,DamagerModifier,ArmourModifier)
+insert into EntityBaseSystem(Strength,Agility,Vigor,Spirit,Health,Energy,HealthModifier,EnergyModifier,DamagerModifier,ArmourModifier)
 values 
 (10,10,10,10,10,10,0,0,0,0), --Alex
 (15,12,8,7,12,8,1,0,1,0), --Björk

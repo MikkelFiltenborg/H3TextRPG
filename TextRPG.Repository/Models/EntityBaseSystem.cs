@@ -11,7 +11,7 @@ namespace TextRPG.Repository.Models
     {
         [Key]
         public int Id { get; set; }
-        public int Stength { get; set; }
+        public int Strength { get; set; }
         public int Agility { get; set; }
         public int Vigor { get; set; }
         public int Spirit { get; set; }

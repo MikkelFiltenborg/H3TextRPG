@@ -48,7 +48,6 @@ namespace TextRPG.Repository.Repositories
                     career.CareerType = updateCareer.CareerType;
                 context.Career.Update(career);
                 await context.SaveChangesAsync();
-                //return career;  
             }
             return career;
         }

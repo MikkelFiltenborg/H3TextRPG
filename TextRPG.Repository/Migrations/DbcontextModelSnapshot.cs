@@ -113,7 +113,7 @@ namespace TextRPG.Repository.Migrations
                     b.Property<int>("Spirit")
                         .HasColumnType("int");
 
-                    b.Property<int>("Stength")
+                    b.Property<int>("Strength")
                         .HasColumnType("int");
 
                     b.Property<int>("Vigor")

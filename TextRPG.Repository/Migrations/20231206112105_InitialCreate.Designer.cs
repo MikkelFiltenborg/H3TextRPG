@@ -12,7 +12,7 @@ using TextRPG.Repository.Server;
 namespace TextRPG.Repository.Migrations
 {
     [DbContext(typeof(Dbcontext))]
-    [Migration("20231127102913_InitialCreate")]
+    [Migration("20231206112105_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -116,7 +116,7 @@ namespace TextRPG.Repository.Migrations
                     b.Property<int>("Spirit")
                         .HasColumnType("int");
 
-                    b.Property<int>("Stength")
+                    b.Property<int>("Strength")
                         .HasColumnType("int");
 
                     b.Property<int>("Vigor")

@@ -87,7 +87,7 @@ namespace TextRPG.Repository.Repositories
                 model.Inventory = temp;
             }
 
-            context.Hero.Add(model);
+            var i = context.Hero.Add(model);
             await context.SaveChangesAsync();
             return model;
 
@@ -104,6 +104,8 @@ namespace TextRPG.Repository.Repositories
                     hero.HeroName = updateHero.HeroName;
                 hero.HeroXp = updateHero.HeroXp;
                 hero.Level = updateHero.Level;
+                hero.CareerId = updateHero.CareerId;
+                hero.RaceId = updateHero.RaceId;
                 if (!string.IsNullOrWhiteSpace(updateHero.Note))
                     hero.Note = updateHero.Note;
 

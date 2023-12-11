@@ -46,13 +46,15 @@ namespace TextRPG.Repository.Repositories
             if (entityBaseSystem != null && updateEntityBaseSystem != null)
             {
                 entityBaseSystem.Strength = updateEntityBaseSystem.Strength;
+                entityBaseSystem.Agility = updateEntityBaseSystem.Agility;
                 entityBaseSystem.Vigor = updateEntityBaseSystem.Vigor;
                 entityBaseSystem.Spirit = updateEntityBaseSystem.Spirit;
                 entityBaseSystem.Health = updateEntityBaseSystem.Health;
                 entityBaseSystem.Energy = updateEntityBaseSystem.Energy;
                 entityBaseSystem.HealthModifier = updateEntityBaseSystem.HealthModifier;
                 entityBaseSystem.EnergyModifier = updateEntityBaseSystem.EnergyModifier;
-                entityBaseSystem.DamagerModifier = updateEntityBaseSystem.ArmourModifier;
+                entityBaseSystem.DamageModifier = updateEntityBaseSystem.DamageModifier;
+                entityBaseSystem.ArmourModifier = updateEntityBaseSystem.ArmourModifier;
                 context.EntityBaseSystem.Update(entityBaseSystem);
                 await context.SaveChangesAsync();
             }

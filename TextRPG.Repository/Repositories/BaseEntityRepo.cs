@@ -20,7 +20,7 @@ namespace TextRPG.Repository.Repositories
             old.Energy = updated.Energy;
             old.HealthModifier = updated.HealthModifier;
             old.EnergyModifier = updated.EnergyModifier;
-            old.DamagerModifier = updated.DamagerModifier;
+            old.DamageModifier = updated.DamageModifier;
             old.ArmourModifier = updated.ArmourModifier;
         }
 

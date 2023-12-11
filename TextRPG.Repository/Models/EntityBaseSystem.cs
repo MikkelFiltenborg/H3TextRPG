@@ -19,7 +19,7 @@ namespace TextRPG.Repository.Models
         public int Energy { get; set; }
         public int HealthModifier { get; set; }
         public int EnergyModifier { get; set; }
-        public int DamagerModifier { get; set; }
+        public int DamageModifier { get; set; }
         public int ArmourModifier { get; set; }
     }
 }

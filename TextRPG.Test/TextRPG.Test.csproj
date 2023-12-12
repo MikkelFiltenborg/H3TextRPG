@@ -30,4 +30,12 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ControllerTest\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TextRPG.Repository\TextRPG.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

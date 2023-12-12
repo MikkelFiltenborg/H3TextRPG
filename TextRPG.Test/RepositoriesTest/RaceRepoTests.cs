@@ -144,7 +144,11 @@ namespace TextRPG.Test.RepositoriesTest
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert
+
+            //Hvis du vil sammenligne message
             Assert.Equal(errormessage1, exception.Message);
+
+            //Hvis du vil sammenligne type af Error
             Assert.Equal(errormessage2, exception.GetType().ToString());
         }
 

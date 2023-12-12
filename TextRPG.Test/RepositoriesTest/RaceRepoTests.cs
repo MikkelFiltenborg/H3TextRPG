@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using TextRPG.Repository.Models;
@@ -56,25 +58,34 @@ namespace TextRPG.Test.RepositoriesTest
             Assert.Equal(newRaceType, returnValue.RaceType);
         }
 
-        //[Fact]
-        //public async void RaceRepo_CreateNewRace_OnFailure()
-        //{
-        //    //Arrange
-        //    context.Database.EnsureDeleted();
-        //    context.Add(MockData.MockDataRepos.GetRaceData(1));
-        //    context.Add(MockData.MockDataRepos.GetRaceData(2));
-        //    context.SaveChanges();
+        [Fact]
+        public async void RaceRepo_CreateHasSameIdAsAnother_OnFailure()
+        {
+            //Arrange
+            context.Database.EnsureDeleted();
+            context.Add(MockDataRepos.GetRaceData(1));
+            context.Add(MockDataRepos.GetRaceData(2));
+            context.SaveChanges();
+
+            int newRaceId = 2;
+            string newRaceType = "Race-3";
+            string errormessage = "System.InvalidOperationException";
+
+            //Act
+            Race race = new Race()
+            {
+                Id = newRaceId,
+                RaceType = newRaceType,
+            };
 
 
-        //    //Act
-        //    Race race = new Race();
-        //    var returnValue = await raceRepo.Create(race);
-        //    context.SaveChanges();
+            Task result() => raceRepo.Create(race);
 
-        //    //Assert
-        //    //Assert.Fail
+            InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
-        //}
+            //Assert
+            Assert.Equal(errormessage, exception.GetType().ToString());
+        }
 
         [Fact]
         public async void RaceRepo_GetAllRaces_OnSucces()
@@ -84,6 +95,8 @@ namespace TextRPG.Test.RepositoriesTest
             context.Add(MockDataRepos.GetRaceData(1));
             context.Add(MockDataRepos.GetRaceData(2));
             context.SaveChanges();
+
+
 
             //Act
             var result = await raceRepo.GetAll();
@@ -113,6 +126,29 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
+        public async void RaceRepo_GetInvalidRaceById_OnFailure()
+        {
+            //Arrange
+            context.Database.EnsureDeleted();
+            context.Add(MockDataRepos.GetRaceData(1));
+            context.Add(MockDataRepos.GetRaceData(2));
+            context.SaveChanges();
+
+            int RaceId = 3; 
+            string errormessage1 = "Sequence contains no elements";
+            string errormessage2 = "System.InvalidOperationException";
+
+            //Act
+
+            Task result() => raceRepo.GetById(RaceId);
+            InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
+
+            //Assert
+            Assert.Equal(errormessage1, exception.Message);
+            Assert.Equal(errormessage2, exception.GetType().ToString());
+        }
+
+        [Fact]
         public async void RaceRepo_DeleteOneRace_OnSucces()
         {
             //Arrange
@@ -132,6 +168,27 @@ namespace TextRPG.Test.RepositoriesTest
 
             //Assert
             Assert.NotEqual(amountBefore, amountAfter);
+        }
+
+        [Fact]
+        public async void RaceRepo_DeleteInvalidRace_OnFailure()
+        {
+            //Arrange
+            context.Database.EnsureDeleted();
+            context.Add(MockDataRepos.GetRaceData(1));
+            context.Add(MockDataRepos.GetRaceData(2));
+            context.SaveChanges();
+
+            int RaceId = 3;
+            string errormessage = "Sequence contains no elements";
+
+            //Act
+
+            Task result() => raceRepo.Delete(RaceId);
+            InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
+
+            //Assert
+            Assert.Equal(errormessage, exception.Message);
         }
 
         [Fact]
@@ -162,34 +219,33 @@ namespace TextRPG.Test.RepositoriesTest
 
         }
 
-        //[Fact]
-        //public async void RaceRepo_GetAllRaces_OnSucces()
-        //{
-        //    //Arrange
-        //    context.Database.EnsureDeleted();
-        //    context.Add(MockData.MockDataRepos.GetRaceData(1));
-        //    context.Add(MockData.MockDataRepos.GetRaceData(2));
-        //    context.SaveChanges();
+        [Fact]
+        public async void RaceRepo_UpdateInvalidRace_OnFailure()
+        {
+            //Arrange
+            context.Database.EnsureDeleted();
+            context.Add(MockDataRepos.GetRaceData(1));
+            context.Add(MockDataRepos.GetRaceData(2));
+            context.SaveChanges();
 
-        //    //Act
+            int RaceId = 3;
+            string RaceType = "Race2";
 
-        //    //Assert
+            Race race = new Race()
+            {
+                Id = RaceId,
+                RaceType = RaceType,
+            };
 
-        //}
+            string errormessage = "Sequence contains no elements";
 
+            //Act
 
-        //var i = MockDataRepos.GetInventoryData(1);
-        //i.Armour = MockDataRepos.GetArmourData(1);
-        //i.Weapons = new List<Weapon>()
-        //{
-        //    MockDataRepos.GetWeaponData(1),
-        //    MockDataRepos.GetWeaponData(2),
-        //};
+            Task result() => raceRepo.Update(race);
+            InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
-        //Arrange
-
-        //Act
-
-        //Assert
+            //Assert
+            Assert.Equal(errormessage, exception.Message);
+        }
     }
 }

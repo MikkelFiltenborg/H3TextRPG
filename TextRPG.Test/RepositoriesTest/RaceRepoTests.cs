@@ -119,10 +119,10 @@ namespace TextRPG.Test.RepositoriesTest
             int id = 1;
 
             //Act
-            var result1 = await raceRepo.GetById(id);
+            var result = await raceRepo.GetById(id);
 
             //Assert
-            Assert.Equal(id, result1.Id);
+            Assert.Equal(id, result.Id);
         }
 
         [Fact]

@@ -66,7 +66,7 @@ namespace TextRPG.Test.RepositoriesTest
         public async void CareerRepo_CreateHasSameIdAsAnother_OnFailure()
         {
             //Arrange
-            context.Database.EnsureDeleted();
+            Arrange();
 
             int newCareerId = 2;
             string newCareerType = "Career-3";

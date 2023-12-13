@@ -23,7 +23,7 @@ namespace TextRPG.Test.RepositoriesTest
         public CareerRepoTests()
         {
             options = new DbContextOptionsBuilder<Dbcontext>()
-                .UseInMemoryDatabase("TestDay").Options;
+                .UseInMemoryDatabase("careerRepo").Options;
 
             context = new Dbcontext(options);
             careerRepo = new CareerRepo(context);

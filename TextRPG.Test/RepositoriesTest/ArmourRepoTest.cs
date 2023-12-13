@@ -23,7 +23,7 @@ namespace TextRPG.Test.RepositoriesTest
         public ArmourRepoTest()
         {
             options = new DbContextOptionsBuilder<Dbcontext>()
-                .UseInMemoryDatabase("TestDay").Options;
+                .UseInMemoryDatabase("armourRepo").Options;
 
             context = new Dbcontext(options);
             armourRepo = new ArmourRepo(context);

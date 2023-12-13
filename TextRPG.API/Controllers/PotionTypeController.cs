@@ -57,7 +57,7 @@ namespace TextRPG.API.Controllers
 
         // Create: api/<PotionTypeController>
         [HttpPost]
-        public async Task<ActionResult<PotionType>> PostPotionType(PotionType potionType)
+        public async Task<ActionResult> PostPotionType(PotionType potionType)
         {
             try
             {

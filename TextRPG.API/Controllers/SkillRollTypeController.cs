@@ -57,7 +57,7 @@ namespace TextRPG.API.Controllers
 
         // Create api/<SkillRollTypeController>
         [HttpPost]
-        public async Task<ActionResult> PostWeaponType(SkillRollType SkillRollType)
+        public async Task<ActionResult> PostSkillRollType(SkillRollType SkillRollType)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace TextRPG.API.Controllers
 
         // Update api/<SkillRollTypeController>
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutWeaponType(SkillRollType skillRollType, int id)
+        public async Task<ActionResult> PutSkillRollType(SkillRollType skillRollType, int id)
         {
             try
             {

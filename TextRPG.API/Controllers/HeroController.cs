@@ -57,7 +57,7 @@ namespace TextRPG.API.Controllers
 
         // Create api/<HeroController>
         [HttpPost]
-        public async Task<ActionResult<Hero>> PostHero(Hero hero)
+        public async Task<ActionResult> PostHero(Hero hero)
         {
             try
             {

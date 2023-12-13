@@ -38,13 +38,13 @@ namespace TextRPG.API.Controllers
 
         // GetById api/<WeaponController>
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetWepaonById(int id)
+        public async Task<ActionResult> GetWeaponById(int id)
         {
             try
             {
                 var weapon = await WeaponRepo.GetById(id);
 
-                if (GetWepaonById == null)
+                if (GetWeaponById == null)
                     return NotFound();
 
                 return Ok(weapon);

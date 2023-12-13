@@ -13,65 +13,63 @@ using TextRPG.Test.MockData;
 
 namespace TextRPG.Test.RepositoriesTest
 {
-    public class MonsterRepoTests
+    public class EntityBaseSystemRepoTests
     {
         //Set up Mock DataBase
         public Dbcontext context { get; set; }
         public DbContextOptions<Dbcontext> options { get; set; }
 
-        private readonly MonsterRepo MonsterRepo;
-        public MonsterRepoTests()
+        private readonly EntityBaseSystemRepo EntityBaseSystemRepo;
+        public EntityBaseSystemRepoTests()
         {
             options = new DbContextOptionsBuilder<Dbcontext>()
-                .UseInMemoryDatabase("MonsterRepo").Options;
+                .UseInMemoryDatabase("EntityBaseSystemRepo").Options;
 
             context = new Dbcontext(options);
-            MonsterRepo = new MonsterRepo(context);
+            EntityBaseSystemRepo = new EntityBaseSystemRepo(context);
         }
 
         //tests begins here
 
         [Fact]
-        public async void MonsterRepo_CreateNewMonster_OnSucces()
+        public async void EntityBaseSystemRepo_CreateNewEntityBaseSystem_OnSucces()
         {
 
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(1));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(2));
             context.SaveChanges();
 
-            int newMonsterId = 3;
-            string newMonsterType = "MonsterName-3";
-            var item = MockDataRepos.GetMonsterData(newMonsterId);
+            int newEntityBaseSystemId = 3;
+            var item = MockDataRepos.GetEntityBaseSystemData(newEntityBaseSystemId);
 
             //Act
-            var returnValue = await MonsterRepo.Create(item);
+            var returnValue = await EntityBaseSystemRepo.Create(item);
             context.SaveChanges();
 
             //Assert
-            Assert.Equal(newMonsterId, returnValue.Id);
-            Assert.Equal(newMonsterType, returnValue.MonsterName);
+            Assert.Equal(newEntityBaseSystemId, returnValue.Id);
         }
 
         [Fact]
-        public async void MonsterRepo_CreateHasSameIdAsAnother_OnFailure()
+        public async void EntityBaseSystemRepo_CreateHasSameIdAsAnother_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(1));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(2));
             context.SaveChanges();
 
-            int newMonsterId = 2;
-            //string newMonsterType = "Monster-3";
+            int newEntityBaseSystemId = 2;
+            //string newEntityBaseSystemType = "EntityBaseSystem-3";
             string errormessage = "System.InvalidOperationException";
 
             //Act
-            var item = MockDataRepos.GetMonsterData(newMonsterId);
+            var item = MockDataRepos.GetEntityBaseSystemData(newEntityBaseSystemId);
 
 
-            Task result() => MonsterRepo.Create(item);
+            Task result() => EntityBaseSystemRepo.Create(item);
 
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
@@ -80,59 +78,59 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_GetAllMonsters_OnSucces()
+        public async void EntityBaseSystemRepo_GetAllEntityBaseSystems_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(1));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(2));
             context.SaveChanges();
 
 
 
             //Act
-            var result = await MonsterRepo.GetAll();
+            var result = await EntityBaseSystemRepo.GetAll();
             int amount = result.Count();
 
             //Assert
-            Assert.IsType<List<Monster>>(result);
+            Assert.IsType<List<EntityBaseSystem>>(result);
             Assert.Equal(2, amount);
 
         }
 
         [Fact]
-        public async void MonsterRepo_GetOneMonsterById_OnSucces()
+        public async void EntityBaseSystemRepo_GetOneEntityBaseSystemById_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(1));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(2));
             context.SaveChanges();
             int id = 1;
 
             //Act
-            var result1 = await MonsterRepo.GetById(id);
+            var result1 = await EntityBaseSystemRepo.GetById(id);
 
             //Assert
             Assert.Equal(id, result1.Id);
         }
 
         [Fact]
-        public async void MonsterRepo_GetInvalidMonsterById_OnFailure()
+        public async void EntityBaseSystemRepo_GetInvalidEntityBaseSystemById_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(1));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(2));
             context.SaveChanges();
 
-            int MonsterId = 3;
+            int EntityBaseSystemId = 3;
             string errormessage1 = "Sequence contains no elements";
             string errormessage2 = "System.InvalidOperationException";
 
             //Act
 
-            Task result() => MonsterRepo.GetById(MonsterId);
+            Task result() => EntityBaseSystemRepo.GetById(EntityBaseSystemId);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert
@@ -145,21 +143,21 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_DeleteOneMonster_OnSucces()
+        public async void EntityBaseSystemRepo_DeleteOneEntityBaseSystem_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(1));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(2));
             context.SaveChanges();
 
             int id = 1;
 
             //Act
-            var resultbefore = await MonsterRepo.GetAll();
+            var resultbefore = await EntityBaseSystemRepo.GetAll();
             var amountBefore = resultbefore.Count();
-            await MonsterRepo.Delete(id);
-            var resultAfter = await MonsterRepo.GetAll();
+            await EntityBaseSystemRepo.Delete(id);
+            var resultAfter = await EntityBaseSystemRepo.GetAll();
             var amountAfter = resultAfter.Count();
 
             //Assert
@@ -167,20 +165,20 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_DeleteInvalidMonster_OnFailure()
+        public async void EntityBaseSystemRepo_DeleteInvalidEntityBaseSystem_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(1));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(2));
             context.SaveChanges();
 
-            int MonsterId = 3;
+            int EntityBaseSystemId = 3;
             string errormessage = "Sequence contains no elements";
 
             //Act
 
-            Task result() => MonsterRepo.Delete(MonsterId);
+            Task result() => EntityBaseSystemRepo.Delete(EntityBaseSystemId);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert
@@ -188,47 +186,45 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_UpdateOneMonster_OnSucces()
+        public async void EntityBaseSystemRepo_UpdateOneEntityBaseSystem_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(1));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(2));
             context.SaveChanges();
 
-            int MonsterId = 2;
-            string MonsterName = "MonsterName-2";
+            int EntityBaseSystemId = 2;
 
-            var item = MockDataRepos.GetMonsterData(MonsterId);
+            var item = MockDataRepos.GetEntityBaseSystemData(EntityBaseSystemId);
 
             //Act
-            var result = await MonsterRepo.Update(item);
+            var result = await EntityBaseSystemRepo.Update(item);
 
             //Assert
             Assert.NotNull(result);
             Assert.Equal(2, result.Id);
-            Assert.Contains(MonsterName, result.MonsterName);
 
         }
 
         [Fact]
-        public async void MonsterRepo_UpdateInvalidMonster_OnFailure()
+        public async void EntityBaseSystemRepo_UpdateInvalidEntityBaseSystem_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(1));
+            context.Add(MockDataRepos.GetEntityBaseSystemData(2));
             context.SaveChanges();
 
-            int MonsterId = 3;
+            int EntityBaseSystemId = 3;
 
-            var item = MockDataRepos.GetMonsterData(MonsterId);
+            var item = MockDataRepos.GetEntityBaseSystemData(EntityBaseSystemId);
 
             string errormessage = "Sequence contains no elements";
 
             //Act
 
-            Task result() => MonsterRepo.Update(item);
+            Task result() => EntityBaseSystemRepo.Update(item);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert

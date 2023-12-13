@@ -23,7 +23,7 @@ namespace TextRPG.Test.RepositoriesTest
         public HeroRepoTests()
         {
             options = new DbContextOptionsBuilder<Dbcontext>()
-                .UseInMemoryDatabase("TestDay").Options;
+                .UseInMemoryDatabase("HeroRepo").Options;
 
             context = new Dbcontext(options);
             HeroRepo = new HeroRepo(context);

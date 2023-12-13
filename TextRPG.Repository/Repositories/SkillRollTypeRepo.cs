@@ -29,7 +29,6 @@ namespace TextRPG.Repository.Repositories
         public async Task<SkillRollType> GetById(int id)
         {
             return await context.SkillRollType
-                .Include(x => x.SkillType)
                 .FirstAsync(x => x.Id == id);
         }
 

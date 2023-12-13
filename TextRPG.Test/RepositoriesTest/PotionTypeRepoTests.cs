@@ -13,65 +13,63 @@ using TextRPG.Test.MockData;
 
 namespace TextRPG.Test.RepositoriesTest
 {
-    public class MonsterRepoTests
+    public class PotionTypeRepoTests
     {
         //Set up Mock DataBase
         public Dbcontext context { get; set; }
         public DbContextOptions<Dbcontext> options { get; set; }
 
-        private readonly MonsterRepo MonsterRepo;
-        public MonsterRepoTests()
+        private readonly PotionTypeRepo PotionTypeRepo;
+        public PotionTypeRepoTests()
         {
             options = new DbContextOptionsBuilder<Dbcontext>()
-                .UseInMemoryDatabase("MonsterRepo").Options;
+                .UseInMemoryDatabase("PotionTypeRepo").Options;
 
             context = new Dbcontext(options);
-            MonsterRepo = new MonsterRepo(context);
+            PotionTypeRepo = new PotionTypeRepo(context);
         }
 
         //tests begins here
 
         [Fact]
-        public async void MonsterRepo_CreateNewMonster_OnSucces()
+        public async void PotionTypeRepo_CreateNewPotionType_OnSucces()
         {
 
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetPotionTypeData(1));
+            context.Add(MockDataRepos.GetPotionTypeData(2));
             context.SaveChanges();
 
-            int newMonsterId = 3;
-            string newMonsterType = "MonsterName-3";
-            var item = MockDataRepos.GetMonsterData(newMonsterId);
+            int newPotionTypeId = 3;
+            var item = MockDataRepos.GetPotionTypeData(newPotionTypeId);
 
             //Act
-            var returnValue = await MonsterRepo.Create(item);
+            var returnValue = await PotionTypeRepo.Create(item);
             context.SaveChanges();
 
             //Assert
-            Assert.Equal(newMonsterId, returnValue.Id);
-            Assert.Equal(newMonsterType, returnValue.MonsterName);
+            Assert.Equal(newPotionTypeId, returnValue.Id);
         }
 
         [Fact]
-        public async void MonsterRepo_CreateHasSameIdAsAnother_OnFailure()
+        public async void PotionTypeRepo_CreateHasSameIdAsAnother_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetPotionTypeData(1));
+            context.Add(MockDataRepos.GetPotionTypeData(2));
             context.SaveChanges();
 
-            int newMonsterId = 2;
-            //string newMonsterType = "Monster-3";
+            int newPotionTypeId = 2;
+            //string newPotionTypeType = "PotionType-3";
             string errormessage = "System.InvalidOperationException";
 
             //Act
-            var item = MockDataRepos.GetMonsterData(newMonsterId);
+            var item = MockDataRepos.GetPotionTypeData(newPotionTypeId);
 
 
-            Task result() => MonsterRepo.Create(item);
+            Task result() => PotionTypeRepo.Create(item);
 
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
@@ -80,59 +78,59 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_GetAllMonsters_OnSucces()
+        public async void PotionTypeRepo_GetAllPotionTypes_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetPotionTypeData(1));
+            context.Add(MockDataRepos.GetPotionTypeData(2));
             context.SaveChanges();
 
 
 
             //Act
-            var result = await MonsterRepo.GetAll();
+            var result = await PotionTypeRepo.GetAll();
             int amount = result.Count();
 
             //Assert
-            Assert.IsType<List<Monster>>(result);
+            Assert.IsType<List<PotionType>>(result);
             Assert.Equal(2, amount);
 
         }
 
         [Fact]
-        public async void MonsterRepo_GetOneMonsterById_OnSucces()
+        public async void PotionTypeRepo_GetOnePotionTypeById_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetPotionTypeData(1));
+            context.Add(MockDataRepos.GetPotionTypeData(2));
             context.SaveChanges();
             int id = 1;
 
             //Act
-            var result1 = await MonsterRepo.GetById(id);
+            var result1 = await PotionTypeRepo.GetById(id);
 
             //Assert
             Assert.Equal(id, result1.Id);
         }
 
         [Fact]
-        public async void MonsterRepo_GetInvalidMonsterById_OnFailure()
+        public async void PotionTypeRepo_GetInvalidPotionTypeById_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetPotionTypeData(1));
+            context.Add(MockDataRepos.GetPotionTypeData(2));
             context.SaveChanges();
 
-            int MonsterId = 3;
+            int PotionTypeId = 3;
             string errormessage1 = "Sequence contains no elements";
             string errormessage2 = "System.InvalidOperationException";
 
             //Act
 
-            Task result() => MonsterRepo.GetById(MonsterId);
+            Task result() => PotionTypeRepo.GetById(PotionTypeId);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert
@@ -145,21 +143,21 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_DeleteOneMonster_OnSucces()
+        public async void PotionTypeRepo_DeleteOnePotionType_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetPotionTypeData(1));
+            context.Add(MockDataRepos.GetPotionTypeData(2));
             context.SaveChanges();
 
             int id = 1;
 
             //Act
-            var resultbefore = await MonsterRepo.GetAll();
+            var resultbefore = await PotionTypeRepo.GetAll();
             var amountBefore = resultbefore.Count();
-            await MonsterRepo.Delete(id);
-            var resultAfter = await MonsterRepo.GetAll();
+            await PotionTypeRepo.Delete(id);
+            var resultAfter = await PotionTypeRepo.GetAll();
             var amountAfter = resultAfter.Count();
 
             //Assert
@@ -167,20 +165,20 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_DeleteInvalidMonster_OnFailure()
+        public async void PotionTypeRepo_DeleteInvalidPotionType_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetPotionTypeData(1));
+            context.Add(MockDataRepos.GetPotionTypeData(2));
             context.SaveChanges();
 
-            int MonsterId = 3;
+            int PotionTypeId = 3;
             string errormessage = "Sequence contains no elements";
 
             //Act
 
-            Task result() => MonsterRepo.Delete(MonsterId);
+            Task result() => PotionTypeRepo.Delete(PotionTypeId);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert
@@ -188,47 +186,45 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_UpdateOneMonster_OnSucces()
+        public async void PotionTypeRepo_UpdateOnePotionType_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetPotionTypeData(1));
+            context.Add(MockDataRepos.GetPotionTypeData(2));
             context.SaveChanges();
 
-            int MonsterId = 2;
-            string MonsterName = "MonsterName-2";
+            int PotionTypeId = 2;
 
-            var item = MockDataRepos.GetMonsterData(MonsterId);
+            var item = MockDataRepos.GetPotionTypeData(PotionTypeId);
 
             //Act
-            var result = await MonsterRepo.Update(item);
+            var result = await PotionTypeRepo.Update(item);
 
             //Assert
             Assert.NotNull(result);
             Assert.Equal(2, result.Id);
-            Assert.Contains(MonsterName, result.MonsterName);
 
         }
 
         [Fact]
-        public async void MonsterRepo_UpdateInvalidMonster_OnFailure()
+        public async void PotionTypeRepo_UpdateInvalidPotionType_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetPotionTypeData(1));
+            context.Add(MockDataRepos.GetPotionTypeData(2));
             context.SaveChanges();
 
-            int MonsterId = 3;
+            int PotionTypeId = 3;
 
-            var item = MockDataRepos.GetMonsterData(MonsterId);
+            var item = MockDataRepos.GetPotionTypeData(PotionTypeId);
 
             string errormessage = "Sequence contains no elements";
 
             //Act
 
-            Task result() => MonsterRepo.Update(item);
+            Task result() => PotionTypeRepo.Update(item);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert

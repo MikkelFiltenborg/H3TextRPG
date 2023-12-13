@@ -13,65 +13,63 @@ using TextRPG.Test.MockData;
 
 namespace TextRPG.Test.RepositoriesTest
 {
-    public class MonsterRepoTests
+    public class WeaponRepoTests
     {
         //Set up Mock DataBase
         public Dbcontext context { get; set; }
         public DbContextOptions<Dbcontext> options { get; set; }
 
-        private readonly MonsterRepo MonsterRepo;
-        public MonsterRepoTests()
+        private readonly WeaponRepo WeaponRepo;
+        public WeaponRepoTests()
         {
             options = new DbContextOptionsBuilder<Dbcontext>()
-                .UseInMemoryDatabase("MonsterRepo").Options;
+                .UseInMemoryDatabase("WeaponRepo").Options;
 
             context = new Dbcontext(options);
-            MonsterRepo = new MonsterRepo(context);
+            WeaponRepo = new WeaponRepo(context);
         }
 
         //tests begins here
 
         [Fact]
-        public async void MonsterRepo_CreateNewMonster_OnSucces()
+        public async void WeaponRepo_CreateNewWeapon_OnSucces()
         {
 
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetWeaponData(1));
+            context.Add(MockDataRepos.GetWeaponData(2));
             context.SaveChanges();
 
-            int newMonsterId = 3;
-            string newMonsterType = "MonsterName-3";
-            var item = MockDataRepos.GetMonsterData(newMonsterId);
+            int newWeaponId = 3;
+            var item = MockDataRepos.GetWeaponData(newWeaponId);
 
             //Act
-            var returnValue = await MonsterRepo.Create(item);
+            var returnValue = await WeaponRepo.Create(item);
             context.SaveChanges();
 
             //Assert
-            Assert.Equal(newMonsterId, returnValue.Id);
-            Assert.Equal(newMonsterType, returnValue.MonsterName);
+            Assert.Equal(newWeaponId, returnValue.Id);
         }
 
         [Fact]
-        public async void MonsterRepo_CreateHasSameIdAsAnother_OnFailure()
+        public async void WeaponRepo_CreateHasSameIdAsAnother_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetWeaponData(1));
+            context.Add(MockDataRepos.GetWeaponData(2));
             context.SaveChanges();
 
-            int newMonsterId = 2;
-            //string newMonsterType = "Monster-3";
+            int newWeaponId = 2;
+            //string newWeaponType = "Weapon-3";
             string errormessage = "System.InvalidOperationException";
 
             //Act
-            var item = MockDataRepos.GetMonsterData(newMonsterId);
+            var item = MockDataRepos.GetWeaponData(newWeaponId);
 
 
-            Task result() => MonsterRepo.Create(item);
+            Task result() => WeaponRepo.Create(item);
 
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
@@ -80,59 +78,59 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_GetAllMonsters_OnSucces()
+        public async void WeaponRepo_GetAllWeapons_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetWeaponData(1));
+            context.Add(MockDataRepos.GetWeaponData(2));
             context.SaveChanges();
 
 
 
             //Act
-            var result = await MonsterRepo.GetAll();
+            var result = await WeaponRepo.GetAll();
             int amount = result.Count();
 
             //Assert
-            Assert.IsType<List<Monster>>(result);
+            Assert.IsType<List<Weapon>>(result);
             Assert.Equal(2, amount);
 
         }
 
         [Fact]
-        public async void MonsterRepo_GetOneMonsterById_OnSucces()
+        public async void WeaponRepo_GetOneWeaponById_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetWeaponData(1));
+            context.Add(MockDataRepos.GetWeaponData(2));
             context.SaveChanges();
             int id = 1;
 
             //Act
-            var result1 = await MonsterRepo.GetById(id);
+            var result1 = await WeaponRepo.GetById(id);
 
             //Assert
             Assert.Equal(id, result1.Id);
         }
 
         [Fact]
-        public async void MonsterRepo_GetInvalidMonsterById_OnFailure()
+        public async void WeaponRepo_GetInvalidWeaponById_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetWeaponData(1));
+            context.Add(MockDataRepos.GetWeaponData(2));
             context.SaveChanges();
 
-            int MonsterId = 3;
+            int WeaponId = 3;
             string errormessage1 = "Sequence contains no elements";
             string errormessage2 = "System.InvalidOperationException";
 
             //Act
 
-            Task result() => MonsterRepo.GetById(MonsterId);
+            Task result() => WeaponRepo.GetById(WeaponId);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert
@@ -145,21 +143,21 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_DeleteOneMonster_OnSucces()
+        public async void WeaponRepo_DeleteOneWeapon_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetWeaponData(1));
+            context.Add(MockDataRepos.GetWeaponData(2));
             context.SaveChanges();
 
             int id = 1;
 
             //Act
-            var resultbefore = await MonsterRepo.GetAll();
+            var resultbefore = await WeaponRepo.GetAll();
             var amountBefore = resultbefore.Count();
-            await MonsterRepo.Delete(id);
-            var resultAfter = await MonsterRepo.GetAll();
+            await WeaponRepo.Delete(id);
+            var resultAfter = await WeaponRepo.GetAll();
             var amountAfter = resultAfter.Count();
 
             //Assert
@@ -167,20 +165,20 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_DeleteInvalidMonster_OnFailure()
+        public async void WeaponRepo_DeleteInvalidWeapon_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetWeaponData(1));
+            context.Add(MockDataRepos.GetWeaponData(2));
             context.SaveChanges();
 
-            int MonsterId = 3;
+            int WeaponId = 3;
             string errormessage = "Sequence contains no elements";
 
             //Act
 
-            Task result() => MonsterRepo.Delete(MonsterId);
+            Task result() => WeaponRepo.Delete(WeaponId);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert
@@ -188,47 +186,45 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_UpdateOneMonster_OnSucces()
+        public async void WeaponRepo_UpdateOneWeapon_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetWeaponData(1));
+            context.Add(MockDataRepos.GetWeaponData(2));
             context.SaveChanges();
 
-            int MonsterId = 2;
-            string MonsterName = "MonsterName-2";
+            int WeaponId = 2;
 
-            var item = MockDataRepos.GetMonsterData(MonsterId);
+            var item = MockDataRepos.GetWeaponData(WeaponId);
 
             //Act
-            var result = await MonsterRepo.Update(item);
+            var result = await WeaponRepo.Update(item);
 
             //Assert
             Assert.NotNull(result);
             Assert.Equal(2, result.Id);
-            Assert.Contains(MonsterName, result.MonsterName);
 
         }
 
         [Fact]
-        public async void MonsterRepo_UpdateInvalidMonster_OnFailure()
+        public async void WeaponRepo_UpdateInvalidWeapon_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetWeaponData(1));
+            context.Add(MockDataRepos.GetWeaponData(2));
             context.SaveChanges();
 
-            int MonsterId = 3;
+            int WeaponId = 3;
 
-            var item = MockDataRepos.GetMonsterData(MonsterId);
+            var item = MockDataRepos.GetWeaponData(WeaponId);
 
             string errormessage = "Sequence contains no elements";
 
             //Act
 
-            Task result() => MonsterRepo.Update(item);
+            Task result() => WeaponRepo.Update(item);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert

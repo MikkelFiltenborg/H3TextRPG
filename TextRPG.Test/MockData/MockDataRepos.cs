@@ -112,7 +112,7 @@ namespace TextRPG.Test.MockData
         }
 
 
-        public static Potion GetpotionData(int id)
+        public static Potion GetPotionData(int id)
         {
             Potion potion = new Potion()
             {

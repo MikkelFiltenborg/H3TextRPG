@@ -19,14 +19,14 @@ namespace TextRPG.Test.RepositoriesTest
         public Dbcontext context {  get; set; }
         public DbContextOptions<Dbcontext> options { get; set; }
 
-        private readonly RaceRepo raceRepo;
+        private readonly RaceRepo RaceRepo;
         public RaceRepoTests() 
         {
             options = new DbContextOptionsBuilder<Dbcontext>()
-                .UseInMemoryDatabase("TestDay").Options;
+                .UseInMemoryDatabase("RaceRepo").Options;
 
             context = new Dbcontext(options);
-            raceRepo = new RaceRepo(context);
+            RaceRepo = new RaceRepo(context);
         }
 
         //tests begins here
@@ -50,7 +50,7 @@ namespace TextRPG.Test.RepositoriesTest
                 Id = newRaceId,
                 RaceType = newRaceType,
             };
-            var returnValue = await raceRepo.Create(race);
+            var returnValue = await RaceRepo.Create(race);
             context.SaveChanges();
 
             //Assert
@@ -79,7 +79,7 @@ namespace TextRPG.Test.RepositoriesTest
             };
 
 
-            Task result() => raceRepo.Create(race);
+            Task result() => RaceRepo.Create(race);
 
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
@@ -99,7 +99,7 @@ namespace TextRPG.Test.RepositoriesTest
 
 
             //Act
-            var result = await raceRepo.GetAll();
+            var result = await RaceRepo.GetAll();
             int amount = result.Count();
 
             //Assert
@@ -119,7 +119,7 @@ namespace TextRPG.Test.RepositoriesTest
             int id = 1;
 
             //Act
-            var result1 = await raceRepo.GetById(id);
+            var result1 = await RaceRepo.GetById(id);
 
             //Assert
             Assert.Equal(id, result1.Id);
@@ -140,7 +140,7 @@ namespace TextRPG.Test.RepositoriesTest
 
             //Act
 
-            Task result() => raceRepo.GetById(RaceId);
+            Task result() => RaceRepo.GetById(RaceId);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert
@@ -164,10 +164,10 @@ namespace TextRPG.Test.RepositoriesTest
             int id = 1;
 
             //Act
-            var resultbefore = await raceRepo.GetAll();
+            var resultbefore = await RaceRepo.GetAll();
             var amountBefore = resultbefore.Count();
-            await raceRepo.Delete(id);
-            var resultAfter = await raceRepo.GetAll();
+            await RaceRepo.Delete(id);
+            var resultAfter = await RaceRepo.GetAll();
             var amountAfter = resultAfter.Count();
 
             //Assert
@@ -188,7 +188,7 @@ namespace TextRPG.Test.RepositoriesTest
 
             //Act
 
-            Task result() => raceRepo.Delete(RaceId);
+            Task result() => RaceRepo.Delete(RaceId);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert
@@ -214,7 +214,7 @@ namespace TextRPG.Test.RepositoriesTest
             };
 
             //Act
-            var result = await raceRepo.Update(race);
+            var result = await RaceRepo.Update(race);
 
             //Assert
             Assert.NotNull(result);
@@ -245,7 +245,7 @@ namespace TextRPG.Test.RepositoriesTest
 
             //Act
 
-            Task result() => raceRepo.Update(race);
+            Task result() => RaceRepo.Update(race);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert

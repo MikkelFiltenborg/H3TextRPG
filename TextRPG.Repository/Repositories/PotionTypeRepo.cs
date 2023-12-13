@@ -54,7 +54,7 @@ namespace TextRPG.Repository.Repositories
                 context.PotionType.Update(potionType);
                 await context.SaveChangesAsync();
             }
-            return null;
+            return potionType;
         }
 
         // Delete

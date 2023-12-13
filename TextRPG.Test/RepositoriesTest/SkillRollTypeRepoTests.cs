@@ -13,65 +13,63 @@ using TextRPG.Test.MockData;
 
 namespace TextRPG.Test.RepositoriesTest
 {
-    public class MonsterRepoTests
+    public class SkillRollTypeRepoTests
     {
         //Set up Mock DataBase
         public Dbcontext context { get; set; }
         public DbContextOptions<Dbcontext> options { get; set; }
 
-        private readonly MonsterRepo MonsterRepo;
-        public MonsterRepoTests()
+        private readonly SkillRollTypeRepo SkillRollTypeRepo;
+        public SkillRollTypeRepoTests()
         {
             options = new DbContextOptionsBuilder<Dbcontext>()
-                .UseInMemoryDatabase("MonsterRepo").Options;
+                .UseInMemoryDatabase("SkillRollTypeRepo").Options;
 
             context = new Dbcontext(options);
-            MonsterRepo = new MonsterRepo(context);
+            SkillRollTypeRepo = new SkillRollTypeRepo(context);
         }
 
         //tests begins here
 
         [Fact]
-        public async void MonsterRepo_CreateNewMonster_OnSucces()
+        public async void SkillRollTypeRepo_CreateNewSkillRollType_OnSucces()
         {
 
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetSkillRollTypeData(1));
+            context.Add(MockDataRepos.GetSkillRollTypeData(2));
             context.SaveChanges();
 
-            int newMonsterId = 3;
-            string newMonsterType = "MonsterName-3";
-            var item = MockDataRepos.GetMonsterData(newMonsterId);
+            int newSkillRollTypeId = 3;
+            var item = MockDataRepos.GetSkillRollTypeData(newSkillRollTypeId);
 
             //Act
-            var returnValue = await MonsterRepo.Create(item);
+            var returnValue = await SkillRollTypeRepo.Create(item);
             context.SaveChanges();
 
             //Assert
-            Assert.Equal(newMonsterId, returnValue.Id);
-            Assert.Equal(newMonsterType, returnValue.MonsterName);
+            Assert.Equal(newSkillRollTypeId, returnValue.Id);
         }
 
         [Fact]
-        public async void MonsterRepo_CreateHasSameIdAsAnother_OnFailure()
+        public async void SkillRollTypeRepo_CreateHasSameIdAsAnother_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetSkillRollTypeData(1));
+            context.Add(MockDataRepos.GetSkillRollTypeData(2));
             context.SaveChanges();
 
-            int newMonsterId = 2;
-            //string newMonsterType = "Monster-3";
+            int newSkillRollTypeId = 2;
+            //string newSkillRollTypeType = "SkillRollType-3";
             string errormessage = "System.InvalidOperationException";
 
             //Act
-            var item = MockDataRepos.GetMonsterData(newMonsterId);
+            var item = MockDataRepos.GetSkillRollTypeData(newSkillRollTypeId);
 
 
-            Task result() => MonsterRepo.Create(item);
+            Task result() => SkillRollTypeRepo.Create(item);
 
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
@@ -80,59 +78,59 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_GetAllMonsters_OnSucces()
+        public async void SkillRollTypeRepo_GetAllSkillRollTypes_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetSkillRollTypeData(1));
+            context.Add(MockDataRepos.GetSkillRollTypeData(2));
             context.SaveChanges();
 
 
 
             //Act
-            var result = await MonsterRepo.GetAll();
+            var result = await SkillRollTypeRepo.GetAll();
             int amount = result.Count();
 
             //Assert
-            Assert.IsType<List<Monster>>(result);
+            Assert.IsType<List<SkillRollType>>(result);
             Assert.Equal(2, amount);
 
         }
 
         [Fact]
-        public async void MonsterRepo_GetOneMonsterById_OnSucces()
+        public async void SkillRollTypeRepo_GetOneSkillRollTypeById_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetSkillRollTypeData(1));
+            context.Add(MockDataRepos.GetSkillRollTypeData(2));
             context.SaveChanges();
             int id = 1;
 
             //Act
-            var result1 = await MonsterRepo.GetById(id);
+            var result1 = await SkillRollTypeRepo.GetById(id);
 
             //Assert
             Assert.Equal(id, result1.Id);
         }
 
         [Fact]
-        public async void MonsterRepo_GetInvalidMonsterById_OnFailure()
+        public async void SkillRollTypeRepo_GetInvalidSkillRollTypeById_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetSkillRollTypeData(1));
+            context.Add(MockDataRepos.GetSkillRollTypeData(2));
             context.SaveChanges();
 
-            int MonsterId = 3;
+            int SkillRollTypeId = 3;
             string errormessage1 = "Sequence contains no elements";
             string errormessage2 = "System.InvalidOperationException";
 
             //Act
 
-            Task result() => MonsterRepo.GetById(MonsterId);
+            Task result() => SkillRollTypeRepo.GetById(SkillRollTypeId);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert
@@ -145,21 +143,21 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_DeleteOneMonster_OnSucces()
+        public async void SkillRollTypeRepo_DeleteOneSkillRollType_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetSkillRollTypeData(1));
+            context.Add(MockDataRepos.GetSkillRollTypeData(2));
             context.SaveChanges();
 
             int id = 1;
 
             //Act
-            var resultbefore = await MonsterRepo.GetAll();
+            var resultbefore = await SkillRollTypeRepo.GetAll();
             var amountBefore = resultbefore.Count();
-            await MonsterRepo.Delete(id);
-            var resultAfter = await MonsterRepo.GetAll();
+            await SkillRollTypeRepo.Delete(id);
+            var resultAfter = await SkillRollTypeRepo.GetAll();
             var amountAfter = resultAfter.Count();
 
             //Assert
@@ -167,20 +165,20 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_DeleteInvalidMonster_OnFailure()
+        public async void SkillRollTypeRepo_DeleteInvalidSkillRollType_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetSkillRollTypeData(1));
+            context.Add(MockDataRepos.GetSkillRollTypeData(2));
             context.SaveChanges();
 
-            int MonsterId = 3;
+            int SkillRollTypeId = 3;
             string errormessage = "Sequence contains no elements";
 
             //Act
 
-            Task result() => MonsterRepo.Delete(MonsterId);
+            Task result() => SkillRollTypeRepo.Delete(SkillRollTypeId);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert
@@ -188,47 +186,45 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void MonsterRepo_UpdateOneMonster_OnSucces()
+        public async void SkillRollTypeRepo_UpdateOneSkillRollType_OnSucces()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetSkillRollTypeData(1));
+            context.Add(MockDataRepos.GetSkillRollTypeData(2));
             context.SaveChanges();
 
-            int MonsterId = 2;
-            string MonsterName = "MonsterName-2";
+            int SkillRollTypeId = 2;
 
-            var item = MockDataRepos.GetMonsterData(MonsterId);
+            var item = MockDataRepos.GetSkillRollTypeData(SkillRollTypeId);
 
             //Act
-            var result = await MonsterRepo.Update(item);
+            var result = await SkillRollTypeRepo.Update(item);
 
             //Assert
             Assert.NotNull(result);
             Assert.Equal(2, result.Id);
-            Assert.Contains(MonsterName, result.MonsterName);
 
         }
 
         [Fact]
-        public async void MonsterRepo_UpdateInvalidMonster_OnFailure()
+        public async void SkillRollTypeRepo_UpdateInvalidSkillRollType_OnFailure()
         {
             //Arrange
             context.Database.EnsureDeleted();
-            context.Add(MockDataRepos.GetMonsterData(1));
-            context.Add(MockDataRepos.GetMonsterData(2));
+            context.Add(MockDataRepos.GetSkillRollTypeData(1));
+            context.Add(MockDataRepos.GetSkillRollTypeData(2));
             context.SaveChanges();
 
-            int MonsterId = 3;
+            int SkillRollTypeId = 3;
 
-            var item = MockDataRepos.GetMonsterData(MonsterId);
+            var item = MockDataRepos.GetSkillRollTypeData(SkillRollTypeId);
 
             string errormessage = "Sequence contains no elements";
 
             //Act
 
-            Task result() => MonsterRepo.Update(item);
+            Task result() => SkillRollTypeRepo.Update(item);
             InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
 
             //Assert

@@ -29,7 +29,7 @@ values
 ('Short Sword',1,2,6,0),
 ('Long Sword',1,4,8,0),
 ('Spear',2,3,6,1),
-('Axe',1,6,10,0),
+('Axe',1,5,10,0),
 ('Bow',2,4,6,3),
 ('Sling',2,3,4,2),
 ('Stick',4,1,18,0)
@@ -39,7 +39,9 @@ insert into Weapon (WeaponName,WeaponTypeId,WeaponDamageModifier,SkillRoll,Avail
 values
 ('Sting',1,1,7,1,0,42,''),
 ('Great Axe',4,4,13,1,0,35,''),
+('Rusty Axe',4,1,11,1,1,27,''),
 ('Old Short Sword',1,-1,8,1,1,20,''),
+('Long Stick',7,0,6,1,1,18,'Big Stick to walk & hit'),
 ('Long Bow',5,1,10,1,0,30,''),
 ('Spear',3,1,9,1,0,36,''),
 ('The Stick',7,10,5,0,0,1000,'Ohh God, what has happen')
@@ -71,7 +73,8 @@ values
 (300, 3), --Björk
 (56, 2), --Skeleton
 (99999, NULL), --The Unholy Admin
-(34, 4) --Goblin
+(34, 4), --Goblin
+(8, Null) --Wolf
 go
 
 insert into EntityBaseSystem(Strength,Agility,Vigor,Spirit,Health,Energy,HealthModifier,EnergyModifier,DamageModifier,ArmourModifier)
@@ -81,7 +84,8 @@ values
 (20,20,20,20,20,20,5,5,5,5), --The Unholy Admin
 (0,0,0,0,0,0,0,0,0,0), --McTest
 (18,7,15,10,26,11,2,-1,2,1), --Skeleton
-(7,10,12,19,17,26,-2,5,0,0) --Goblin
+(7,10,12,19,17,26,-2,5,0,0), --Goblin
+(8,9,12,10,14,18,0,2,1,0) --Wolf
 go
 
 insert into Hero(HeroName, HeroXp, [Level],EntityBaseSystemId,InventoryId,RaceId,CareerId,Note)
@@ -93,15 +97,17 @@ go
 
 insert into Monster(MonsterName, MonsterXp, LevelDifficulty, EntityBaseSystemId,InventoryId,Note)
 values 
-('Skeleton',7,3,5,4, NULL),
-('Goblin',2,1,6,6, NULL),
-('The Unholy Admin',9999,1,3,5,'You dont want to meet the Admin')
+('Skeleton',7,3,4,4, NULL),
+('Goblin',4,1,6,6, NULL),
+('Wolf',2,1,7,7, NULL),
+('The Unholy Admin',9999,10,3,5,'You dont want to meet the Admin')
 go
 
 insert into InventoryWeapon (InventoriesId,WeaponsId)
 values
 (1,3), --Alex-OldShortSword
 (3,2), --Björk-GreatAxe
+(3,6), --Björk-LongBow
 (4,5), --Skeleton-Spear
 (6,3), --Goblin-OldShortSword
 (5,6)  --The Unholy Admin-TheStick

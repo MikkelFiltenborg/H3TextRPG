@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,7 +63,32 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
-        public async void CareerRepo_GetAllRaces_OnSuccess()
+        public async void CareerRepo_CreateHasSameIdAsAnother_OnFailure()
+        {
+            //Arrange
+            context.Database.EnsureDeleted();
+
+            int newCareerId = 2;
+            string newCareerType = "Career-3";
+            string errormessage = "System.InvalidOperationException";
+
+            //Act
+            Career career = new Career()
+            {
+                Id = newCareerId,
+                CareerType = newCareerType,
+            };
+
+            Task result() => careerRepo.Create(career);
+
+            InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
+
+            //Assert
+            Assert.Equal(errormessage, exception.GetType().ToString());
+        }
+
+        [Fact]
+        public async void CareerRepo_GetAllCareer_OnSuccess()
         {
             // Arrange
             Arrange();
@@ -81,13 +107,35 @@ namespace TextRPG.Test.RepositoriesTest
         {
             // Arrange
             Arrange();
-            int id = 1;
+            int careerId = 1;
 
             // Act
-            var result = await careerRepo.GetById(id);
+            var result = await careerRepo.GetById(careerId);
 
             // Assert
-            Assert.Equal(id, result.Id);
+            Assert.Equal(careerId, result.Id);
+        }
+
+        [Fact]
+        public async void CareerRepo_GetInvalidCareerById_OnFailure()
+        {
+            // Arrange
+            Arrange();
+
+            int careerId = 3;
+            string errormessage1 = "Sequence contains no elements";
+            string errormessage2 = "System.InvalidOperationException";
+
+            // Act
+            Task result() => careerRepo.GetById(careerId);
+            InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
+
+            // Assert
+
+            // Compare message
+            Assert.Equal(errormessage1, exception.Message);
+            // Compare type of Error
+            Assert.Equal(errormessage2, exception.GetType().ToString());
         }
 
         [Fact]
@@ -95,12 +143,12 @@ namespace TextRPG.Test.RepositoriesTest
         {
             // Arrange
             Arrange();
-            int id = 1;
+            int careerId = 1;
 
             // Act
             var resultBefore = await careerRepo.GetAll();
             var amountBefore = resultBefore.Count();
-            await careerRepo.Delete(id);
+            await careerRepo.Delete(careerId);
             var resultAfter = await careerRepo.GetAll();
             var amountAfter = resultAfter.Count();
 
@@ -109,12 +157,29 @@ namespace TextRPG.Test.RepositoriesTest
         }
 
         [Fact]
+        public async void CareerRepo_DeleteInvalidCareer_OnFailure()
+        {
+            // Arrange
+            Arrange();
+
+            int careerId = 3;
+            string errormessage = "Sequence contains no elements";
+
+            // Act
+            Task result() => careerRepo.Delete(careerId);
+            InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
+
+            // Assert
+            Assert.Equal(errormessage, exception.Message);
+        }
+
+        [Fact]
         public async void CareerRepo_UpdateOneCareer_OnSuccess()
         {
             // Arrange
             Arrange();
             int careerId = 2;
-            string careerType = "Race2";
+            string careerType = "Career2";
 
             Career career = new Career()
             {
@@ -129,6 +194,31 @@ namespace TextRPG.Test.RepositoriesTest
             Assert.NotNull(result);
             Assert.Equal(2, result.Id);
             Assert.Contains(careerType, result.CareerType);
+        }
+
+        [Fact]
+        public async void CareerRepo_UpdateInvalidCareer_OnFailure()
+        {
+            // Arrange
+            Arrange();
+
+            int careerId = 3;
+            string careerType = "Career2";
+
+            Career career = new Career()
+            {
+                Id = careerId,
+                CareerType = careerType,
+            };
+
+            string errormessage = "Sequence contains no elements";
+
+            // Act
+            Task result() => careerRepo.Update(career);
+            InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(result);
+
+            // Assert
+            Assert.Equal(errormessage, exception.Message);
         }
     }
 }

@@ -95,7 +95,7 @@ namespace TextRPG.Repository.Migrations
                     b.Property<int>("ArmourModifier")
                         .HasColumnType("int");
 
-                    b.Property<int>("DamagerModifier")
+                    b.Property<int>("DamageModifier")
                         .HasColumnType("int");
 
                     b.Property<int>("Energy")

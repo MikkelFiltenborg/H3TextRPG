@@ -54,7 +54,7 @@ namespace TextRPG.Repository.Migrations
                     Energy = table.Column<int>(type: "int", nullable: false),
                     HealthModifier = table.Column<int>(type: "int", nullable: false),
                     EnergyModifier = table.Column<int>(type: "int", nullable: false),
-                    DamagerModifier = table.Column<int>(type: "int", nullable: false),
+                    DamageModifier = table.Column<int>(type: "int", nullable: false),
                     ArmourModifier = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
